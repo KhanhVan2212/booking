@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: var(--font-vietnam-pro), sans-serif;
+}
+
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(-250px * 5)); } /* 250px là chiều rộng ước tính mỗi logo + gap, 5 là số logo gốc */
+}
+
+.animate-scroll {
+  animation: scroll 30s linear infinite;
+}
+
+/* Tạm dừng khi hover để người dùng dễ nhìn */
+.animate-scroll:hover {
+    animation-play-state: paused;
+}
