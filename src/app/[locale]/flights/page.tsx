@@ -14,9 +14,9 @@ import { flightsData } from "./data"; // Giả sử bạn để data ở file ri
 import Header from "@/components/Layout/Header";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import SearchSummary from "./compoments/SearchSummary";
-import FilterSidebar from "./compoments/FilterSidebar";
-import FlightCard from "./compoments/FlightCard";
+import SearchSummary from "./components/SearchSummary";
+import FilterSidebar from "./components/FilterSidebar";
+import FlightCard from "./components/FlightCard";
 
 // --- MAIN PAGE COMPONENT ---
 export default function FlightsPage() {

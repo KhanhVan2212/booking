@@ -9,9 +9,9 @@ import {
   FaArrowRight,
   FaShieldHalved,
 } from "react-icons/fa6";
-import Step from "./compoment/Step";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import Step from "./component/Step";
 
 export default function BookingPage() {
   // State giả lập việc chọn hành lý

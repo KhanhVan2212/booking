@@ -3,6 +3,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { FaTicket } from 'react-icons/fa6';
 import { FaCircleCheck, FaPlane, FaDownload, FaHouse, FaArrowRight } from 'react-icons/fa6';
 
 export default function PaymentSuccessPage() {
@@ -69,4 +70,3 @@ export default function PaymentSuccessPage() {
   );
 }
 // Note: Bạn cần import FaTicket ở trên hoặc thay bằng icon khác nếu lỗi
-import { FaTicket } from 'react-icons/fa6';
