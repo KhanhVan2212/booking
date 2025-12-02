@@ -1,4 +1,5 @@
 // components/InspirationSection.tsx
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { FaArrowRight } from "react-icons/fa6";
@@ -54,7 +55,9 @@ const InspirationSection = () => {
         {blogs.map((blog) => (
           <Link key={blog.id} href="#" className="group">
             <div className="relative mb-4 h-64 overflow-hidden rounded-2xl shadow-sm">
-              <img
+              <Image
+                width={800}
+                height={600}
                 src={blog.image}
                 alt={blog.title}
                 className="h-full w-full object-cover transition duration-500 group-hover:scale-105"

@@ -6,6 +6,7 @@ import {
     FaGoogle, FaFacebookF, FaEnvelope, FaLock, 
     FaEye, FaEyeSlash, FaArrowLeft, FaUser, FaCheck 
 } from 'react-icons/fa6';
+import Image from 'next/image';
 
 export default function RegisterPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -15,7 +16,9 @@ export default function RegisterPage() {
       
       {/* --- LEFT SIDE: IMAGE (Khác login 1 chút) --- */}
       <div className="hidden lg:flex lg:w-1/2 bg-sky-900 relative justify-center items-center overflow-hidden">
-         <img 
+         <Image
+            width={1000}
+            height={1000}
             src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2000&auto=format&fit=crop" 
             alt="Beach Background" 
             className="absolute inset-0 w-full h-full object-cover opacity-50"

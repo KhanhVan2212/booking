@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import React from 'react'
 import { FaClock, FaPlane, FaSuitcase } from 'react-icons/fa6';
@@ -9,9 +10,11 @@ const FlightCard = ({ data }: { data: any }) => {
       <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
         {/* 1. Logo & Tên hãng */}
         <div className="flex w-full items-center gap-3 md:w-1/4">
-          <img
+          <Image
             src={data.logo}
             alt={data.airline}
+            width={50}
+            height={50}
             className="h-10 w-auto object-contain"
           />
           <div>

@@ -1,4 +1,5 @@
 // components/FlashDealsSection.tsx
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { FaArrowRight, FaBolt, FaClock } from "react-icons/fa6";
@@ -63,9 +64,11 @@ const FlashDealsSection = () => {
             className="group overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-sm transition-all duration-300 hover:shadow-xl"
           >
             <div className="relative h-48 overflow-hidden">
-              <img
+              <Image
                 src={deal.image}
                 alt={deal.to}
+                width={800}
+                height={600}
                 className="h-full w-full object-cover transition duration-700 group-hover:scale-110"
               />
               <div className="absolute left-3 top-3 flex items-center gap-1 rounded-full bg-orange-600 px-3 py-1 text-xs font-bold text-white">

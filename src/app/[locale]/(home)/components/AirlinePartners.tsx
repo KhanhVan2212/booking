@@ -1,4 +1,5 @@
 // components/AirlinePartners.tsx
+import Image from "next/image";
 import React from "react";
 
 const airlines = [
@@ -43,9 +44,11 @@ const AirlinePartners = () => {
               key={index}
               className="flex h-20 w-[250px] items-center justify-center px-8 opacity-60 grayscale transition duration-300 hover:opacity-100 hover:grayscale-0"
             >
-              <img
+              <Image
                 src={item.logo}
                 alt={item.name}
+                width={250}
+                height={250}
                 className="max-h-12 w-auto object-contain"
               />
             </div>
