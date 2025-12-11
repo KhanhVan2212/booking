@@ -14,6 +14,54 @@ import {
   FaGooglePlay,
 } from "react-icons/fa6";
 
+const PRODUCT_LINKS = [
+  { href: "/", label: "Trang chủ" },
+  { href: "/flights", label: "Tìm vé máy bay" },
+  { href: "/experience", label: "Trải nghiệm bay", badge: "HOT" },
+  { href: "/offers", label: "Săn ưu đãi & Khuyến mãi" },
+];
+
+const SUPPORT_LINKS = [
+  { href: "/history", label: "Quản lý đặt chỗ" },
+  { href: "/history", label: "Tra cứu mã vé điện tử" },
+  { href: "#", label: "Hướng dẫn thanh toán" },
+  { href: "#", label: "Chính sách hoàn hủy" },
+  { href: "#", label: "Câu hỏi thường gặp (FAQ)" },
+];
+
+const SOCIAL_LINKS = [
+  { href: "#", icon: FaFacebookF, colorClass: "hover:bg-blue-600" },
+  { href: "#", icon: FaInstagram, colorClass: "hover:bg-pink-600" },
+  { href: "#", icon: FaLinkedinIn, colorClass: "hover:bg-blue-700" },
+  { href: "#", icon: FaYoutube, colorClass: "hover:bg-red-600" },
+];
+
+const PAYMENT_PARTNERS = [
+  {
+    type: "image",
+    src: "https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg",
+    alt: "Visa",
+  },
+  {
+    type: "image",
+    src: "https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg",
+    alt: "Mastercard",
+  },
+  {
+    type: "image",
+    src: "https://upload.wikimedia.org/wikipedia/commons/b/b5/JCB_logo.svg",
+    alt: "JCB",
+  },
+  { type: "text", label: "MOMO" },
+  { type: "text", label: "NAPAS" },
+];
+
+const BOTTOM_LINKS = [
+  { href: "#", label: "Điều khoản sử dụng" },
+  { href: "#", label: "Chính sách bảo mật" },
+  { href: "#", label: "Cookie Policy" },
+];
+
 const Footer = () => {
   return (
     <footer className="mt-auto bg-slate-900 text-sm text-slate-300">
@@ -21,12 +69,12 @@ const Footer = () => {
       <div className="border-b border-slate-800">
         <div className="container mx-auto flex flex-col items-center justify-between gap-6 px-6 py-10 md:flex-row">
           <div className="flex items-center gap-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-sky-600 text-2xl text-white shadow-lg shadow-sky-600/20">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-red-600 text-2xl text-white shadow-lg shadow-red-600/20">
               <FaPlaneDeparture />
             </div>
             <div>
               <h3 className="text-lg font-bold text-white">
-                Tải ứng dụng SkyBooker
+                Tải ứng dụng Hà Anh JSC
               </h3>
               <p className="text-slate-400">
                 Đặt vé nhanh hơn, ưu đãi nhiều hơn trên điện thoại.
@@ -65,78 +113,59 @@ const Footer = () => {
         <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4">
           {/* Column 1: Brand & Contact */}
           <div className="space-y-4">
-            <Link
-              href="/"
-              className="flex items-center gap-2 text-2xl font-bold text-white"
-            >
-              <FaPlaneDeparture className="text-sky-500" />
-              SkyBooker
-            </Link>
+              <Link
+          href="/"
+          
+        >
+          <Image
+            src="/images/logo.png"
+            alt="Logo"
+            width={100}
+            height={100}
+            className="h-[60px] w-[60px] sm:h-[100px] sm:w-[100px]"
+          />
+        </Link>
             <p className="leading-relaxed text-slate-400">
               Nền tảng đặt vé máy bay trực tuyến hàng đầu, mang đến trải nghiệm
               bay tuyệt vời với chi phí tối ưu nhất.
             </p>
             <div className="space-y-2 pt-2">
-              <div className="flex cursor-pointer items-center gap-3 transition hover:text-sky-400">
-                <FaPhone className="text-sky-500" />{" "}
+              <div className="flex cursor-pointer items-center gap-3 transition hover:text-red-400">
+                <FaPhone className="text-red-500" />{" "}
                 <span>1900 1234 (24/7)</span>
               </div>
-              <div className="flex cursor-pointer items-center gap-3 transition hover:text-sky-400">
-                <FaEnvelope className="text-sky-500" />{" "}
-                <span>support@skybooker.com</span>
+              <div className="flex cursor-pointer items-center gap-3 transition hover:text-red-400">
+                <FaEnvelope className="text-red-500" />{" "}
+                <span>support@Hà Anh JSC.com</span>
               </div>
-              <div className="flex cursor-pointer items-center gap-3 transition hover:text-sky-400">
-                <FaLocationDot className="text-sky-500" />{" "}
+              <div className="flex cursor-pointer items-center gap-3 transition hover:text-red-400">
+                <FaLocationDot className="text-red-500" />{" "}
                 <span>Hà Nội, Việt Nam</span>
               </div>
             </div>
           </div>
 
-          {/* Column 2: Về SkyBooker (Tính năng chính) */}
+          {/* Column 2: Về Hà Anh JSC (Tính năng chính) */}
           <div>
             <h3 className="mb-6 text-base font-bold uppercase tracking-wider text-white">
               Sản phẩm
             </h3>
             <ul className="space-y-3">
-              <li>
-                <Link
-                  href="/"
-                  className="flex items-center gap-2 transition hover:text-sky-400"
-                >
-                  <span className="h-1.5 w-1.5 rounded-full bg-sky-500 opacity-0 transition-opacity hover:opacity-100"></span>
-                  Trang chủ
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/flights"
-                  className="flex items-center gap-2 transition hover:text-sky-400"
-                >
-                  <span className="h-1.5 w-1.5 rounded-full bg-sky-500 opacity-0 transition-opacity hover:opacity-100"></span>
-                  Tìm vé máy bay
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/experience"
-                  className="flex items-center gap-2 transition hover:text-sky-400"
-                >
-                  <span className="h-1.5 w-1.5 rounded-full bg-sky-500 opacity-0 transition-opacity hover:opacity-100"></span>
-                  Trải nghiệm bay{" "}
-                  <span className="ml-1 rounded bg-sky-600 px-1.5 text-[10px] text-white">
-                    HOT
-                  </span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/offers"
-                  className="flex items-center gap-2 transition hover:text-sky-400"
-                >
-                  <span className="h-1.5 w-1.5 rounded-full bg-sky-500 opacity-0 transition-opacity hover:opacity-100"></span>
-                  Săn ưu đãi & Khuyến mãi
-                </Link>
-              </li>
+              {PRODUCT_LINKS.map((link, index) => (
+                <li key={index}>
+                  <Link
+                    href={link.href}
+                    className="flex items-center gap-2 transition hover:text-red-400"
+                  >
+                    {link.label}
+                    {link.badge && (
+                      <span className="ml-1 rounded bg-red-600 px-1.5 text-[10px] text-white">
+                        {link.badge}
+                      </span>
+                    )}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -146,46 +175,16 @@ const Footer = () => {
               Hỗ trợ khách hàng
             </h3>
             <ul className="space-y-3">
-              <li>
-                <Link
-                  href="/history"
-                  className="flex items-center gap-2 transition hover:text-sky-400"
-                >
-                  Quản lý đặt chỗ
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/history"
-                  className="flex items-center gap-2 transition hover:text-sky-400"
-                >
-                  Tra cứu mã vé điện tử
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#"
-                  className="flex items-center gap-2 transition hover:text-sky-400"
-                >
-                  Hướng dẫn thanh toán
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#"
-                  className="flex items-center gap-2 transition hover:text-sky-400"
-                >
-                  Chính sách hoàn hủy
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#"
-                  className="flex items-center gap-2 transition hover:text-sky-400"
-                >
-                  Câu hỏi thường gặp (FAQ)
-                </Link>
-              </li>
+              {SUPPORT_LINKS.map((link, index) => (
+                <li key={index}>
+                  <Link
+                    href={link.href}
+                    className="flex items-center gap-2 transition hover:text-red-400"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -195,63 +194,43 @@ const Footer = () => {
               Kết nối với chúng tôi
             </h3>
             <div className="mb-8 flex gap-4">
-              <a
-                href="#"
-                className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-800 transition duration-300 hover:bg-blue-600 hover:text-white"
-              >
-                <FaFacebookF />
-              </a>
-              <a
-                href="#"
-                className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-800 transition duration-300 hover:bg-pink-600 hover:text-white"
-              >
-                <FaInstagram />
-              </a>
-              <a
-                href="#"
-                className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-800 transition duration-300 hover:bg-blue-700 hover:text-white"
-              >
-                <FaLinkedinIn />
-              </a>
-              <a
-                href="#"
-                className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-800 transition duration-300 hover:bg-red-600 hover:text-white"
-              >
-                <FaYoutube />
-              </a>
+              {SOCIAL_LINKS.map((social, index) => (
+                <a
+                  key={index}
+                  href={social.href}
+                  className={`flex h-10 w-10 items-center justify-center rounded-full bg-slate-800 transition duration-300 hover:text-white ${social.colorClass}`}
+                >
+                  <social.icon />
+                </a>
+              ))}
             </div>
 
             <h3 className="mb-4 text-base font-bold uppercase tracking-wider text-white">
               Đối tác thanh toán
             </h3>
             <div className="flex flex-wrap gap-2">
-              <Image
-                width={50}
-                height={20}
-                src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg"
-                className="h-6 rounded bg-white p-1"
-                alt="Visa"
-              />
-              <Image
-                width={50}
-                height={20}
-                src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg"
-                className="h-6 rounded bg-white p-1"
-                alt="Mastercard"
-              />
-              <Image
-                width={50}
-                height={20}
-                src="https://upload.wikimedia.org/wikipedia/commons/b/b5/JCB_logo.svg"
-                className="h-6 rounded bg-white p-1"
-                alt="JCB"
-              />
-              <div className="flex h-6 items-center rounded bg-white px-2 text-xs font-bold text-slate-800">
-                MOMO
-              </div>
-              <div className="flex h-6 items-center rounded bg-white px-2 text-xs font-bold text-slate-800">
-                NAPAS
-              </div>
+              {PAYMENT_PARTNERS.map((partner, index) => {
+                if (partner.type === "image") {
+                  return (
+                    <Image
+                      key={index}
+                      width={50}
+                      height={20}
+                      src={partner.src!}
+                      className="h-6 rounded bg-white p-1"
+                      alt={partner.alt!}
+                    />
+                  );
+                }
+                return (
+                  <div
+                    key={index}
+                    className="flex h-6 items-center rounded bg-white px-2 text-xs font-bold text-slate-800"
+                  >
+                    {partner.label}
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
@@ -261,19 +240,19 @@ const Footer = () => {
       <div className="border-t border-slate-800 bg-slate-950">
         <div className="container mx-auto flex flex-col items-center justify-between gap-4 px-6 py-6 md:flex-row">
           <p className="text-xs text-slate-500">
-            © {new Date().getFullYear()} SkyBooker Technology JSC. All rights
+            © {new Date().getFullYear()} Hà Anh JSC Technology JSC. All rights
             reserved.
           </p>
           <div className="flex gap-6 text-xs text-slate-500">
-            <a href="#" className="transition hover:text-white">
-              Điều khoản sử dụng
-            </a>
-            <a href="#" className="transition hover:text-white">
-              Chính sách bảo mật
-            </a>
-            <a href="#" className="transition hover:text-white">
-              Cookie Policy
-            </a>
+            {BOTTOM_LINKS.map((link, index) => (
+              <a
+                key={index}
+                href={link.href}
+                className="transition hover:text-white"
+              >
+                {link.label}
+              </a>
+            ))}
           </div>
         </div>
       </div>

@@ -8,6 +8,8 @@ import FeaturesSection from "./components/FeaturesSection";
 import AirlinePartners from "./components/AirlinePartners";
 import FlashDealsSection from "./components/FlashDealsSection";
 import InspirationSection from "./components/InspirationSection";
+import ServicesSection from "./components/ServicesSection";
+import ContactSection from "../about/components/ContactSection";
 
 const Page = () => {
   const [mounted, setMounted] = useState(false);
@@ -23,12 +25,13 @@ const Page = () => {
         <HeroSection />
         <SearchForm />
       </div>
-
-      <DestinationsSection />
+      <ServicesSection />
       <FeaturesSection />
-      <AirlinePartners />
+      <DestinationsSection />
       <FlashDealsSection />
       <InspirationSection />
+      <AirlinePartners />
+      <ContactSection />
     </main>
   );
 };

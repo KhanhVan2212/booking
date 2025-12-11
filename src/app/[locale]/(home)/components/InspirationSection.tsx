@@ -45,7 +45,7 @@ const InspirationSection = () => {
         </div>
         <Link
           href="#"
-          className="flex items-center gap-1 font-semibold text-sky-600 hover:underline"
+          className="flex items-center gap-1 font-semibold text-red-600 hover:underline"
         >
           Xem blog <FaArrowRight />
         </Link>
@@ -69,7 +69,7 @@ const InspirationSection = () => {
             <div className="mb-2 flex items-center gap-2 text-xs text-slate-400">
               <span>{blog.date}</span> • <span>5 phút đọc</span>
             </div>
-            <h3 className="text-xl font-bold leading-snug text-slate-800 transition group-hover:text-sky-600">
+            <h3 className="text-xl font-bold leading-snug text-slate-800 transition group-hover:text-red-600">
               {blog.title}
             </h3>
           </Link>

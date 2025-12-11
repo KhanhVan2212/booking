@@ -28,7 +28,7 @@ const cabinClasses = [
       "Hành lý 23kg",
     ],
     image:
-      "https://images.unsplash.com/photo-1542296332-2e44a996aaad?q=80&w=2000&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=2000&auto=format&fit=crop",
   },
   {
     id: "premium",
@@ -42,7 +42,7 @@ const cabinClasses = [
       "Hành lý 32kg",
     ],
     image:
-      "https://images.unsplash.com/photo-1520183802803-06f731a2059f?q=80&w=2000&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=2000&auto=format&fit=crop",
   },
   {
     id: "business",
@@ -81,10 +81,10 @@ export default function ExperiencePage() {
         <div className="container relative mx-auto flex h-full flex-col justify-center px-6 pt-20">
           <h1 className="animate-fade-in-up mb-6 text-4xl font-bold leading-tight text-white md:text-6xl">
             Hơn cả một chuyến bay, <br />
-            là <span className="text-sky-400">trải nghiệm cảm xúc</span>
+            là <span className="text-red-400">trải nghiệm cảm xúc</span>
           </h1>
           <p className="animate-fade-in-up mb-8 max-w-xl text-lg text-slate-200 delay-100">
-            SkyBooker cam kết mang đến sự thoải mái, tiện nghi và dịch vụ tận
+            Hà Anh JSC cam kết mang đến sự thoải mái, tiện nghi và dịch vụ tận
             tâm nhất trên mỗi hành trình của bạn.
           </p>
         </div>
@@ -94,7 +94,7 @@ export default function ExperiencePage() {
       <section className="bg-slate-50 py-20">
         <div className="container mx-auto px-6">
           <div className="mb-12 text-center">
-            <span className="text-sm font-bold uppercase tracking-wider text-sky-600">
+            <span className="text-sm font-bold uppercase tracking-wider text-red-600">
               Hạng ghế
             </span>
             <h2 className="mt-2 text-3xl font-bold text-slate-800">
@@ -111,8 +111,8 @@ export default function ExperiencePage() {
                   onClick={() => setActiveTab(index)}
                   className={`whitespace-nowrap rounded-full px-6 py-3 text-sm font-bold transition-all duration-300 ${
                     activeTab === index
-                      ? "bg-sky-600 text-white shadow-md"
-                      : "text-slate-500 hover:bg-sky-50 hover:text-sky-600"
+                      ? "bg-red-600 text-white shadow-md"
+                      : "text-slate-500 hover:bg-red-50 hover:text-red-600"
                   }`}
                 >
                   {item.name}
@@ -148,7 +148,7 @@ export default function ExperiencePage() {
                 <h3 className="mb-2 text-3xl font-bold text-slate-800">
                   {cabinClasses[activeTab].name}
                 </h3>
-                <p className="mb-6 text-lg font-medium text-sky-600">
+                <p className="mb-6 text-lg font-medium text-red-600">
                   {cabinClasses[activeTab].tagline}
                 </p>
                 <p className="mb-8 leading-relaxed text-slate-500">
@@ -161,7 +161,7 @@ export default function ExperiencePage() {
                       key={idx}
                       className="flex items-center gap-3 font-medium text-slate-700"
                     >
-                      <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-sky-50 text-sky-600">
+                      <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-red-50 text-red-600">
                         <FaChair className="text-sm" />{" "}
                         {/* Có thể đổi icon linh hoạt nếu muốn */}
                       </div>
@@ -188,7 +188,7 @@ export default function ExperiencePage() {
           <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-2">
             {/* Left: Text Content */}
             <div>
-              <span className="text-sm font-bold uppercase tracking-wider text-sky-600">
+              <span className="text-sm font-bold uppercase tracking-wider text-red-600">
                 Tiện ích trên không
               </span>
               <h2 className="mb-6 mt-2 text-3xl font-bold text-slate-800 md:text-4xl">
@@ -248,7 +248,7 @@ export default function ExperiencePage() {
             {/* Right: Image Grid */}
             <div className="grid grid-cols-2 gap-4">
               <Image
-                src="https://images.unsplash.com/photo-1540339832862-43d696ab153a?q=80&w=800&auto=format&fit=crop"
+                src="https://images.unsplash.com/photo-1529070538774-1843cb3265df?q=80&w=800&auto=format&fit=crop"
                 width={500}
                 height={500}
                 className="h-64 w-full translate-y-8 transform rounded-2xl object-cover shadow-lg"
@@ -269,43 +269,43 @@ export default function ExperiencePage() {
       {/* 4. DINING (PARALLAX OR BIG IMAGE) */}
       <section className="relative overflow-hidden bg-slate-900 py-20 text-white">
         {/* Background Decorative */}
-        <div className="absolute right-0 top-0 h-full w-1/2 bg-gradient-to-l from-sky-900/20 to-transparent"></div>
+        <div className="absolute right-0 top-0 h-full w-1/2 bg-gradient-to-l from-red-900/20 to-transparent"></div>
 
         <div className="container relative z-10 mx-auto px-6">
           <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
             <div className="relative order-2 lg:order-1">
-              <div className="absolute -inset-4 rounded-full bg-sky-500/20 blur-2xl"></div>
+              <div className="absolute -inset-4 rounded-full bg-red-500/20 blur-2xl"></div>
               <Image
-                src="https://images.unsplash.com/photo-1550966871-3ed3c47e2ce2?q=80&w=1000&auto=format&fit=crop"
+                src="https://picsum.photos/id/1080/1000/1000"
                 width={500}
                 height={500}
                 alt="Fine Dining"
-                className="relative mx-auto h-[400px] w-[400px] rounded-full border-8 border-white/5 object-cover shadow-2xl"
+                className="relative mx-auto h-[400px] w-[400px] rounded-full"
               />
             </div>
             <div className="order-1 lg:order-2">
-              <span className="text-sm font-bold uppercase tracking-wider text-sky-400">
+              <span className="text-sm font-bold uppercase tracking-wider text-red-400">
                 Ẩm thực trên mây
               </span>
               <h2 className="mb-6 mt-2 text-4xl font-bold">
                 Hương vị tinh tế <br /> chuẩn nhà hàng 5 sao
               </h2>
               <p className="mb-8 text-lg text-slate-300">
-                Được chế biến bởi các đầu bếp hàng đầu, thực đơn của SkyBooker
+                Được chế biến bởi các đầu bếp hàng đầu, thực đơn của Hà Anh JSC
                 là sự kết hợp hoàn hảo giữa ẩm thực truyền thống Việt Nam và
                 tinh hoa ẩm thực thế giới.
               </p>
 
               <div className="grid grid-cols-2 gap-8">
                 <div>
-                  <FaUtensils className="mb-4 text-3xl text-sky-400" />
+                  <FaUtensils className="mb-4 text-3xl text-red-400" />
                   <h4 className="text-xl font-bold">Thực đơn đa dạng</h4>
                   <p className="mt-2 text-sm text-slate-400">
                     Tùy chọn suất ăn chay, ăn kiêng và thực đơn cho trẻ em.
                   </p>
                 </div>
                 <div>
-                  <FaWineGlass className="mb-4 text-3xl text-sky-400" />
+                  <FaWineGlass className="mb-4 text-3xl text-red-400" />
                   <h4 className="text-xl font-bold">Đồ uống thượng hạng</h4>
                   <p className="mt-2 text-sm text-slate-400">
                     Bộ sưu tập rượu vang, cocktail và cà phê pha máy cao cấp.
@@ -318,18 +318,18 @@ export default function ExperiencePage() {
       </section>
 
       {/* 5. CTA BOTTOM */}
-      <section className="bg-sky-50 py-20">
+      <section className="bg-red-50 py-20">
         <div className="container mx-auto px-6 text-center">
           <h2 className="mb-4 text-3xl font-bold text-slate-800">
             Sẵn sàng cho chuyến đi tiếp theo?
           </h2>
           <p className="mx-auto mb-8 max-w-2xl text-slate-500">
-            Hãy để SkyBooker đồng hành cùng bạn trên mọi nẻo đường. Đặt vé ngay
+            Hãy để Hà Anh JSC đồng hành cùng bạn trên mọi nẻo đường. Đặt vé ngay
             hôm nay để nhận ưu đãi hấp dẫn.
           </p>
           <Link
             href="/"
-            className="inline-block transform rounded-full bg-sky-600 px-10 py-4 font-bold text-white shadow-lg shadow-sky-600/30 transition hover:-translate-y-1 hover:bg-sky-700"
+            className="inline-block transform rounded-full bg-red-600 px-10 py-4 font-bold text-white shadow-lg shadow-red-600/30 transition hover:-translate-y-1 hover:bg-red-700"
           >
             Tìm chuyến bay ngay
           </Link>

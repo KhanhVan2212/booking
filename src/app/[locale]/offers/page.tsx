@@ -9,8 +9,10 @@ import {
   FaHotel,
   FaCopy,
   FaCheck,
+  FaGift,
   FaArrowRight,
   FaPercent,
+  FaGifts,
 } from "react-icons/fa6";
 import Image from "next/image";
 import CopyButton from "./components/CopyButton";
@@ -92,7 +94,6 @@ const offersData = [
   },
 ];
 
-
 export default function OffersPage() {
   const [activeCategory, setActiveCategory] = useState("all");
 
@@ -105,20 +106,20 @@ export default function OffersPage() {
   return (
     <main className="min-h-screen bg-slate-50">
       {/* 1. HERO BANNER */}
-      <div className="relative overflow-hidden bg-gradient-to-r from-sky-600 to-blue-800 py-16 text-white md:py-24">
+      <div className="relative overflow-hidden bg-gradient-to-r from-red-600 to-red-800 py-16 text-white md:py-24">
         {/* Decorative Circles */}
         <div className="absolute right-0 top-0 h-64 w-64 -translate-y-1/2 translate-x-1/4 rounded-full bg-white/10 blur-3xl"></div>
-        <div className="absolute bottom-0 left-0 h-96 w-96 -translate-x-1/4 translate-y-1/2 rounded-full bg-sky-400/20 blur-3xl"></div>
+        <div className="absolute bottom-0 left-0 h-96 w-96 -translate-x-1/4 translate-y-1/2 rounded-full bg-red-400/20 blur-3xl"></div>
 
         <div className="container relative z-10 mx-auto px-6 text-center">
-          <span className="animate-fade-in-up mb-6 inline-block rounded-full border border-white/30 bg-white/20 px-4 py-1.5 text-sm font-bold text-sky-100 backdrop-blur-sm">
+          <span className="animate-fade-in-up mb-6 inline-block rounded-full border border-white/30 bg-white/20 px-4 py-1.5 text-sm font-bold text-red-100 backdrop-blur-sm">
             <FaPercent className="mr-1 inline text-xs" /> Ưu đãi độc quyền
           </span>
           <h1 className="animate-fade-in-up mb-6 text-4xl font-bold delay-100 md:text-6xl">
             Săn vé rẻ, <br />{" "}
-            <span className="text-sky-300">Vi vu thỏa thích</span>
+            <span className="text-red-300">Vi vu thỏa thích</span>
           </h1>
-          <p className="animate-fade-in-up mx-auto mb-10 max-w-2xl text-lg text-sky-100 delay-200">
+          <p className="animate-fade-in-up mx-auto mb-10 max-w-2xl text-lg text-red-100 delay-200">
             Tổng hợp các mã giảm giá, khuyến mãi vé máy bay và khách sạn mới
             nhất. Cập nhật hàng ngày giúp bạn tiết kiệm tối đa cho mọi chuyến
             đi.
@@ -129,9 +130,9 @@ export default function OffersPage() {
             <input
               type="text"
               placeholder="Tìm kiếm ưu đãi (VD: Vietjet, Visa...)"
-              className="w-full rounded-full py-4 pl-6 pr-14 text-slate-800 shadow-xl outline-none transition focus:ring-4 focus:ring-sky-400/30"
+              className="w-full rounded-full py-4 pl-6 pr-14 text-slate-800 shadow-xl outline-none transition focus:ring-4 focus:ring-red-400/30"
             />
-            <button className="absolute right-2 top-2 flex h-10 w-10 items-center justify-center rounded-full bg-sky-600 text-white transition hover:bg-sky-700">
+            <button className="absolute right-2 top-2 flex h-10 w-10 items-center justify-center rounded-full bg-red-600 text-white transition hover:bg-red-700">
               <FaArrowRight />
             </button>
           </div>
@@ -148,8 +149,8 @@ export default function OffersPage() {
               onClick={() => setActiveCategory(cat.id)}
               className={`flex transform items-center gap-2 rounded-full px-6 py-3 font-bold shadow-md transition-all hover:-translate-y-1 ${
                 activeCategory === cat.id
-                  ? "bg-white text-sky-600 ring-2 ring-sky-600"
-                  : "bg-white text-slate-500 hover:text-sky-600"
+                  ? "bg-white text-red-600 ring-2 ring-red-600"
+                  : "bg-white text-slate-500 hover:text-red-600"
               }`}
             >
               {cat.icon} {cat.name}
@@ -206,7 +207,7 @@ export default function OffersPage() {
 
               {/* Content */}
               <div className="flex flex-1 flex-col p-6">
-                <h3 className="mb-2 line-clamp-2 text-xl font-bold text-slate-800 transition group-hover:text-sky-600">
+                <h3 className="mb-2 line-clamp-2 text-xl font-bold text-slate-800 transition group-hover:text-red-600">
                   {item.title}
                 </h3>
                 <p className="mb-6 line-clamp-3 flex-1 text-sm text-slate-500">
@@ -224,7 +225,7 @@ export default function OffersPage() {
                     </span>
                   </div>
                   <div className="flex items-center justify-between gap-3">
-                    <span className="font-mono text-lg font-bold tracking-wider text-sky-700">
+                    <span className="font-mono text-lg font-bold tracking-wider text-red-700">
                       {item.code}
                     </span>
                     <CopyButton code={item.code} />
@@ -236,7 +237,7 @@ export default function OffersPage() {
               <div className="px-6 pb-6 pt-0">
                 <Link
                   href="/"
-                  className="block w-full rounded-xl bg-sky-600 py-3 text-center font-bold text-white transition hover:bg-sky-700"
+                  className="block w-full rounded-xl bg-red-600 py-3 text-center font-bold text-white transition hover:bg-red-700"
                 >
                   Dùng ngay
                 </Link>
@@ -266,7 +267,7 @@ export default function OffersPage() {
         <div className="container mx-auto px-6 text-center">
           <div className="mx-auto max-w-2xl">
             <div className="mx-auto mb-6 flex h-16 w-16 animate-bounce items-center justify-center rounded-full bg-red-100 text-2xl text-red-500">
-              Gift
+              <FaGift />
             </div>
             <h2 className="mb-4 text-3xl font-bold text-slate-800">
               Không bỏ lỡ bất kỳ ưu đãi nào!
@@ -279,7 +280,7 @@ export default function OffersPage() {
               <input
                 type="email"
                 placeholder="Nhập địa chỉ email của bạn"
-                className="flex-1 rounded-xl border border-slate-200 px-6 py-4 outline-none focus:ring-2 focus:ring-sky-500"
+                className="flex-1 rounded-xl border border-slate-200 px-6 py-4 outline-none focus:ring-2 focus:ring-red-500"
               />
               <button className="whitespace-nowrap rounded-xl bg-slate-800 px-8 py-4 font-bold text-white transition hover:bg-slate-900">
                 Đăng ký nhận tin

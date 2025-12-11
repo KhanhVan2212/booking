@@ -43,7 +43,7 @@ const FlashDealsSection = () => {
       <div className="mb-8 flex flex-col items-end justify-between gap-4 md:flex-row">
         <div>
           <h2 className="flex items-center gap-2 text-2xl font-bold text-slate-800 md:text-3xl">
-            <FaBolt className="text-orange-500" /> Ưu đãi chớp nhoáng
+            Ưu đãi chớp nhoáng
           </h2>
           <p className="mt-2 text-slate-500">
             Săn vé giá rẻ giờ vàng - Số lượng có hạn!
@@ -51,7 +51,7 @@ const FlashDealsSection = () => {
         </div>
         <Link
           href="/offers"
-          className="flex items-center gap-1 font-semibold text-sky-600 hover:underline"
+          className="flex items-center gap-1 font-semibold text-red-600 hover:underline"
         >
           Xem tất cả deal <FaArrowRight />
         </Link>
@@ -71,7 +71,7 @@ const FlashDealsSection = () => {
                 height={600}
                 className="h-full w-full object-cover transition duration-700 group-hover:scale-110"
               />
-              <div className="absolute left-3 top-3 flex items-center gap-1 rounded-full bg-orange-600 px-3 py-1 text-xs font-bold text-white">
+              <div className="absolute left-3 top-3 flex items-center gap-1 rounded-full bg-red-600 px-3 py-1 text-xs font-bold text-white">
                 <FaClock /> {deal.timeLeft}
               </div>
             </div>
@@ -93,13 +93,13 @@ const FlashDealsSection = () => {
                   <p className="text-xs text-slate-400 line-through">
                     {deal.oldPrice}
                   </p>
-                  <p className="text-2xl font-bold leading-none text-orange-600">
+                  <p className="text-2xl font-bold leading-none text-red-600">
                     {deal.price}
                   </p>
                 </div>
                 <Link
                   href="/flights"
-                  className="rounded-lg bg-sky-50 px-4 py-2 text-sm font-bold text-sky-600 transition hover:bg-sky-600 hover:text-white"
+                  className="rounded-lg bg-red-50 px-4 py-2 text-sm font-bold text-red-600 transition hover:bg-red-600 hover:text-white"
                 >
                   Đặt ngay
                 </Link>

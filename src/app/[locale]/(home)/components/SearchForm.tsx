@@ -75,7 +75,7 @@ export default function SearchForm() {
       <div className="mx-auto max-w-5xl rounded-2xl border border-slate-100 bg-white p-6 shadow-2xl md:p-8">
         {/* 1. TABS (VÉ MÁY BAY / KHÁCH SẠN) */}
         <div className="mb-6 flex gap-6 border-b border-slate-200 pb-4">
-          <label className="-mb-4.5 flex cursor-pointer items-center gap-2 border-b-2 border-sky-600 pb-4 font-semibold text-sky-600 transition-colors">
+          <label className="-mb-4.5 flex cursor-pointer items-center gap-2 border-b-2 border-red-600 pb-4 font-semibold text-red-600 transition-colors">
             <input
               type="radio"
               name="serviceType"
@@ -89,21 +89,21 @@ export default function SearchForm() {
         <div className="grid grid-cols-1 items-end gap-4 md:grid-cols-12">
           {/* 2. LOẠI VÉ (Một chiều / Khứ hồi) */}
           <div className="mb-2 flex gap-6 text-sm font-medium text-slate-600 md:col-span-12">
-            <label className="flex cursor-pointer items-center gap-2 transition hover:text-sky-600">
+            <label className="flex cursor-pointer items-center gap-2 transition hover:text-red-600">
               <input
                 type="radio"
                 name="tripType"
-                className="h-4 w-4 accent-sky-600"
+                className="h-4 w-4 accent-red-600"
                 checked={tripType === "one-way"}
                 onChange={() => setTripType("one-way")}
               />
               Một chiều
             </label>
-            <label className="flex cursor-pointer items-center gap-2 transition hover:text-sky-600">
+            <label className="flex cursor-pointer items-center gap-2 transition hover:text-red-600">
               <input
                 type="radio"
                 name="tripType"
-                className="h-4 w-4 accent-sky-600"
+                className="h-4 w-4 accent-red-600"
                 checked={tripType === "round-trip"}
                 onChange={() => setTripType("round-trip")}
               />
@@ -119,7 +119,7 @@ export default function SearchForm() {
               Điểm đi
             </label>
             <div className="relative">
-              <div className="pointer-events-none absolute left-4 top-3.5 text-slate-400 group-focus-within:text-sky-500">
+              <div className="pointer-events-none absolute left-4 top-3.5 text-slate-400 group-focus-within:text-red-500">
                 <FaPlaneDeparture />
               </div>
               <input
@@ -129,7 +129,7 @@ export default function SearchForm() {
                   setLocations({ ...locations, from: e.target.value })
                 }
                 placeholder="Hà Nội (HAN)"
-                className="w-full rounded-xl border border-slate-200 bg-slate-50 py-3 pl-10 pr-4 font-semibold text-slate-700 outline-none transition focus:bg-white focus:ring-2 focus:ring-sky-500"
+                className="w-full rounded-xl border border-slate-200 bg-slate-50 py-3 pl-10 pr-4 font-semibold text-slate-700 outline-none transition focus:bg-white focus:ring-2 focus:ring-red-500"
               />
             </div>
           </div>
@@ -139,7 +139,7 @@ export default function SearchForm() {
             <button
               type="button"
               onClick={handleSwapLocations}
-              className="transform rounded-full border border-slate-200 bg-slate-100 p-2.5 text-slate-500 shadow-sm transition duration-300 hover:border-sky-200 hover:bg-sky-100 hover:text-sky-600 active:rotate-180"
+              className="transform rounded-full border border-slate-200 bg-slate-100 p-2.5 text-slate-500 shadow-sm transition duration-300 hover:border-red-200 hover:bg-red-100 hover:text-red-600 active:rotate-180"
               title="Đảo chiều"
             >
               <FaArrowRightArrowLeft />
@@ -152,7 +152,7 @@ export default function SearchForm() {
               Điểm đến
             </label>
             <div className="relative">
-              <div className="pointer-events-none absolute left-4 top-3.5 text-slate-400 group-focus-within:text-sky-500">
+              <div className="pointer-events-none absolute left-4 top-3.5 text-slate-400 group-focus-within:text-red-500">
                 <FaLocationDot />
               </div>
               <input
@@ -162,7 +162,7 @@ export default function SearchForm() {
                   setLocations({ ...locations, to: e.target.value })
                 }
                 placeholder="Hồ Chí Minh (SGN)"
-                className="w-full rounded-xl border border-slate-200 bg-slate-50 py-3 pl-10 pr-4 font-semibold text-slate-700 outline-none transition focus:bg-white focus:ring-2 focus:ring-sky-500"
+                className="w-full rounded-xl border border-slate-200 bg-slate-50 py-3 pl-10 pr-4 font-semibold text-slate-700 outline-none transition focus:bg-white focus:ring-2 focus:ring-red-500"
               />
             </div>
           </div>
@@ -178,12 +178,12 @@ export default function SearchForm() {
                 Ngày đi
               </label>
               <div className="relative">
-                <div className="pointer-events-none absolute left-3 top-3.5 text-sm text-slate-400 group-focus-within:text-sky-500">
+                <div className="pointer-events-none absolute left-3 top-3.5 text-sm text-slate-400 group-focus-within:text-red-500">
                   <FaCalendar />
                 </div>
                 <input
                   type="date"
-                  className="w-full rounded-xl border border-slate-200 bg-slate-50 py-3 pl-9 pr-2 text-sm font-semibold text-slate-700 outline-none transition focus:bg-white focus:ring-2 focus:ring-sky-500"
+                  className="w-full rounded-xl border border-slate-200 bg-slate-50 py-3 pl-9 pr-2 text-sm font-semibold text-slate-700 outline-none transition focus:bg-white focus:ring-2 focus:ring-red-500"
                 />
               </div>
             </div>
@@ -195,12 +195,12 @@ export default function SearchForm() {
                   Ngày về
                 </label>
                 <div className="relative">
-                  <div className="pointer-events-none absolute left-3 top-3.5 text-sm text-slate-400 group-focus-within:text-sky-500">
+                  <div className="pointer-events-none absolute left-3 top-3.5 text-sm text-slate-400 group-focus-within:text-red-500">
                     <FaCalendar />
                   </div>
                   <input
                     type="date"
-                    className="w-full rounded-xl border border-slate-200 bg-slate-50 py-3 pl-9 pr-2 text-sm font-semibold text-slate-700 outline-none transition focus:bg-white focus:ring-2 focus:ring-sky-500"
+                    className="w-full rounded-xl border border-slate-200 bg-slate-50 py-3 pl-9 pr-2 text-sm font-semibold text-slate-700 outline-none transition focus:bg-white focus:ring-2 focus:ring-red-500"
                   />
                 </div>
               </div>
@@ -213,14 +213,14 @@ export default function SearchForm() {
         {/* 4. HÀNH KHÁCH & HẠNG VÉ (POPOVER INTERACTIVE) */}
         <div className="relative mt-4" ref={popupRef}>
           {/* Trigger Button */}
-          <div className="flex justify-between flex-col md:flex-row">
+          <div className="flex flex-col justify-between md:flex-row">
             <button
               type="button"
               onClick={() => setShowPassengerPopup(!showPassengerPopup)}
               className="flex select-none items-center gap-4 rounded-lg border border-transparent px-4 py-2 text-sm text-slate-600 transition hover:border-slate-200 hover:bg-slate-50"
             >
               <div className="flex items-center gap-2">
-                <FaUser className="text-sky-500" />
+                <FaUser className="text-red-500" />
                 <span className="font-semibold">
                   {totalPassengers} Hành khách
                 </span>
@@ -231,7 +231,7 @@ export default function SearchForm() {
               </div>
               <div className="h-4 w-[1px] bg-slate-300"></div>
               <div className="flex items-center gap-2">
-                <FaChair className="text-sky-500" />
+                <FaChair className="text-red-500" />
                 <span className="font-semibold">
                   {seatClass === "economy" ? "Phổ thông" : "Thương gia"}
                 </span>
@@ -239,8 +239,8 @@ export default function SearchForm() {
             </button>
             <div className="">
               <Link href="/flights">
-                <button className="flex w-full transform items-center justify-center gap-2 rounded-xl bg-sky-600 px-10 py-3.5 font-bold text-white shadow-lg shadow-sky-600/30 transition hover:-translate-y-0.5 hover:bg-sky-700">
-                  <FaMagnifyingGlass /> Tìm kiếm
+                <button className="flex w-full transform items-center justify-center gap-2 rounded-xl bg-red-600 px-10 py-3.5 font-bold text-white shadow-lg shadow-red-600/30 transition hover:-translate-y-0.5 hover:bg-red-700">
+                  <FaMagnifyingGlass /> Liên hệ
                 </button>
               </Link>
             </div>
@@ -253,13 +253,13 @@ export default function SearchForm() {
               <div className="mb-6 flex rounded-lg bg-slate-100 p-1">
                 <button
                   onClick={() => setSeatClass("economy")}
-                  className={`flex-1 rounded-md py-2 text-sm font-semibold transition ${seatClass === "economy" ? "bg-white text-sky-600 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}
+                  className={`flex-1 rounded-md py-2 text-sm font-semibold transition ${seatClass === "economy" ? "bg-white text-red-600 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}
                 >
                   Phổ thông
                 </button>
                 <button
                   onClick={() => setSeatClass("business")}
-                  className={`flex-1 rounded-md py-2 text-sm font-semibold transition ${seatClass === "business" ? "bg-white text-sky-600 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}
+                  className={`flex-1 rounded-md py-2 text-sm font-semibold transition ${seatClass === "business" ? "bg-white text-red-600 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}
                 >
                   Thương gia
                 </button>
@@ -280,7 +280,7 @@ export default function SearchForm() {
                   <div className="flex items-center gap-3">
                     <button
                       onClick={() => updatePassenger("adult", "dec")}
-                      className={`flex h-8 w-8 items-center justify-center rounded-full border transition ${passengers.adult <= 1 ? "cursor-not-allowed border-slate-200 text-slate-300" : "border-slate-300 text-sky-600 hover:border-sky-500 hover:bg-sky-50"}`}
+                      className={`flex h-8 w-8 items-center justify-center rounded-full border transition ${passengers.adult <= 1 ? "cursor-not-allowed border-slate-200 text-slate-300" : "border-slate-300 text-red-600 hover:border-red-500 hover:bg-red-50"}`}
                     >
                       <FaMinus size={10} />
                     </button>
@@ -289,7 +289,7 @@ export default function SearchForm() {
                     </span>
                     <button
                       onClick={() => updatePassenger("adult", "inc")}
-                      className="flex h-8 w-8 items-center justify-center rounded-full border border-slate-300 text-sky-600 transition hover:border-sky-500 hover:bg-sky-50"
+                      className="flex h-8 w-8 items-center justify-center rounded-full border border-slate-300 text-red-600 transition hover:border-red-500 hover:bg-red-50"
                     >
                       <FaPlus size={10} />
                     </button>
@@ -305,7 +305,7 @@ export default function SearchForm() {
                   <div className="flex items-center gap-3">
                     <button
                       onClick={() => updatePassenger("child", "dec")}
-                      className={`flex h-8 w-8 items-center justify-center rounded-full border transition ${passengers.child <= 0 ? "cursor-not-allowed border-slate-200 text-slate-300" : "border-slate-300 text-sky-600 hover:border-sky-500 hover:bg-sky-50"}`}
+                      className={`flex h-8 w-8 items-center justify-center rounded-full border transition ${passengers.child <= 0 ? "cursor-not-allowed border-slate-200 text-slate-300" : "border-slate-300 text-red-600 hover:border-red-500 hover:bg-red-50"}`}
                     >
                       <FaMinus size={10} />
                     </button>
@@ -314,7 +314,7 @@ export default function SearchForm() {
                     </span>
                     <button
                       onClick={() => updatePassenger("child", "inc")}
-                      className="flex h-8 w-8 items-center justify-center rounded-full border border-slate-300 text-sky-600 transition hover:border-sky-500 hover:bg-sky-50"
+                      className="flex h-8 w-8 items-center justify-center rounded-full border border-slate-300 text-red-600 transition hover:border-red-500 hover:bg-red-50"
                     >
                       <FaPlus size={10} />
                     </button>
@@ -330,7 +330,7 @@ export default function SearchForm() {
                   <div className="flex items-center gap-3">
                     <button
                       onClick={() => updatePassenger("infant", "dec")}
-                      className={`flex h-8 w-8 items-center justify-center rounded-full border transition ${passengers.infant <= 0 ? "cursor-not-allowed border-slate-200 text-slate-300" : "border-slate-300 text-sky-600 hover:border-sky-500 hover:bg-sky-50"}`}
+                      className={`flex h-8 w-8 items-center justify-center rounded-full border transition ${passengers.infant <= 0 ? "cursor-not-allowed border-slate-200 text-slate-300" : "border-slate-300 text-red-600 hover:border-red-500 hover:bg-red-50"}`}
                     >
                       <FaMinus size={10} />
                     </button>
@@ -339,7 +339,7 @@ export default function SearchForm() {
                     </span>
                     <button
                       onClick={() => updatePassenger("infant", "inc")}
-                      className="flex h-8 w-8 items-center justify-center rounded-full border border-slate-300 text-sky-600 transition hover:border-sky-500 hover:bg-sky-50"
+                      className="flex h-8 w-8 items-center justify-center rounded-full border border-slate-300 text-red-600 transition hover:border-red-500 hover:bg-red-50"
                     >
                       <FaPlus size={10} />
                     </button>
@@ -351,7 +351,7 @@ export default function SearchForm() {
               <div className="mt-6 flex justify-end border-t border-slate-100 pt-4">
                 <button
                   onClick={() => setShowPassengerPopup(false)}
-                  className="rounded-lg bg-sky-600 px-6 py-2 text-sm font-bold text-white transition hover:bg-sky-700"
+                  className="rounded-lg bg-red-600 px-6 py-2 text-sm font-bold text-white transition hover:bg-red-700"
                 >
                   Xong
                 </button>

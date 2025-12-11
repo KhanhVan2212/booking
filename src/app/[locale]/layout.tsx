@@ -8,7 +8,9 @@ type Props = {
   children: React.ReactNode;
   params: Promise<{ locale: string }>;
 };
- 
+
+import FloatingContact from "@/components/Layout/FloatingContact";
+
 export default async function LocaleLayout({ children, params }: Props) {
   const { locale } = await params;
   const messages = await getMessages({ locale: locale });
@@ -18,13 +20,14 @@ export default async function LocaleLayout({ children, params }: Props) {
     //     <body
     //     className={`${bricolageGrotesque.className} ${bricolageGrotesque.variable} ${ibmPlexMono.variable} ${inter.variable} bg-white antialiased`}
     //     >
-      <NextIntlClientProvider locale={locale} messages={messages}>
-          <AppProvider>
-            <HeaderWrapper locale={locale} />
-            <main>{children}</main>
-            <Footer />
-          </AppProvider>
-        </NextIntlClientProvider>
+    <NextIntlClientProvider locale={locale} messages={messages}>
+      <AppProvider>
+        <HeaderWrapper locale={locale} />
+        <main>{children}</main>
+        <FloatingContact />
+        <Footer />
+      </AppProvider>
+    </NextIntlClientProvider>
     //     </body>
     // </html>
   );

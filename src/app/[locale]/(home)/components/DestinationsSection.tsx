@@ -56,7 +56,7 @@ const DestinationsSection = () => {
         </div>
         <a
           href="#"
-          className="flex items-center gap-1 font-semibold text-sky-600 hover:underline"
+          className="flex items-center gap-1 font-semibold text-red-600 hover:underline"
         >
           Xem tất cả <FaArrowRight />
         </a>
