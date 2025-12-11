@@ -67,7 +67,7 @@ export async function generateMetadata(): Promise<Metadata> {
       images: [
         {
           // Bạn nhớ tạo file ảnh cover (1200x630) đặt tên là og-image.png trong thư mục public/images/
-          url: `${baseUrl}/images/ha-anh-jsc-og.png`,
+          url: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
           width: 1200,
           height: 630,
           alt: "Hà Anh JSC - Dịch vụ Hàng không và Du lịch",
