@@ -9,31 +9,36 @@ const vietnamPro = Be_Vietnam_Pro({
   variable: '--font-vietnam-pro',
 });
 
-
 export const dynamic = "force-static";
 
-// 🔥 SEO hard-code title + description
+// 🔥 SEO hard-code title + description cho Hà Anh JSC
 export async function generateMetadata(): Promise<Metadata> {
+  // Bạn nên thay đổi domain này thành domain thật của Hà Anh khi deploy
   const baseUrl =
     process.env.NEXT_PUBLIC_DOMAIN ||
-    "https://hyra-router-landing-page-beta.hyrateksolution.com";
+    "https://haanhjsc.com.vn";
+
+  const siteTitle = "Hà Anh JSC | Vé Máy Bay - Du Lịch - Tổ Chức Sự Kiện Hàng Đầu";
+  const siteDescription = "Hà Anh JSC chuyên cung cấp vé máy bay nội địa & quốc tế, tour du lịch, đặt phòng khách sạn, tổ chức sự kiện MICE và dịch vụ visa. Cam kết Chuyên nghiệp – Tận tâm – Hiệu quả.";
 
   return {
     metadataBase: new URL(baseUrl),
-    title: "Mega Router – Unified API Gateway for All Leading AI Models",
-    description:
-      "Access GPT-4.1, Claude 3.5, Llama 3.1, Groq, Gemma and 200+ AI models through one secure, OpenAI-compatible API. Fast, scalable, and effortless to integrate.",
+    title: {
+        default: siteTitle,
+        template: `%s | Hà Anh JSC`
+    },
+    description: siteDescription,
     keywords: [
-      "Mega",
-      "Router",
-      "AI",
-      "API Gateway",
-      "Router Mega",
-      "Mega Router",
-      "AI Router",
-      "API Router",
-      "AI Gateway",
-      "Hyra AI",
+      "Hà Anh JSC",
+      "Vé máy bay",
+      "Đặt vé máy bay giá rẻ",
+      "Du lịch",
+      "Tour du lịch",
+      "Tổ chức sự kiện",
+      "Hội thảo",
+      "Visa",
+      "Đại lý vé máy bay Hà Nội",
+      "Hà Anh Aviation"
     ],
     icons: {
       icon: [
@@ -42,40 +47,40 @@ export async function generateMetadata(): Promise<Metadata> {
       ],
       apple: "/apple-icon.png",
     },
+    // Đổi theme color sang màu Đỏ thương hiệu hoặc Trắng
     themeColor: [
       { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-      { media: "(prefers-color-scheme: dark)", color: "#000000" },
+      { media: "(prefers-color-scheme: dark)", color: "#DC2626" }, // Màu đỏ thương hiệu
     ],
     alternates: {
       canonical: "/",
       languages: {
-        en: "/",
+        vi: "/",
         "x-default": "/",
       },
     },
     manifest: "/manifest.json",
     openGraph: {
-      title: "Mega Router – Unified API Gateway for All Leading AI Models",
-      description:
-        "Access GPT-4.1, Claude 3.5, Llama 3.1, Groq, Gemma and 200+ AI models through one secure, OpenAI-compatible API. Fast, scalable, and effortless to integrate.",
-      siteName: "Hyra Router",
+      title: siteTitle,
+      description: siteDescription,
+      siteName: "Hà Anh JSC",
       images: [
         {
-          url: `${baseUrl}/images/hyra-router-metadata.png`,
+          // Bạn nhớ tạo file ảnh cover (1200x630) đặt tên là og-image.png trong thư mục public/images/
+          url: `${baseUrl}/images/ha-anh-jsc-og.png`,
           width: 1200,
           height: 630,
-          alt: "Mega Router - Unified API Gateway for AI Models",
+          alt: "Hà Anh JSC - Dịch vụ Hàng không và Du lịch",
         },
       ],
-      locale: "en_US",
+      locale: "vi_VN",
       type: "website",
     },
     twitter: {
       card: "summary_large_image",
-      title: "Mega Router – Unified API Gateway for All Leading AI Models",
-      description:
-        "Access GPT-4.1, Claude 3.5, Llama 3.1, Groq, Gemma and 100+ AI models through one secure, OpenAI-compatible API. Fast, scalable, and effortless to integrate.",
-      images: [`${baseUrl}/images/hyra-router-metadata.png`],
+      title: siteTitle,
+      description: siteDescription,
+      images: [`${baseUrl}/images/ha-anh-jsc-og.png`],
     },
     robots: {
       index: process.env.NEXT_PUBLIC_ENV === "production",
@@ -89,12 +94,13 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const locale = "en";
+  // Đổi locale sang tiếng Việt
+  const locale = "vi";
 
   return (
     <html lang={locale}>
       <body
-        className={`${vietnamPro.variable} antialiased`}
+        className={`${vietnamPro.variable} antialiased bg-white text-slate-800`}
       >
         {children}
       </body>
