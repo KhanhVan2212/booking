@@ -1,0 +1,296 @@
+{
+  "hero": {
+    "backgroundImage": "/uploads/1766039461313-2025-12-10_09.07.56.jpg",
+    "title": "Chắp cánh hành trình",
+    "highlightedText": "Vươn mình thăng hoa",
+    "subtitle": "Tìm kiếm và đặt vé máy bay giá rẻ nhất với hệ thống so sánh giá thông minh từ hơn 500 hãng hàng không."
+  },
+  "services": {
+    "header": {
+      "badge": "Hệ sinh thái dịch vụ",
+      "title": "Giải pháp toàn diện cho\nmọi hành trình của bạn",
+      "divider": true
+    },
+    "mainServices": [
+      {
+        "id": "flight-tickets",
+        "icon": "FaPlane",
+        "title": "Vé máy bay Toàn cầu",
+        "features": [
+          "Vé nội địa & Quốc tế 24/7",
+          "Vé đoàn, Công tác, Vé Chính khách",
+          "Combo Tiết kiệm (Vé + Khách sạn)",
+          "Điều kiện hoàn hủy linh hoạt"
+        ],
+        "accentColor": "red"
+      },
+      {
+        "id": "travel-services",
+        "icon": "FaUmbrellaBeach",
+        "title": "Du lịch & Lữ hành",
+        "features": [
+          "Tour du lịch Cao cấp (Luxury)",
+          "Tour MICE (Hội nghị kết hợp nghỉ dưỡng)",
+          "Dịch vụ đặt phòng khách sạn toàn cầu",
+          "Bảo hiểm du lịch quốc tế"
+        ],
+        "accentColor": "blue"
+      },
+      {
+        "id": "events-conference",
+        "icon": "FaMicrophoneLines",
+        "title": "Sự kiện & Hội nghị",
+        "features": [
+          "Tổ chức Hội nghị, Hội thảo Quốc tế",
+          "Cung cấp vé đoàn cho sự kiện lớn",
+          "Logistics và vận chuyển khách mời"
+        ],
+        "accentColor": "orange"
+      },
+      {
+        "id": "special-support",
+        "icon": "FaHandHoldingHeart",
+        "title": "Dịch vụ Hỗ trợ Đặc biệt",
+        "features": [
+          "Vé máy bay khẩn cấp (Last-minute)",
+          "Hỗ trợ thủ tục Visa nhanh chóng",
+          "Chăm sóc khách hàng VIP / Ưu tiên"
+        ],
+        "accentColor": "green"
+      }
+    ],
+    "detailedServices": {
+      "title": "Tiện ích Hàng không Chi tiết",
+      "description": "Chúng tôi hỗ trợ bạn từng bước nhỏ nhất trên hành trình bay",
+      "items": [
+        {
+          "id": "visa-consultation",
+          "icon": "FaPassport",
+          "title": "Tư vấn Visa",
+          "description": "Hỗ trợ thủ tục nhập cảnh"
+        },
+        {
+          "id": "refund-exchange",
+          "icon": "FaRotate",
+          "title": "Hoàn / Đổi vé",
+          "description": "Xử lý nhanh chóng"
+        },
+        {
+          "id": "online-checkin",
+          "icon": "FaCheckToSlot",
+          "title": "Check-in Online",
+          "description": "Chọn chỗ ngồi trước"
+        },
+        {
+          "id": "extra-luggage",
+          "icon": "FaSuitcaseRolling",
+          "title": "Mua thêm Hành lý",
+          "description": "Giá ưu đãi đại lý"
+        },
+        {
+          "id": "route-consultation",
+          "icon": "FaTicket",
+          "title": "Tư vấn Hành trình",
+          "description": "Tối ưu chi phí & giờ bay"
+        },
+        {
+          "id": "support-24-7",
+          "icon": "FaHeadset",
+          "title": "Hỗ trợ 24/7",
+          "description": "Luôn sẵn sàng"
+        }
+      ]
+    }
+  },
+  "features": {
+    "title": "Tại sao chọn Hà Anh JSC?",
+    "features": [
+      {
+        "id": "competitive-price",
+        "icon": "FaSackDollar",
+        "title": "Giá Vé Cạnh Tranh",
+        "description": "Cung cấp vé máy bay với mức giá tốt nhất thị trường, giúp tối ưu chi phí cho mọi hành trình."
+      },
+      {
+        "id": "flexible-solution",
+        "icon": "FaPlaneCircleCheck",
+        "title": "Giải Pháp Linh Hoạt",
+        "description": "Mang đến giải pháp đặt vé thuận tiện và hỗ trợ tận tình xuyên suốt chuyến đi của bạn."
+      },
+      {
+        "id": "trusted-partner",
+        "icon": "FaHandshake",
+        "title": "Đối Tác Tin Cậy",
+        "description": "Tự hào là đối tác uy tín được các cơ quan chính phủ và doanh nghiệp lớn tin chọn."
+      },
+      {
+        "id": "support-24-7",
+        "icon": "FaHeadset",
+        "title": "Hỗ Trợ 24/7",
+        "description": "Dịch vụ tận tâm, linh hoạt với đội ngũ chăm sóc khách hàng luôn sẵn sàng 24/7."
+      }
+    ]
+  },
+  "destinations": {
+    "title": "Điểm đến phổ biến",
+    "description": "Các chuyến bay được tìm kiếm nhiều nhất trong 24h qua",
+    "viewAllLink": "#",
+    "destinations": [
+      {
+        "id": "danang",
+        "name": "Đà Nẵng",
+        "price": "1.200.000 VNĐ",
+        "imageUrl": "https://images.unsplash.com/photo-1504457047772-27faf1c00561?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+      },
+      {
+        "id": "hoian",
+        "name": "Hội An",
+        "price": "890.000 VNĐ",
+        "imageUrl": "https://images.unsplash.com/photo-1555921015-5532091f6026?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+      },
+      {
+        "id": "phuquoc",
+        "name": "Phú Quốc",
+        "price": "1.500.000 VNĐ",
+        "imageUrl": "https://images.unsplash.com/photo-1528127269322-539801943592?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+      },
+      {
+        "id": "dalat",
+        "name": "Đà Lạt",
+        "price": "950.000 VNĐ",
+        "imageUrl": "https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+      }
+    ]
+  },
+  "flashDeals": {
+    "title": "Ưu đãi chớp nhoáng",
+    "description": "Săn vé giá rẻ giờ vàng - Số lượng có hạn!",
+    "viewAllLink": "/offers",
+    "deals": [
+      {
+        "id": "deal-1",
+        "from": "Hà Nội",
+        "to": "Nha Trang",
+        "price": "499.000đ",
+        "oldPrice": "1.200.000đ",
+        "image": "https://images.unsplash.com/photo-1528127269322-539801943592?q=80&w=800&auto=format&fit=crop",
+        "timeLeft": "Còn 2 ngày",
+        "link": "/flights"
+      },
+      {
+        "id": "deal-2",
+        "from": "TP. HCM",
+        "to": "Phú Quốc",
+        "price": "599.000đ",
+        "oldPrice": "1.500.000đ",
+        "image": "https://images.unsplash.com/photo-1528127269322-539801943592?q=80&w=800&auto=format&fit=crop",
+        "timeLeft": "Còn 12 giờ",
+        "link": "/flights"
+      },
+      {
+        "id": "deal-3",
+        "from": "Đà Nẵng",
+        "to": "Hà Nội",
+        "price": "399.000đ",
+        "oldPrice": "980.000đ",
+        "image": "https://images.unsplash.com/photo-1504457047772-27faf1c00561?q=80&w=800&auto=format&fit=crop",
+        "timeLeft": "Còn 5 ngày",
+        "link": "/flights"
+      }
+    ]
+  },
+  "inspiration": {
+    "title": "Cảm hứng du lịch",
+    "description": "Khám phá những điểm đến mới và mẹo du lịch hữu ích",
+    "viewAllLink": "#",
+    "blogs": [
+      {
+        "id": "blog-1",
+        "title": "Top 10 địa điểm check-in \"cháy máy\" tại Phú Quốc 2023",
+        "category": "Điểm đến",
+        "image": "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=800&auto=format&fit=crop",
+        "date": "12 Th10",
+        "readTime": "5 phút đọc",
+        "link": "#"
+      },
+      {
+        "id": "blog-2",
+        "title": "Kinh nghiệm săn vé máy bay Tết giá rẻ không phải ai cũng biết",
+        "category": "Bí kíp",
+        "image": "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=800&auto=format&fit=crop",
+        "date": "05 Th10",
+        "readTime": "5 phút đọc",
+        "link": "#"
+      },
+      {
+        "id": "blog-3",
+        "title": "Khám phá ẩm thực đường phố Đà Nẵng chỉ với 200k",
+        "category": "Ẩm thực",
+        "image": "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=800&auto=format&fit=crop",
+        "date": "28 Th09",
+        "readTime": "5 phút đọc",
+        "link": "#"
+      }
+    ]
+  },
+  "airlinePartners": {
+    "badge": "Đối tác hàng không",
+    "airlines": [
+      {
+        "id": "vietnam-airlines",
+        "name": "Vietnam Airlines",
+        "logo": "/images/vietnamair.png"
+      },
+      {
+        "id": "vietjet-air",
+        "name": "VietJet Air",
+        "logo": "/images/VietJetAir.png"
+      },
+      {
+        "id": "bamboo-airways",
+        "name": "Bamboo Airways",
+        "logo": "/images/Bamboo-Airways.png"
+      },
+      {
+        "id": "vietravel-airlines",
+        "name": "Vietravel Airlines",
+        "logo": "/images/Vietravel-Airlines.png"
+      }
+    ]
+  },
+  "contact": {
+    "badge": "Liên hệ",
+    "title": "Kết nối với Hà Anh JSC",
+    "description": "Chúng tôi luôn sẵn sàng lắng nghe và giải đáp mọi thắc mắc của bạn. Hãy liên hệ với chúng tôi qua các kênh sau:",
+    "contactInfo": [
+      {
+        "type": "phone",
+        "title": "Hotline",
+        "value": "024 3771 4566",
+        "subtitle": "Hỗ trợ 24/7"
+      },
+      {
+        "type": "email",
+        "title": "Email",
+        "value": "PHONGVE@HAANHJSC.COM.VN",
+        "subtitle": "Phản hồi trong vòng 24h"
+      },
+      {
+        "type": "location",
+        "title": "Văn phòng",
+        "value": "Số 63 Mai Hắc Đế, P. Bùi Thị Xuân,\nQ. Hai Bà Trưng, Hà Nội",
+        "subtitle": ""
+      }
+    ],
+    "form": {
+      "title": "Gửi tin nhắn cho chúng tôi",
+      "fields": {
+        "name": "Họ tên",
+        "phone": "Số điện thoại",
+        "email": "Email",
+        "message": "Nội dung"
+      },
+      "submitButton": "Gửi tin nhắn"
+    }
+  }
+}

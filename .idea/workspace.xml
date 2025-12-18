@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="3bef37ff-3b9e-48c7-af60-b4bbf28d53ac" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/uploads/1766039461313-2025-12-10_09.07.56.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/[locale]/(home)/components/FlashDealsSection.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/[locale]/admin/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/api/landing-page/route.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/api/upload-image/route.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/admin/ImageUploader.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/common/IconMapper.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/data/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/data/landing-page.payload.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/types/landing-page.types.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/cms.helper.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/[locale]/(home)/components/AirlinePartners.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/[locale]/(home)/components/AirlinePartners.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/[locale]/(home)/components/DestinationsSection.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/[locale]/(home)/components/DestinationsSection.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/[locale]/(home)/components/FeaturesSection.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/[locale]/(home)/components/FeaturesSection.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/[locale]/(home)/components/HeroSection.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/[locale]/(home)/components/HeroSection.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/[locale]/(home)/components/InspirationSection.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/[locale]/(home)/components/InspirationSection.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/[locale]/(home)/components/ServicesSection.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/[locale]/(home)/components/ServicesSection.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/[locale]/(home)/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/[locale]/(home)/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/[locale]/about/components/ContactSection.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/[locale]/about/components/ContactSection.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/types/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/index.d.ts" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
+  <component name="ProjectId" id="3704uQgFstZFIPbIfvuwmnzxz6q" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "Merging fix-conflict-huy-cms",
+    "last_opened_file_path": "/Users/phamhuy/Desktop/haanh/booking",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "prettierjs.PrettierConfiguration.Package": "/Users/phamhuy/Desktop/haanh/booking/node_modules/prettier",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "ts.external.directory.path": "/Users/phamhuy/Desktop/haanh/booking/node_modules/typescript/lib",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-822845ee3bb5-JavaScript-WS-243.23654.157" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3bef37ff-3b9e-48c7-af60-b4bbf28d53ac" name="Changes" comment="" />
+      <created>1766026876092</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1766026876092</updated>
+      <workItem from="1766026877175" duration="8434000" />
+      <workItem from="1766040863353" duration="647000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

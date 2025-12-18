@@ -1,16 +1,46 @@
 // components/HeroSection.tsx
 import React from "react";
+import { HeroSectionData } from "@/types/landing-page.types";
 
-const HeroSection = () => {
+interface HeroSectionProps {
+  data?: HeroSectionData;
+}
+
+const HeroSection: React.FC<HeroSectionProps> = ({ data }) => {
+  if (data) {
+    // CMS mode
+    return (
+      <div
+        className="relative h-[600px] bg-cover bg-center"
+        style={{
+          backgroundImage: `url('${data.backgroundImage}')`,
+        }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-slate-50"></div>
+
+        <div className="container relative z-10 mx-auto flex h-full flex-col items-center justify-center px-6 pb-20 text-center">
+          <h1 className="mb-4 text-3xl font-bold leading-tight text-white md:text-6xl">
+            {data.title} <br />{" "}
+            {data.highlightedText && (
+              <span className="text-red-500">{data.highlightedText}</span>
+            )}
+          </h1>
+          <p className="mb-8 max-w-2xl text-lg text-gray-200">
+            {data.subtitle}
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  // Default mode (main branch)
   return (
     <div
       className="relative h-[600px] bg-cover bg-center"
       style={{
-        backgroundImage:
-          "url('/images/backgrounds/banner-home.avif')",
+        backgroundImage: "url('/images/backgrounds/banner-home.avif')",
       }}
     >
-      {/* Overlay tối màu */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-slate-50"></div>
 
       <div className="container relative z-10 mx-auto flex h-full flex-col items-center justify-center px-6 pb-20 text-center">
