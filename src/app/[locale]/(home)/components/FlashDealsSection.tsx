@@ -2,63 +2,35 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { FaArrowRight, FaBolt, FaClock } from "react-icons/fa6";
+import { FaArrowRight, FaClock } from "react-icons/fa6";
+import { FlashDealsSectionData } from "@/types/landing-page.types";
 
-const deals = [
-  {
-    id: 1,
-    from: "Hà Nội",
-    to: "Nha Trang",
-    price: "499.000đ",
-    oldPrice: "1.200.000đ",
-    image:
-      "https://images.unsplash.com/photo-1528127269322-539801943592?q=80&w=800&auto=format&fit=crop",
-    timeLeft: "Còn 2 ngày",
-  },
-  {
-    id: 2,
-    from: "TP. HCM",
-    to: "Phú Quốc",
-    price: "599.000đ",
-    oldPrice: "1.500.000đ",
-    image:
-      "https://images.unsplash.com/photo-1528127269322-539801943592?q=80&w=800&auto=format&fit=crop",
-    timeLeft: "Còn 12 giờ",
-  },
-  {
-    id: 3,
-    from: "Đà Nẵng",
-    to: "Hà Nội",
-    price: "399.000đ",
-    oldPrice: "980.000đ",
-    image:
-      "https://images.unsplash.com/photo-1504457047772-27faf1c00561?q=80&w=800&auto=format&fit=crop",
-    timeLeft: "Còn 5 ngày",
-  },
-];
+interface FlashDealsSectionProps {
+  data: FlashDealsSectionData;
+}
 
-const FlashDealsSection = () => {
+const FlashDealsSection: React.FC<FlashDealsSectionProps> = ({ data }) => {
   return (
     <section className="container relative z-10 mx-auto px-6 py-16">
       <div className="mb-8 flex flex-col items-end justify-between gap-4 md:flex-row">
         <div>
           <h2 className="flex items-center gap-2 text-2xl font-bold text-slate-800 md:text-3xl">
-            Ưu đãi chớp nhoáng
+            {data.title}
           </h2>
-          <p className="mt-2 text-slate-500">
-            Săn vé giá rẻ giờ vàng - Số lượng có hạn!
-          </p>
+          <p className="mt-2 text-slate-500">{data.description}</p>
         </div>
-        <Link
-          href="/offers"
-          className="flex items-center gap-1 font-semibold text-red-600 hover:underline"
-        >
-          Xem tất cả deal <FaArrowRight />
-        </Link>
+        {data.viewAllLink && (
+          <Link
+            href={data.viewAllLink}
+            className="flex items-center gap-1 font-semibold text-red-600 hover:underline"
+          >
+            Xem tất cả deal <FaArrowRight />
+          </Link>
+        )}
       </div>
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-        {deals.map((deal) => (
+        {data.deals.map((deal) => (
           <div
             key={deal.id}
             className="group overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-sm transition-all duration-300 hover:shadow-xl"
@@ -98,7 +70,7 @@ const FlashDealsSection = () => {
                   </p>
                 </div>
                 <Link
-                  href="/flights"
+                  href={deal.link || "/flights"}
                   className="rounded-lg bg-red-50 px-4 py-2 text-sm font-bold text-red-600 transition hover:bg-red-600 hover:text-white"
                 >
                   Đặt ngay

@@ -1,13 +1,17 @@
 // components/HeroSection.tsx
 import React from "react";
+import { HeroSectionData } from "@/types/landing-page.types";
 
-const HeroSection = () => {
+interface HeroSectionProps {
+  data: HeroSectionData;
+}
+
+const HeroSection: React.FC<HeroSectionProps> = ({ data }) => {
   return (
     <div
       className="relative h-[600px] bg-cover bg-center"
       style={{
-        backgroundImage:
-          "url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')",
+        backgroundImage: `url('${data.backgroundImage}')`,
       }}
     >
       {/* Overlay tối màu */}
@@ -15,12 +19,13 @@ const HeroSection = () => {
 
       <div className="container relative z-10 mx-auto flex h-full flex-col items-center justify-center px-6 pb-20 text-center">
         <h1 className="mb-4 text-3xl font-bold leading-tight text-white md:text-6xl">
-          Chắp cánh hành trình <br />{" "}
-          <span className="text-red-500">Vươn mình thăng hoa</span>
+          {data.title} <br />{" "}
+          {data.highlightedText && (
+            <span className="text-red-500">{data.highlightedText}</span>
+          )}
         </h1>
         <p className="mb-8 max-w-2xl text-lg text-gray-200">
-          Tìm kiếm và đặt vé máy bay giá rẻ nhất với hệ thống so sánh giá thông
-          minh từ hơn 500 hãng hàng không.
+          {data.subtitle}
         </p>
       </div>
     </div>

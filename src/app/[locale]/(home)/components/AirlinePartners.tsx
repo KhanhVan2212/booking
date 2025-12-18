@@ -1,35 +1,21 @@
 // components/AirlinePartners.tsx
 import Image from "next/image";
 import React from "react";
+import { AirlinePartnersData } from "@/types/landing-page.types";
 
-const airlines = [
-  {
-    name: "Vietnam Airlines",
-    logo: "/images/vietnamair.png", 
-  },
-  {
-    name: "VietJet Air",
-    logo: "/images/VietJetAir.png",
-  },
-  {
-    name: "Bamboo Airways",
-    logo: "/images/Bamboo-Airways.png",
-  },
-  {
-    name: "Vietravel Airlines",
-    logo: "/images/Vietravel-Airlines.png",
-  },
-];
+interface AirlinePartnersProps {
+  data: AirlinePartnersData;
+}
 
-const AirlinePartners = () => {
+const AirlinePartners: React.FC<AirlinePartnersProps> = ({ data }) => {
   // Nhân đôi danh sách để tạo hiệu ứng chạy vô tận liền mạch
-  const scrollingAirlines = [...airlines, ...airlines];
+  const scrollingAirlines = [...data.airlines, ...data.airlines];
 
   return (
     <section className="overflow-hidden border-b border-slate-100 bg-white py-12">
       <div className="container mx-auto mb-6 px-6 text-center">
         <p className="text-sm font-bold uppercase tracking-wider text-slate-400">
-          Đối tác hàng không
+          {data.badge}
         </p>
       </div>
 
@@ -37,7 +23,7 @@ const AirlinePartners = () => {
         <div className="animate-scroll flex w-full">
           {scrollingAirlines.map((item, index) => (
             <div
-              key={index}
+              key={`${item.id}-${index}`}
               className="flex h-20 w-[250px] items-center justify-center px-8"
             >
               <Image

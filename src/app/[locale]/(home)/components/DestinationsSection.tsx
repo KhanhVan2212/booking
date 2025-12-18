@@ -1,72 +1,38 @@
 // components/DestinationsSection.tsx
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 import { FaArrowRight } from "react-icons/fa6";
+import { DestinationsSectionData } from "@/types/landing-page.types";
 
-// Định nghĩa kiểu dữ liệu cho một địa điểm
-interface Destination {
-  id: number;
-  name: string;
-  price: string;
-  imageUrl: string;
+interface DestinationsSectionProps {
+  data: DestinationsSectionData;
 }
 
-const destinationsData: Destination[] = [
-  {
-    id: 1,
-    name: "Đà Nẵng",
-    price: "1.200.000 VNĐ",
-    imageUrl:
-      "https://images.unsplash.com/photo-1504457047772-27faf1c00561?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-  },
-  {
-    id: 2,
-    name: "Hội An",
-    price: "890.000 VNĐ",
-    imageUrl:
-      "https://images.unsplash.com/photo-1555921015-5532091f6026?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-  },
-  {
-    id: 3,
-    name: "Phú Quốc",
-    price: "1.500.000 VNĐ",
-    imageUrl:
-      "https://images.unsplash.com/photo-1528127269322-539801943592?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-  },
-  {
-    id: 4,
-    name: "Đà Lạt",
-    price: "950.000 VNĐ",
-    imageUrl:
-      "https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-  },
-];
-
-const DestinationsSection = () => {
+const DestinationsSection: React.FC<DestinationsSectionProps> = ({ data }) => {
   return (
     <section className="container mx-auto px-6 py-16">
       <div className="mb-8 flex items-end justify-between">
         <div>
           <h2 className="text-2xl font-bold text-slate-800 md:text-3xl">
-            Điểm đến phổ biến
+            {data.title}
           </h2>
-          <p className="mt-2 text-slate-500">
-            Các chuyến bay được tìm kiếm nhiều nhất trong 24h qua
-          </p>
+          <p className="mt-2 text-slate-500">{data.description}</p>
         </div>
-        <a
-          href="#"
-          className="flex items-center gap-1 font-semibold text-red-600 hover:underline"
-        >
-          Xem tất cả <FaArrowRight />
-        </a>
+        {data.viewAllLink && (
+          <Link
+            href={data.viewAllLink}
+            className="flex items-center gap-1 font-semibold text-red-600 hover:underline"
+          >
+            Xem tất cả <FaArrowRight />
+          </Link>
+        )}
       </div>
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-        {destinationsData.map((dest) => (
+        {data.destinations.map((dest) => (
           <div key={dest.id} className="group cursor-pointer">
             <div className="relative h-64 overflow-hidden rounded-2xl shadow-md">
-              {/* Lưu ý: Để tối ưu, nên dùng next/image thay cho thẻ img thường */}
               <Image
                 src={dest.imageUrl}
                 alt={dest.name}

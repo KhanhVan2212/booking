@@ -10,3 +10,6 @@ interface GuideResponse {
   locale: string;
   thumbnail?: string[];
 }
+
+// Export Landing Page CMS Types
+export * from "./landing-page.types";
