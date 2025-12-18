@@ -16,50 +16,50 @@ import {
 
 const PRODUCT_LINKS = [
   { href: "/", label: "Trang chủ" },
-  { href: "/flights", label: "Tìm vé máy bay" },
+  { href: "/flights", label: "Chuyến bay" },
+  { href: "/destinations", label: "Điểm đến phổ biến", badge: "HOT" },
+  { href: "/travel-info", label: "Thông tin du lịch" },
+  { href: "/travel-info", label: "Cảm hứng du lịch" },
   { href: "/experience", label: "Trải nghiệm bay", badge: "HOT" },
-  { href: "/offers", label: "Săn ưu đãi & Khuyến mãi" },
 ];
 
 const SUPPORT_LINKS = [
-  { href: "/history", label: "Quản lý đặt chỗ" },
-  { href: "/history", label: "Tra cứu mã vé điện tử" },
-  { href: "#", label: "Hướng dẫn thanh toán" },
-  { href: "#", label: "Chính sách hoàn hủy" },
-  { href: "#", label: "Câu hỏi thường gặp (FAQ)" },
+  { href: "/policy", label: "Chính sách & Quy định" },
+  { href: "/help", label: "Hướng dẫn thanh toán" },
+  { href: "/policy", label: "Chính sách hoàn hủy" },
+  { href: "/help", label: "Câu hỏi thường gặp (FAQ)" },
 ];
 
 const SOCIAL_LINKS = [
-  { href: "#", icon: FaFacebookF, colorClass: "hover:bg-blue-600" },
-  { href: "#", icon: FaInstagram, colorClass: "hover:bg-pink-600" },
-  { href: "#", icon: FaLinkedinIn, colorClass: "hover:bg-blue-700" },
-  { href: "#", icon: FaYoutube, colorClass: "hover:bg-red-600" },
+  { href: "https://www.facebook.com/dailyvemaybayhaanh.suntravel?mibextid=wwXIfr&rdid=l4xlVLjMAjNTfqrm&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1H34Q3iQAe%2F%3Fmibextid%3DwwXIfr", icon: FaFacebookF, colorClass: "hover:bg-blue-600" },
+  // { href: "#", icon: FaInstagram, colorClass: "hover:bg-pink-600" },
+  // { href: "#", icon: FaLinkedinIn, colorClass: "hover:bg-blue-700" },
+  // { href: "#", icon: FaYoutube, colorClass: "hover:bg-red-600" },
 ];
 
-const PAYMENT_PARTNERS = [
-  {
-    type: "image",
-    src: "https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg",
-    alt: "Visa",
-  },
-  {
-    type: "image",
-    src: "https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg",
-    alt: "Mastercard",
-  },
-  {
-    type: "image",
-    src: "https://upload.wikimedia.org/wikipedia/commons/b/b5/JCB_logo.svg",
-    alt: "JCB",
-  },
-  { type: "text", label: "MOMO" },
-  { type: "text", label: "NAPAS" },
-];
+// const PAYMENT_PARTNERS = [
+//   {
+//     type: "image",
+//     src: "https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg",
+//     alt: "Visa",
+//   },
+//   {
+//     type: "image",
+//     src: "https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg",
+//     alt: "Mastercard",
+//   },
+//   {
+//     type: "image",
+//     src: "https://upload.wikimedia.org/wikipedia/commons/b/b5/JCB_logo.svg",
+//     alt: "JCB",
+//   },
+//   { type: "text", label: "MOMO" },
+//   { type: "text", label: "NAPAS" },
+// ];
 
 const BOTTOM_LINKS = [
-  { href: "#", label: "Điều khoản sử dụng" },
-  { href: "#", label: "Chính sách bảo mật" },
-  { href: "#", label: "Cookie Policy" },
+  { href: "/policy", label: "Điều khoản sử dụng" },
+  { href: "/policy", label: "Chính sách bảo mật" },
 ];
 
 const Footer = () => {
@@ -113,34 +113,31 @@ const Footer = () => {
         <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4">
           {/* Column 1: Brand & Contact */}
           <div className="space-y-4">
-              <Link
-          href="/"
-          
-        >
-          <Image
-            src="/images/logo.png"
-            alt="Logo"
-            width={100}
-            height={100}
-            className="h-[60px] w-[60px] sm:h-[100px] sm:w-[100px]"
-          />
-        </Link>
+            <Link href="/">
+              <Image
+                src="/images/logo.png"
+                alt="Logo"
+                width={100}
+                height={100}
+                className="h-[60px] w-[60px] sm:h-[100px] sm:w-[100px]"
+              />
+            </Link>
             <p className="leading-relaxed text-slate-400">
               Nền tảng đặt vé máy bay trực tuyến hàng đầu, mang đến trải nghiệm
               bay tuyệt vời với chi phí tối ưu nhất.
             </p>
             <div className="space-y-2 pt-2">
               <div className="flex cursor-pointer items-center gap-3 transition hover:text-red-400">
-                <FaPhone className="text-red-500" />{" "}
-                <span>1900 1234 (24/7)</span>
+                <span>024 3771 4566</span>
               </div>
               <div className="flex cursor-pointer items-center gap-3 transition hover:text-red-400">
-                <FaEnvelope className="text-red-500" />{" "}
-                <span>support@Hà Anh JSC.com</span>
+                <span>PHONGVE@HAANHJSC.COM.VN</span>
               </div>
               <div className="flex cursor-pointer items-center gap-3 transition hover:text-red-400">
-                <FaLocationDot className="text-red-500" />{" "}
-                <span>Hà Nội, Việt Nam</span>
+                <span>
+                  Số 2 ngách 3 Ngõ 51 phố Lương Khánh Thiện , Phường Tương Mai,
+                  Thành phố Hà Nội
+                </span>
               </div>
             </div>
           </div>
@@ -195,17 +192,17 @@ const Footer = () => {
             </h3>
             <div className="mb-8 flex gap-4">
               {SOCIAL_LINKS.map((social, index) => (
-                <a
+                <Link
                   key={index}
                   href={social.href}
                   className={`flex h-10 w-10 items-center justify-center rounded-full bg-slate-800 transition duration-300 hover:text-white ${social.colorClass}`}
                 >
                   <social.icon />
-                </a>
+                </Link>
               ))}
             </div>
 
-            <h3 className="mb-4 text-base font-bold uppercase tracking-wider text-white">
+            {/* <h3 className="mb-4 text-base font-bold uppercase tracking-wider text-white">
               Đối tác thanh toán
             </h3>
             <div className="flex flex-wrap gap-2">
@@ -231,7 +228,7 @@ const Footer = () => {
                   </div>
                 );
               })}
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
@@ -245,13 +242,13 @@ const Footer = () => {
           </p>
           <div className="flex gap-6 text-xs text-slate-500">
             {BOTTOM_LINKS.map((link, index) => (
-              <a
+              <Link
                 key={index}
                 href={link.href}
                 className="transition hover:text-white"
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
           </div>
         </div>

@@ -13,12 +13,12 @@ const FloatingContact = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
+    <div className="pointer-events-none fixed bottom-6 right-6 z-50 flex flex-col items-end">
       {/* Popup Content */}
       <div
         className={`mb-4 w-80 origin-bottom-right rounded-2xl border border-slate-100 bg-white p-6 shadow-2xl transition-all duration-300 ${
           isOpen
-            ? "translate-y-0 scale-100 opacity-100"
+            ? "pointer-events-auto translate-y-0 scale-100 opacity-100"
             : "pointer-events-none translate-y-10 scale-0 opacity-0"
         }`}
       >
@@ -77,7 +77,8 @@ const FloatingContact = () => {
             <div>
               <p className="text-sm font-medium text-slate-500">Văn phòng</p>
               <p className="text-sm font-semibold leading-snug text-slate-800">
-                Số 63 Mai Hắc Đế, P. Bùi Thị Xuân, Q. Hai Bà Trưng, Hà Nội
+                Số 2 ngách 3 Ngõ 51 phố Lương Khánh Thiện, Phường Tương Mai,
+                Thành phố Hà Nội
               </p>
             </div>
           </div>
@@ -87,7 +88,7 @@ const FloatingContact = () => {
       {/* Floating Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`group flex h-14 w-14 items-center justify-center rounded-full shadow-lg shadow-red-600/30 transition-all duration-300 hover:scale-110 ${
+        className={`group pointer-events-auto flex h-14 w-14 items-center justify-center rounded-full shadow-lg shadow-red-600/30 transition-all duration-300 hover:scale-110 ${
           isOpen ? "rotate-90 bg-slate-800" : "animate-bounce-slow bg-red-600"
         }`}
       >
