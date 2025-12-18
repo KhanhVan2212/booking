@@ -10,6 +10,12 @@ interface NavbarProps {
   isTransparent?: boolean;
 }
 
+import { motion } from "framer-motion";
+
+// ... (existing imports)
+
+// ... (existing interface)
+
 const Navbar = ({ isTransparent = false }: NavbarProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -30,7 +36,13 @@ const Navbar = ({ isTransparent = false }: NavbarProps) => {
   };
 
   return (
-    <nav className={`${navClasses} transition-all duration-300`}>
+    <motion.nav
+      initial={{ opacity: 0, y: -50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "100px" }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+      className={`${navClasses} `}
+    >
       <div className="container mx-auto flex items-center justify-between px-6">
         {/* Logo */}
         <Link
@@ -139,7 +151,7 @@ const Navbar = ({ isTransparent = false }: NavbarProps) => {
           </Link>
         </div>
       )}
-    </nav>
+    </motion.nav>
   );
 };
 

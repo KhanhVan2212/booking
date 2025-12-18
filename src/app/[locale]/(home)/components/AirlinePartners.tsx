@@ -1,6 +1,7 @@
 // components/AirlinePartners.tsx
 import Image from "next/image";
 import React from "react";
+import { motion } from "framer-motion";
 
 // Helper để tạo URL placeholder nếu chưa có logo
 const getLogo = (name: string, logo?: string) => {
@@ -47,9 +48,7 @@ const AirlinePartners = () => {
     ...domesticAirlines,
     ...domesticAirlines,
   ];
-  const scrollingInternational = [
-    ...internationalAirlines,
-  ];
+  const scrollingInternational = [...internationalAirlines];
 
   const renderScrollingRow = (
     items: typeof domesticAirlines,
@@ -64,7 +63,7 @@ const AirlinePartners = () => {
             key={index}
             className="flex h-24 w-[200px] flex-shrink-0 items-center justify-center px-4"
           >
-            <div className="relative h-16 w-full ">
+            <div className="relative h-16 w-full">
               <Image
                 src={getLogo(item.name, item.logo)}
                 alt={item.name}
@@ -86,7 +85,13 @@ const AirlinePartners = () => {
     <section className="overflow-hidden border-b border-slate-100 bg-white py-12">
       <div className="container mx-auto px-6">
         {/* Domestic Section */}
-        <div className="mb-10">
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
+          className="mb-10"
+        >
           <div className="mb-6 text-center">
             <span className="text-sm font-bold uppercase tracking-wider text-red-600">
               Mạng lưới đường bay
@@ -96,17 +101,21 @@ const AirlinePartners = () => {
             </h3>
           </div>
           {renderScrollingRow(scrollingDomestic, "left")}
-        </div>
+        </motion.div>
 
         {/* International Section */}
-        <div>
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}>
           <div className="mb-6 text-center">
             <h3 className="text-xl font-bold text-slate-800">
               Đối tác Hàng không Quốc tế
             </h3>
           </div>
           {renderScrollingRow(scrollingInternational, "right")}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

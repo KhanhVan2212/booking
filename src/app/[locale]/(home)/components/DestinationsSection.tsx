@@ -3,6 +3,7 @@ import { Link } from "@/i18n/navigation";
 import Image from "next/image";
 import React from "react";
 import { FaArrowRight } from "react-icons/fa6";
+import { motion } from "framer-motion";
 
 // Định nghĩa kiểu dữ liệu cho một địa điểm
 interface Destination {
@@ -20,7 +21,7 @@ const destinationsData: Destination[] = [
     slug: "da-nang",
     price: "1.200.000 VNĐ",
     imageUrl:
-      "https://images.unsplash.com/photo-1504457047772-27faf1c00561?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "/images/du-lich-da-nang.jpg",
   },
   {
     id: 2,
@@ -28,7 +29,7 @@ const destinationsData: Destination[] = [
     slug: "hoi-an",
     price: "890.000 VNĐ",
     imageUrl:
-      "https://images.unsplash.com/photo-1555921015-5532091f6026?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "/images/du-lich-hoi-an.png",
   },
   {
     id: 3,
@@ -36,7 +37,7 @@ const destinationsData: Destination[] = [
     slug: "phu-quoc",
     price: "1.500.000 VNĐ",
     imageUrl:
-      "https://images.unsplash.com/photo-1528127269322-539801943592?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "/images/du-lich-phu-quoc.png",
   },
   {
     id: 4,
@@ -51,7 +52,13 @@ const destinationsData: Destination[] = [
 const DestinationsSection = () => {
   return (
     <section className="container mx-auto px-6 py-16" id="destinations">
-      <div className="mb-8 flex items-end justify-between">
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
+        className="mb-8 flex items-end justify-between"
+      >
         <div>
           <h2 className="text-2xl font-bold text-slate-800 md:text-3xl">
             Điểm đến phổ biến
@@ -66,16 +73,23 @@ const DestinationsSection = () => {
         >
           Xem tất cả <FaArrowRight />
         </Link>
-      </div>
+      </motion.div>
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-        {destinationsData.map((dest) => (
+        {destinationsData.map((dest,index) => (
           <Link
             key={dest.id}
             href={`/destinations/${dest.slug}`}
             className="group cursor-pointer"
           >
-            <div className="relative h-64 overflow-hidden rounded-2xl shadow-md">
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.2 }}
+              className="relative h-64 overflow-hidden rounded-2xl shadow-md"
+            >
               {/* Lưu ý: Để tối ưu, nên dùng next/image thay cho thẻ img thường */}
               <Image
                 src={dest.imageUrl}
@@ -89,7 +103,7 @@ const DestinationsSection = () => {
                 <h3 className="text-lg font-bold">{dest.name}</h3>
                 <p className="text-sm opacity-90">Từ {dest.price}</p>
               </div>
-            </div>
+            </motion.div>
           </Link>
         ))}
       </div>

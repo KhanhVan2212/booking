@@ -1,6 +1,7 @@
 // components/HelpHero.tsx
 import React from "react";
 import { FaMagnifyingGlass } from "react-icons/fa6";
+import { motion } from "framer-motion";
 
 const HelpHero = () => {
   return (
@@ -14,13 +15,23 @@ const HelpHero = () => {
       <div className="absolute inset-0 bg-gradient-to-b from-slate-900/70 via-slate-900/50 to-slate-50"></div>
 
       <div className="container relative z-10 mx-auto flex h-full flex-col items-center justify-center px-6 text-center">
-        <h1 className="mb-6 text-3xl font-bold leading-tight text-white md:text-5xl">
+        <motion.h1
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="mb-6 text-3xl font-bold leading-tight text-white md:text-5xl"
+        >
           Chào bạn,{" "}
           <span className="text-red-500">Chúng tôi có thể giúp gì?</span>
-        </h1>
+        </motion.h1>
 
         {/* Search Bar */}
-        <div className="relative w-full max-w-2xl">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+          className="relative w-full max-w-2xl"
+        >
           <input
             type="text"
             placeholder="Tìm kiếm câu hỏi, chủ đề hoặc từ khóa..."
@@ -29,7 +40,7 @@ const HelpHero = () => {
           <button className="absolute right-2 top-2 flex h-10 w-10 items-center justify-center rounded-full bg-red-600 text-white transition hover:bg-red-700">
             <FaMagnifyingGlass />
           </button>
-        </div>
+        </motion.div>
       </div>
     </div>
   );

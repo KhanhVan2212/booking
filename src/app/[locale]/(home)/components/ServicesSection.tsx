@@ -1,202 +1,208 @@
-import React from 'react';
-import { 
-    FaPlane, FaUmbrellaBeach, FaMicrophoneLines, FaHandHoldingHeart,
-    FaPassport, FaSuitcaseRolling, FaHeadset, FaTicket, FaHotel, FaRotate, FaCheckToSlot
-} from 'react-icons/fa6';
+import React from "react";
+import {
+  FaPlane,
+  FaUmbrellaBeach,
+  FaMicrophoneLines,
+  FaHandHoldingHeart,
+  FaPassport,
+  FaSuitcaseRolling,
+  FaHeadset,
+  FaTicket,
+  FaHotel,
+  FaRotate,
+  FaCheckToSlot,
+} from "react-icons/fa6";
+import { motion } from "framer-motion";
+
+const MAIN_SERVICES = [
+  {
+    icon: FaPlane,
+    title: "Vé máy bay Toàn cầu",
+    color: "red",
+    items: [
+      "Vé nội địa & Quốc tế 24/7",
+      "Vé đoàn, Công tác, Vé Chính khách",
+      "Combo Tiết kiệm (Vé + Khách sạn)",
+      "Điều kiện hoàn hủy linh hoạt",
+    ],
+  },
+  {
+    icon: FaUmbrellaBeach,
+    title: "Du lịch & Lữ hành",
+    color: "blue",
+    items: [
+      "Tour du lịch Cao cấp (Luxury)",
+      "Tour MICE (Hội nghị kết hợp nghỉ dưỡng)",
+      "Dịch vụ đặt phòng khách sạn toàn cầu",
+      "Bảo hiểm du lịch quốc tế",
+    ],
+  },
+  {
+    icon: FaMicrophoneLines,
+    title: "Sự kiện & Hội nghị",
+    color: "orange",
+    items: [
+      "Tổ chức Hội nghị, Hội thảo Quốc tế",
+      "Cung cấp vé đoàn cho sự kiện lớn",
+      "Logistics và vận chuyển khách mời",
+    ],
+  },
+  {
+    icon: FaHandHoldingHeart,
+    title: "Dịch vụ Hỗ trợ Đặc biệt",
+    color: "green",
+    items: [
+      "Vé máy bay khẩn cấp (Last-minute)",
+      "Hỗ trợ thủ tục Visa nhanh chóng",
+      "Chăm sóc khách hàng VIP / Ưu tiên",
+    ],
+  },
+];
+
+const DETAILED_SERVICES = [
+  {
+    icon: FaPassport,
+    title: "Tư vấn Visa",
+    desc: "Hỗ trợ thủ tục nhập cảnh",
+  },
+  {
+    icon: FaRotate,
+    title: "Hoàn / Đổi vé",
+    desc: "Xử lý nhanh chóng",
+  },
+  {
+    icon: FaCheckToSlot,
+    title: "Check-in Online",
+    desc: "Chọn chỗ ngồi trước",
+  },
+  {
+    icon: FaSuitcaseRolling,
+    title: "Mua thêm Hành lý",
+    desc: "Giá ưu đãi đại lý",
+  },
+  {
+    icon: FaTicket,
+    title: "Tư vấn Hành trình",
+    desc: "Tối ưu chi phí & giờ bay",
+  },
+  {
+    icon: FaHeadset,
+    title: "Hỗ trợ 24/7",
+    desc: "Luôn sẵn sàng",
+  },
+];
 
 const ServicesSection = () => {
   return (
-    <section className="py-20 bg-white">
+    <section className="bg-white py-20">
       <div className="container mx-auto px-6">
-        
         {/* 1. HEADER */}
-        <div className="text-center mb-16">
-            <span className="text-red-600 font-bold uppercase tracking-wider text-sm">Hệ sinh thái dịch vụ</span>
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-800 mt-2">
-                Giải pháp toàn diện cho <br/> mọi hành trình của bạn
-            </h2>
-            <div className="w-24 h-1 bg-red-600 mx-auto mt-6 rounded-full"></div>
-        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
+          className="mb-16 text-center"
+        >
+          <span className="text-sm font-bold uppercase tracking-wider text-red-600">
+            Hệ sinh thái dịch vụ
+          </span>
+          <h2 className="mt-2 text-3xl font-bold text-slate-800 md:text-4xl">
+            Giải pháp toàn diện cho <br /> mọi hành trình của bạn
+          </h2>
+          <div className="mx-auto mt-6 h-1 w-24 rounded-full bg-red-600"></div>
+        </motion.div>
 
         {/* 2. MAIN SERVICES GRID (4 Cột chính) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-            
-            {/* Card 1: Vé máy bay (Core) */}
-            <div className="group bg-white rounded-2xl p-8 border border-slate-100 shadow-sm hover:shadow-xl hover:border-red-200 transition duration-300 relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-24 h-24 bg-red-50 rounded-bl-full -mr-4 -mt-4 transition group-hover:bg-red-100"></div>
-                <div className="relative z-10">
-                    <div className="w-14 h-14 bg-red-600 text-white rounded-xl flex items-center justify-center text-2xl mb-6 shadow-lg shadow-red-600/30">
-                        <FaPlane />
-                    </div>
-                    <h3 className="text-xl font-bold text-slate-800 mb-4">Vé máy bay Toàn cầu</h3>
-                    <ul className="space-y-3 text-slate-600 text-sm">
-                        <li className="flex items-start gap-2">
-                            <span className="w-1.5 h-1.5 bg-red-500 rounded-full mt-1.5"></span>
-                            Vé nội địa & Quốc tế 24/7
-                        </li>
-                        <li className="flex items-start gap-2">
-                            <span className="w-1.5 h-1.5 bg-red-500 rounded-full mt-1.5"></span>
-                            Vé đoàn, Công tác, Vé Chính khách
-                        </li>
-                        <li className="flex items-start gap-2">
-                            <span className="w-1.5 h-1.5 bg-red-500 rounded-full mt-1.5"></span>
-                            Combo Tiết kiệm (Vé + Khách sạn)
-                        </li>
-                        <li className="flex items-start gap-2">
-                            <span className="w-1.5 h-1.5 bg-red-500 rounded-full mt-1.5"></span>
-                            Điều kiện hoàn hủy linh hoạt
-                        </li>
-                    </ul>
-                </div>
-            </div>
+        <div className="mb-16 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+          {MAIN_SERVICES.map((service, index) => {
+            const Icon = service.icon;
+            // Dynamic styling based on color prop
+            const bgClass = {
+              red: "bg-red-50 group-hover:bg-red-100",
+              blue: "bg-blue-50 group-hover:bg-blue-100",
+              orange: "bg-orange-50 group-hover:bg-orange-100",
+              green: "bg-green-50 group-hover:bg-green-100",
+            }[service.color];
 
-            {/* Card 2: Du lịch & Lữ hành */}
-            <div className="group bg-white rounded-2xl p-8 border border-slate-100 shadow-sm hover:shadow-xl hover:border-red-200 transition duration-300 relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-24 h-24 bg-blue-50 rounded-bl-full -mr-4 -mt-4 transition group-hover:bg-blue-100"></div>
+            return (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="group relative overflow-hidden rounded-2xl border border-slate-100 bg-white p-8 shadow-sm transition duration-300 hover:border-red-200 hover:shadow-xl"
+              >
+                <div
+                  className={`absolute right-0 top-0 -mr-4 -mt-4 h-24 w-24 rounded-bl-full transition ${bgClass}`}
+                ></div>
                 <div className="relative z-10">
-                    <div className="w-14 h-14 bg-red-600 text-white rounded-xl flex items-center justify-center text-2xl mb-6 shadow-lg shadow-red-600/30">
-                        <FaUmbrellaBeach />
-                    </div>
-                    <h3 className="text-xl font-bold text-slate-800 mb-4">Du lịch & Lữ hành</h3>
-                    <ul className="space-y-3 text-slate-600 text-sm">
-                        <li className="flex items-start gap-2">
-                            <span className="w-1.5 h-1.5 bg-slate-400 rounded-full mt-1.5"></span>
-                            Tour du lịch Cao cấp (Luxury)
-                        </li>
-                        <li className="flex items-start gap-2">
-                            <span className="w-1.5 h-1.5 bg-slate-400 rounded-full mt-1.5"></span>
-                            Tour MICE (Hội nghị kết hợp nghỉ dưỡng)
-                        </li>
-                        <li className="flex items-start gap-2">
-                            <span className="w-1.5 h-1.5 bg-slate-400 rounded-full mt-1.5"></span>
-                            Dịch vụ đặt phòng khách sạn toàn cầu
-                        </li>
-                        <li className="flex items-start gap-2">
-                            <span className="w-1.5 h-1.5 bg-slate-400 rounded-full mt-1.5"></span>
-                            Bảo hiểm du lịch quốc tế
-                        </li>
-                    </ul>
+                  <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl bg-red-600 text-2xl text-white shadow-lg shadow-red-600/30">
+                    <Icon />
+                  </div>
+                  <h3 className="mb-4 text-xl font-bold text-slate-800">
+                    {service.title}
+                  </h3>
+                  <ul className="space-y-3 text-sm text-slate-600">
+                    {service.items.map((item, idx) => (
+                      <li key={idx} className="flex items-start gap-2">
+                        <span
+                          className={`h-1.5 w-1.5 ${service.color === "red" ? "bg-red-500" : "bg-slate-400"} mt-1.5 rounded-full`}
+                        ></span>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-            </div>
-
-            {/* Card 3: Sự kiện & Hội nghị */}
-            <div className="group bg-white rounded-2xl p-8 border border-slate-100 shadow-sm hover:shadow-xl hover:border-red-200 transition duration-300 relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-24 h-24 bg-orange-50 rounded-bl-full -mr-4 -mt-4 transition group-hover:bg-orange-100"></div>
-                <div className="relative z-10">
-                    <div className="w-14 h-14 bg-red-600 text-white rounded-xl flex items-center justify-center text-2xl mb-6 shadow-lg shadow-red-600/30">
-                        <FaMicrophoneLines />
-                    </div>
-                    <h3 className="text-xl font-bold text-slate-800 mb-4">Sự kiện & Hội nghị</h3>
-                    <ul className="space-y-3 text-slate-600 text-sm">
-                        <li className="flex items-start gap-2">
-                            <span className="w-1.5 h-1.5 bg-slate-400 rounded-full mt-1.5"></span>
-                            Tổ chức Hội nghị, Hội thảo Quốc tế
-                        </li>
-                        <li className="flex items-start gap-2">
-                            <span className="w-1.5 h-1.5 bg-slate-400 rounded-full mt-1.5"></span>
-                            Cung cấp vé đoàn cho sự kiện lớn
-                        </li>
-                        <li className="flex items-start gap-2">
-                            <span className="w-1.5 h-1.5 bg-slate-400 rounded-full mt-1.5"></span>
-                            Logistics và vận chuyển khách mời
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            {/* Card 4: Hỗ trợ đặc biệt */}
-            <div className="group bg-white rounded-2xl p-8 border border-slate-100 shadow-sm hover:shadow-xl hover:border-red-200 transition duration-300 relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-24 h-24 bg-green-50 rounded-bl-full -mr-4 -mt-4 transition group-hover:bg-green-100"></div>
-                <div className="relative z-10">
-                    <div className="w-14 h-14 bg-red-600 text-white rounded-xl flex items-center justify-center text-2xl mb-6 shadow-lg shadow-red-600/30">
-                        <FaHandHoldingHeart />
-                    </div>
-                    <h3 className="text-xl font-bold text-slate-800 mb-4">Dịch vụ Hỗ trợ Đặc biệt</h3>
-                    <ul className="space-y-3 text-slate-600 text-sm">
-                        <li className="flex items-start gap-2">
-                            <span className="w-1.5 h-1.5 bg-slate-400 rounded-full mt-1.5"></span>
-                            Vé máy bay khẩn cấp (Last-minute)
-                        </li>
-                        <li className="flex items-start gap-2">
-                            <span className="w-1.5 h-1.5 bg-slate-400 rounded-full mt-1.5"></span>
-                            Hỗ trợ thủ tục Visa nhanh chóng
-                        </li>
-                        <li className="flex items-start gap-2">
-                            <span className="w-1.5 h-1.5 bg-slate-400 rounded-full mt-1.5"></span>
-                            Chăm sóc khách hàng VIP / Ưu tiên
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
+              </motion.div>
+            );
+          })}
         </div>
 
         {/* 3. DETAILED FLIGHT SERVICES (Tiện ích chi tiết) */}
-        <div className="bg-slate-50 rounded-3xl p-8 md:p-12 border border-slate-100">
-            <div className="text-center mb-10">
-                <h3 className="text-2xl font-bold text-slate-800">Tiện ích Hàng không Chi tiết</h3>
-                <p className="text-slate-500 mt-2">Chúng tôi hỗ trợ bạn từng bước nhỏ nhất trên hành trình bay</p>
-            </div>
-            
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-                
-                {/* Item 1 */}
-                <div className="flex flex-col items-center text-center group">
-                    <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-sm text-red-600 text-2xl mb-3 group-hover:scale-110 transition duration-300 border border-slate-100">
-                        <FaPassport />
-                    </div>
-                    <h4 className="font-bold text-slate-700 text-sm">Tư vấn Visa</h4>
-                    <p className="text-xs text-slate-500 mt-1 px-2">Hỗ trợ thủ tục nhập cảnh</p>
-                </div>
+        <div className="rounded-3xl border border-slate-100 bg-slate-50 p-8 md:p-12">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
+            className="mb-10 text-center"
+          >
+            <h3 className="text-2xl font-bold text-slate-800">
+              Tiện ích Hàng không Chi tiết
+            </h3>
+            <p className="mt-2 text-slate-500">
+              Chúng tôi hỗ trợ bạn từng bước nhỏ nhất trên hành trình bay
+            </p>
+          </motion.div>
 
-                {/* Item 2 */}
-                <div className="flex flex-col items-center text-center group">
-                    <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-sm text-red-600 text-2xl mb-3 group-hover:scale-110 transition duration-300 border border-slate-100">
-                        <FaRotate />
-                    </div>
-                    <h4 className="font-bold text-slate-700 text-sm">Hoàn / Đổi vé</h4>
-                    <p className="text-xs text-slate-500 mt-1 px-2">Xử lý nhanh chóng</p>
-                </div>
-
-                {/* Item 3 */}
-                <div className="flex flex-col items-center text-center group">
-                    <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-sm text-red-600 text-2xl mb-3 group-hover:scale-110 transition duration-300 border border-slate-100">
-                        <FaCheckToSlot />
-                    </div>
-                    <h4 className="font-bold text-slate-700 text-sm">Check-in Online</h4>
-                    <p className="text-xs text-slate-500 mt-1 px-2">Chọn chỗ ngồi trước</p>
-                </div>
-
-                {/* Item 4 */}
-                <div className="flex flex-col items-center text-center group">
-                    <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-sm text-red-600 text-2xl mb-3 group-hover:scale-110 transition duration-300 border border-slate-100">
-                        <FaSuitcaseRolling />
-                    </div>
-                    <h4 className="font-bold text-slate-700 text-sm">Mua thêm Hành lý</h4>
-                    <p className="text-xs text-slate-500 mt-1 px-2">Giá ưu đãi đại lý</p>
-                </div>
-
-                {/* Item 5 */}
-                <div className="flex flex-col items-center text-center group">
-                    <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-sm text-red-600 text-2xl mb-3 group-hover:scale-110 transition duration-300 border border-slate-100">
-                        <FaTicket />
-                    </div>
-                    <h4 className="font-bold text-slate-700 text-sm">Tư vấn Hành trình</h4>
-                    <p className="text-xs text-slate-500 mt-1 px-2">Tối ưu chi phí & giờ bay</p>
-                </div>
-
-                {/* Item 6 */}
-                <div className="flex flex-col items-center text-center group">
-                    <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-sm text-red-600 text-2xl mb-3 group-hover:scale-110 transition duration-300 border border-slate-100">
-                        <FaHeadset />
-                    </div>
-                    <h4 className="font-bold text-slate-700 text-sm">Hỗ trợ 24/7</h4>
-                    <p className="text-xs text-slate-500 mt-1 px-2">Luôn sẵn sàng</p>
-                </div>
-
-            </div>
+          <div className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-6">
+            {DETAILED_SERVICES.map((item, index) => {
+              const Icon = item.icon;
+              return (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: index * 0.2 }}
+                  className="group flex flex-col items-center text-center"
+                >
+                  <div className="mb-3 flex h-16 w-16 items-center justify-center rounded-full border border-slate-100 bg-white text-2xl text-red-600 shadow-sm transition duration-300 group-hover:scale-110">
+                    <Icon />
+                  </div>
+                  <h4 className="text-sm font-bold text-slate-700">
+                    {item.title}
+                  </h4>
+                  <p className="mt-1 px-2 text-xs text-slate-500">
+                    {item.desc}
+                  </p>
+                </motion.div>
+              );
+            })}
+          </div>
         </div>
-
       </div>
     </section>
   );

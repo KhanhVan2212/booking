@@ -1,5 +1,6 @@
 // components/FlightHero.tsx
 import React from "react";
+import { motion } from "framer-motion";
 
 const FlightHero = () => {
   return (
@@ -14,14 +15,26 @@ const FlightHero = () => {
       <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-slate-50"></div>
 
       <div className="container relative z-10 mx-auto flex h-full flex-col items-center justify-center px-6 pb-20 text-center">
-        <h1 className="mb-4 text-3xl font-bold leading-tight text-white md:text-5xl">
+        <motion.h1
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+          className="mb-4 text-3xl font-bold leading-tight text-white md:text-5xl"
+        >
           Bay dễ dàng <br />{" "}
           <span className="text-red-500">Khám phá thế giới rộng lớn</span>
-        </h1>
-        <p className="mb-8 max-w-2xl text-lg text-gray-200">
+        </motion.h1>
+        <motion.p
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+          className="mb-8 max-w-2xl text-lg text-gray-200"
+        >
           Đặt vé máy bay trực tuyến nhanh chóng với giá tốt nhất. Trải nghiệm
           những chuyến bay an toàn và tiện lợi.
-        </p>
+        </motion.p>
       </div>
     </div>
   );

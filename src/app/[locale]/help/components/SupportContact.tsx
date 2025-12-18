@@ -1,22 +1,35 @@
 // components/SupportContact.tsx
 import React from "react";
 import { FaHeadset, FaEnvelope, FaMapLocationDot } from "react-icons/fa6";
+import { motion } from "framer-motion";
 
 const SupportContact = () => {
   return (
     <section className="bg-slate-50 py-16">
       <div className="container mx-auto px-6">
-        <div className="mb-12 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
+          className="mb-12 text-center"
+        >
           <h2 className="text-3xl font-bold text-slate-800">Vẫn cần hỗ trợ?</h2>
           <p className="mt-2 text-slate-500">
             Đội ngũ của chúng tôi luôn sẵn sàng lắng nghe và giải đáp mọi thắc
             mắc của bạn
           </p>
-        </div>
+        </motion.div>
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           {/* Card 1: Hotline */}
-          <div className="group flex flex-col items-center rounded-2xl bg-white p-8 text-center shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.15 }}
+            className="group flex flex-col items-center rounded-2xl bg-white p-8 text-center shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+          >
             <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-red-100 text-3xl text-red-600 transition group-hover:bg-red-600 group-hover:text-white">
               <FaHeadset />
             </div>
@@ -32,10 +45,16 @@ const SupportContact = () => {
             >
               024 3771 4566
             </a>
-          </div>
+          </motion.div>
 
           {/* Card 2: Email */}
-          <div className="group flex flex-col items-center rounded-2xl bg-white p-8 text-center shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="group flex flex-col items-center rounded-2xl bg-white p-8 text-center shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+          >
             <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-blue-100 text-3xl text-blue-600 transition group-hover:bg-blue-600 group-hover:text-white">
               <FaEnvelope />
             </div>
@@ -49,10 +68,16 @@ const SupportContact = () => {
             >
               PHONGVE@HAANHJSC.COM.VN
             </a>
-          </div>
+          </motion.div>
 
           {/* Card 3: Office */}
-          <div className="group flex flex-col items-center rounded-2xl bg-white p-8 text-center shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.45 }}
+            className="group flex flex-col items-center rounded-2xl bg-white p-8 text-center shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+          >
             <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-green-100 text-3xl text-green-600 transition group-hover:bg-green-600 group-hover:text-white">
               <FaMapLocationDot />
             </div>
@@ -66,7 +91,7 @@ const SupportContact = () => {
               VPGD: Tầng 9 Tòa nhà 26 Liễu Giai, Phường Ngọc Hà, Thành phố Hà
               Nội
             </span>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

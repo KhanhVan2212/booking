@@ -8,6 +8,7 @@ import {
   FaUserNurse,
   FaCircleQuestion,
 } from "react-icons/fa6";
+import { motion } from "framer-motion";
 
 const categories = [
   {
@@ -47,17 +48,27 @@ const categories = [
 const InfoCategories = () => {
   return (
     <section className="container mx-auto px-6 py-16">
-      <div className="mb-12 text-center">
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
+        className="mb-12 text-center"
+      >
         <h2 className="text-3xl font-bold text-slate-800">
           Danh mục thông tin
         </h2>
         <p className="mt-2 text-slate-500">Chọn chủ đề bạn cần tìm hiểu thêm</p>
-      </div>
+      </motion.div>
 
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
         {categories.map((cat, index) => (
-          <div
+          <motion.div
             key={index}
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
             className="group cursor-pointer rounded-2xl border border-slate-100 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-red-100 hover:shadow-lg"
           >
             <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-red-50 text-3xl text-red-600 transition group-hover:bg-red-600 group-hover:text-white">
@@ -67,7 +78,7 @@ const InfoCategories = () => {
               {cat.title}
             </h3>
             <p className="text-slate-500">{cat.description}</p>
-          </div>
+          </motion.div>
         ))}
       </div>
     </section>

@@ -7,6 +7,7 @@ import {
   FaLocationDot,
   FaUserTie,
 } from "react-icons/fa6";
+import { motion } from "framer-motion";
 
 const AboutmeSection = () => {
   return (
@@ -14,7 +15,13 @@ const AboutmeSection = () => {
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
           {/* Image Grid */}
-          <div className="relative grid grid-cols-2 gap-4">
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6 }}
+            className="relative grid grid-cols-2 gap-4"
+          >
             <img
               src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=800&auto=format&fit=crop"
               className="mb-8 h-64 w-full rounded-2xl object-cover shadow-lg"
@@ -29,10 +36,15 @@ const AboutmeSection = () => {
             <div className="absolute left-1/2 top-1/2 z-10 flex h-20 w-20 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-4 border-white bg-red-600 text-2xl text-white shadow-xl">
               <FaHandshake />
             </div>
-          </div>
+          </motion.div>
 
           {/* Text Content */}
-          <div>
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
             <span className="text-sm font-bold uppercase tracking-wider text-red-600">
               Về chúng tôi
             </span>
@@ -80,13 +92,19 @@ const AboutmeSection = () => {
                 </span>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
       <div className="bg-slate-50 py-20">
         <div className="container mx-auto px-6">
           {/* Phạm vi hoạt động */}
-          <div className="mb-16 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6 }}
+            className="mb-16 text-center"
+          >
             <h2 className="mb-8 text-3xl font-bold text-slate-800">
               Phạm vi hoạt động
             </h2>
@@ -114,20 +132,33 @@ const AboutmeSection = () => {
                 </p>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Giá trị cốt lõi */}
           <div className="text-center">
-            <span className="text-sm font-bold uppercase tracking-wider text-red-600">
-              Kim chỉ nam
-            </span>
-            <h2 className="mb-12 mt-2 text-3xl font-bold text-slate-800">
-              Giá trị cốt lõi
-            </h2>
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <span className="text-sm font-bold uppercase tracking-wider text-red-600">
+                Kim chỉ nam
+              </span>
+              <h2 className="mb-12 mt-2 text-3xl font-bold text-slate-800">
+                Giá trị cốt lõi
+              </h2>
+            </motion.div>
 
             <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
               {/* Card 1 */}
-              <div className="group relative overflow-hidden rounded-2xl border-t-4 border-red-600 bg-white p-8 shadow-sm transition duration-300 hover:shadow-xl">
+              <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                className="group relative overflow-hidden rounded-2xl border-t-4 border-red-600 bg-white p-8 shadow-sm transition duration-300 hover:shadow-xl"
+              >
                 <div className="absolute right-0 top-0 -mr-4 -mt-4 h-24 w-24 rounded-bl-full bg-red-50 transition group-hover:bg-red-100"></div>
                 <div className="relative z-10">
                   <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-lg bg-red-600 text-2xl text-white shadow-lg shadow-red-600/30">
@@ -141,10 +172,16 @@ const AboutmeSection = () => {
                     chuyên sâu, thái độ phục vụ chuẩn mực.
                   </p>
                 </div>
-              </div>
+              </motion.div>
 
               {/* Card 2 */}
-              <div className="group relative overflow-hidden rounded-2xl border-t-4 border-red-600 bg-white p-8 shadow-sm transition duration-300 hover:shadow-xl">
+              <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="group relative overflow-hidden rounded-2xl border-t-4 border-red-600 bg-white p-8 shadow-sm transition duration-300 hover:shadow-xl"
+              >
                 <div className="absolute right-0 top-0 -mr-4 -mt-4 h-24 w-24 rounded-bl-full bg-red-50 transition group-hover:bg-red-100"></div>
                 <div className="relative z-10">
                   <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-lg bg-red-600 text-2xl text-white shadow-lg shadow-red-600/30">
@@ -158,10 +195,16 @@ const AboutmeSection = () => {
                     hàng đầu. Hỗ trợ khách hàng trên mọi hành trình.
                   </p>
                 </div>
-              </div>
+              </motion.div>
 
               {/* Card 3 */}
-              <div className="group relative overflow-hidden rounded-2xl border-t-4 border-red-600 bg-white p-8 shadow-sm transition duration-300 hover:shadow-xl">
+              <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+                className="group relative overflow-hidden rounded-2xl border-t-4 border-red-600 bg-white p-8 shadow-sm transition duration-300 hover:shadow-xl"
+              >
                 <div className="absolute right-0 top-0 -mr-4 -mt-4 h-24 w-24 rounded-bl-full bg-red-50 transition group-hover:bg-red-100"></div>
                 <div className="relative z-10">
                   <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-lg bg-red-600 text-2xl text-white shadow-lg shadow-red-600/30">
@@ -175,7 +218,7 @@ const AboutmeSection = () => {
                     kết chất lượng dịch vụ vượt trội.
                   </p>
                 </div>
-              </div>
+              </motion.div>
             </div>
           </div>
         </div>

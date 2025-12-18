@@ -3,6 +3,7 @@ import { Link } from "@/i18n/navigation";
 import Image from "next/image";
 import React from "react";
 import { FaArrowRight } from "react-icons/fa6";
+import { motion } from "framer-motion";
 
 const blogs = [
   {
@@ -37,7 +38,13 @@ const blogs = [
 const InspirationSection = () => {
   return (
     <section className="container mx-auto px-6 py-16">
-      <div className="mb-10 flex items-end justify-between">
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
+        className="mb-10 flex items-end justify-between"
+      >
         <div>
           <h2 className="text-2xl font-bold text-slate-800 md:text-3xl">
             Cảm hứng du lịch
@@ -52,34 +59,42 @@ const InspirationSection = () => {
         >
           Xem blog <FaArrowRight />
         </Link>
-      </div>
+      </motion.div>
 
       <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-        {blogs.map((blog) => (
-          <Link
-            key={blog.id}
-            href={`/inspiration/${blog.slug}`}
-            className="group"
+        {blogs.map((blog, index) => (
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: index * 0.2 }}
           >
-            <div className="relative mb-4 h-64 overflow-hidden rounded-2xl shadow-sm">
-              <Image
-                width={800}
-                height={600}
-                src={blog.image}
-                alt={blog.title}
-                className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-              />
-              <div className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1 text-xs font-bold text-slate-800 backdrop-blur">
-                {blog.category}
+            <Link
+              key={blog.id}
+              href={`/inspiration/${blog.slug}`}
+              className="group"
+            >
+              <div className="relative mb-4 h-64 overflow-hidden rounded-2xl shadow-sm">
+                <Image
+                  width={800}
+                  height={600}
+                  src={blog.image}
+                  alt={blog.title}
+                  className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                />
+                <div className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1 text-xs font-bold text-slate-800 backdrop-blur">
+                  {blog.category}
+                </div>
               </div>
-            </div>
-            <div className="mb-2 flex items-center gap-2 text-xs text-slate-400">
-              <span>{blog.date}</span> • <span>5 phút đọc</span>
-            </div>
-            <h3 className="text-xl font-bold leading-snug text-slate-800 transition group-hover:text-red-600">
-              {blog.title}
-            </h3>
-          </Link>
+              <div className="mb-2 flex items-center gap-2 text-xs text-slate-400">
+                <span>{blog.date}</span> • <span>5 phút đọc</span>
+              </div>
+              <h3 className="text-xl font-bold leading-snug text-slate-800 transition group-hover:text-red-600">
+                {blog.title}
+              </h3>
+            </Link>
+          </motion.div>
         ))}
       </div>
     </section>

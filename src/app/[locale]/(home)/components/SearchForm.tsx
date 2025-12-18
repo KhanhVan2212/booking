@@ -17,6 +17,7 @@ import {
   FaMinus,
   FaCheck,
 } from "react-icons/fa6";
+import { motion } from "framer-motion";
 
 export default function SearchForm() {
   // --- STATE QUẢN LÝ ---
@@ -71,7 +72,13 @@ export default function SearchForm() {
     passengers.adult + passengers.child + passengers.infant;
 
   return (
-    <div className="container relative z-20 mx-auto -mt-32 px-4">
+    <motion.div
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.5, delay: 0.5, ease: "easeOut" }}
+      className="container relative z-20 mx-auto -mt-32 px-4"
+    >
       <div className="mx-auto max-w-5xl rounded-2xl border border-slate-100 bg-white p-6 shadow-2xl md:p-8">
         {/* 1. TABS (VÉ MÁY BAY / KHÁCH SẠN) */}
         <div className="mb-6 flex gap-6 border-b border-slate-200 pb-4">
@@ -238,7 +245,7 @@ export default function SearchForm() {
               </div>
             </button>
             <div className="">
-              <Link href="/flights">
+              <Link href="/contact">
                 <button className="flex w-full transform items-center justify-center gap-2 rounded-xl bg-red-600 px-10 py-3.5 font-bold text-white shadow-lg shadow-red-600/30 transition hover:-translate-y-0.5 hover:bg-red-700">
                   <FaMagnifyingGlass /> Liên hệ
                 </button>
@@ -360,6 +367,6 @@ export default function SearchForm() {
           )}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

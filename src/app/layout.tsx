@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { Be_Vietnam_Pro } from 'next/font/google';
+import { Be_Vietnam_Pro } from "next/font/google";
 import "./globals.css";
 
 // Cấu hình font chữ
-const vietnamPro = Be_Vietnam_Pro({ 
-  subsets: ['latin', 'vietnamese'],
-  weight: ['300', '400', '500', '600', '700'],
-  variable: '--font-vietnam-pro',
+const vietnamPro = Be_Vietnam_Pro({
+  subsets: ["latin", "vietnamese"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-vietnam-pro",
 });
 
 export const dynamic = "force-static";
@@ -14,18 +14,18 @@ export const dynamic = "force-static";
 // 🔥 SEO hard-code title + description cho Hà Anh JSC
 export async function generateMetadata(): Promise<Metadata> {
   // Bạn nên thay đổi domain này thành domain thật của Hà Anh khi deploy
-  const baseUrl =
-    process.env.NEXT_PUBLIC_DOMAIN ||
-    "https://haanhjsc.com.vn";
+  const baseUrl = process.env.NEXT_PUBLIC_DOMAIN || "https://haanhjsc.com.vn";
 
-  const siteTitle = "Hà Anh JSC | Vé Máy Bay - Du Lịch - Tổ Chức Sự Kiện Hàng Đầu";
-  const siteDescription = "Hà Anh JSC chuyên cung cấp vé máy bay nội địa & quốc tế, tour du lịch, đặt phòng khách sạn, tổ chức sự kiện MICE và dịch vụ visa. Cam kết Chuyên nghiệp – Tận tâm – Hiệu quả.";
+  const siteTitle =
+    "Hà Anh JSC | Vé Máy Bay - Du Lịch - Tổ Chức Sự Kiện Hàng Đầu";
+  const siteDescription =
+    "Hà Anh JSC chuyên cung cấp vé máy bay nội địa & quốc tế, tour du lịch, đặt phòng khách sạn, tổ chức sự kiện MICE và dịch vụ visa. Cam kết Chuyên nghiệp – Tận tâm – Hiệu quả.";
 
   return {
     metadataBase: new URL(baseUrl),
     title: {
-        default: siteTitle,
-        template: `%s | Hà Anh JSC`
+      default: siteTitle,
+      template: `%s | Hà Anh JSC`,
     },
     description: siteDescription,
     keywords: [
@@ -38,7 +38,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "Hội thảo",
       "Visa",
       "Đại lý vé máy bay Hà Nội",
-      "Hà Anh Aviation"
+      "Hà Anh Aviation",
     ],
     icons: {
       icon: [
@@ -66,8 +66,7 @@ export async function generateMetadata(): Promise<Metadata> {
       siteName: "Hà Anh JSC",
       images: [
         {
-          // Bạn nhớ tạo file ảnh cover (1200x630) đặt tên là og-image.png trong thư mục public/images/
-          url: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+          url: "/images/backgrounds/banner-seo.webp",
           width: 1200,
           height: 630,
           alt: "Hà Anh JSC - Dịch vụ Hàng không và Du lịch",
@@ -100,7 +99,7 @@ export default function RootLayout({
   return (
     <html lang={locale}>
       <body
-        className={`${vietnamPro.variable} antialiased bg-white text-slate-800`}
+        className={`${vietnamPro.variable} bg-white text-slate-800 antialiased`}
       >
         {children}
       </body>

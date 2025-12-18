@@ -21,7 +21,7 @@ const Page = () => {
       {/* Google Maps Iframe - Full Width */}
       <div className="h-[400px] w-full bg-slate-100">
         <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.636952737668!2d105.83984577599026!3d21.0071850885172!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ac77150dcf3f%3A0x6e9a65d6c8b934b!2zMSDEkOG6oWkgQ-G7kyBWaeG7h3QsIEzDqiDEkOG6oWkgSMOgbmgsIEhhaSBCw6AgVHLGsG5nLCBIw6AgTuG7mWksIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1710924409575!5m2!1svi!2s"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4583.707688816154!2d105.84642308599223!3d20.98574283938459!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ac6ac093362b%3A0x3f120579bda0c751!2zMyBOZy4gNTEgUC4gTMawxqFuZyBLaMOhbmggVGhp4buHbiwgVMawxqFuZyBNYWksIEhvw6BuZyBNYWksIEjDoCBO4buZaSAxMDAwMDAsIFZp4buHdCBOYW0!5e1!3m2!1svi!2s!4v1766043558053!5m2!1svi!2s"
           width="100%"
           height="100%"
           style={{ border: 0 }}

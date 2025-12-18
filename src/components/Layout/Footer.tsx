@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -13,7 +14,7 @@ import {
   FaApple,
   FaGooglePlay,
 } from "react-icons/fa6";
-
+import { motion } from "framer-motion";
 const PRODUCT_LINKS = [
   { href: "/", label: "Trang chủ" },
   { href: "/flights", label: "Chuyến bay" },
@@ -31,7 +32,11 @@ const SUPPORT_LINKS = [
 ];
 
 const SOCIAL_LINKS = [
-  { href: "https://www.facebook.com/dailyvemaybayhaanh.suntravel?mibextid=wwXIfr&rdid=l4xlVLjMAjNTfqrm&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1H34Q3iQAe%2F%3Fmibextid%3DwwXIfr", icon: FaFacebookF, colorClass: "hover:bg-blue-600" },
+  {
+    href: "https://www.facebook.com/dailyvemaybayhaanh.suntravel?mibextid=wwXIfr&rdid=l4xlVLjMAjNTfqrm&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1H34Q3iQAe%2F%3Fmibextid%3DwwXIfr",
+    icon: FaFacebookF,
+    colorClass: "hover:bg-blue-600",
+  },
   // { href: "#", icon: FaInstagram, colorClass: "hover:bg-pink-600" },
   // { href: "#", icon: FaLinkedinIn, colorClass: "hover:bg-blue-700" },
   // { href: "#", icon: FaYoutube, colorClass: "hover:bg-red-600" },
@@ -64,7 +69,13 @@ const BOTTOM_LINKS = [
 
 const Footer = () => {
   return (
-    <footer className="mt-auto bg-slate-900 text-sm text-slate-300">
+    <motion.footer
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5 }}
+      className="mt-auto bg-slate-900 text-sm text-slate-300"
+    >
       {/* 1. TOP SECTION: DOWNLOAD APP CTA */}
       <div className="border-b border-slate-800">
         <div className="container mx-auto flex flex-col items-center justify-between gap-6 px-6 py-10 md:flex-row">
@@ -202,33 +213,7 @@ const Footer = () => {
               ))}
             </div>
 
-            {/* <h3 className="mb-4 text-base font-bold uppercase tracking-wider text-white">
-              Đối tác thanh toán
-            </h3>
-            <div className="flex flex-wrap gap-2">
-              {PAYMENT_PARTNERS.map((partner, index) => {
-                if (partner.type === "image") {
-                  return (
-                    <Image
-                      key={index}
-                      width={50}
-                      height={20}
-                      src={partner.src!}
-                      className="h-6 rounded bg-white p-1"
-                      alt={partner.alt!}
-                    />
-                  );
-                }
-                return (
-                  <div
-                    key={index}
-                    className="flex h-6 items-center rounded bg-white px-2 text-xs font-bold text-slate-800"
-                  >
-                    {partner.label}
-                  </div>
-                );
-              })}
-            </div> */}
+            {/* Payment Partners Commented Out */}
           </div>
         </div>
       </div>
@@ -253,7 +238,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-    </footer>
+    </motion.footer>
   );
 };
 

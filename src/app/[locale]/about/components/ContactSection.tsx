@@ -5,6 +5,7 @@ import {
   FaPaperPlane,
   FaPhone,
 } from "react-icons/fa6";
+import { motion } from "framer-motion";
 
 const ContactSection = () => {
   return (
@@ -15,7 +16,12 @@ const ContactSection = () => {
       <div className="container relative z-10 mx-auto px-6">
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-2">
           {/* Contact Info */}
-          <div>
+          <motion.div
+            initial={{ opacity: 0, x: -100 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "100px" }}
+            transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
+          >
             <span className="text-sm font-bold uppercase tracking-wider text-red-600">
               Liên hệ
             </span>
@@ -65,15 +71,22 @@ const ContactSection = () => {
                     Văn phòng
                   </h4>
                   <p className="font-medium text-slate-600">
-                    Số 2 ngách 3 Ngõ 51 phố Lương Khánh Thiện , Phường Tương Mai, Thành phố Hà Nội
+                    Số 2 ngách 3 Ngõ 51 phố Lương Khánh Thiện , Phường Tương
+                    Mai, Thành phố Hà Nội
                   </p>
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Contact Form */}
-          <div className="rounded-3xl border border-slate-100 bg-white p-8 shadow-xl">
+          <motion.div
+            initial={{ opacity: 0, x: 100 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "100px" }}
+            transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
+            className="rounded-3xl border border-slate-100 bg-white p-8 shadow-xl"
+          >
             <h3 className="mb-6 text-2xl font-bold text-slate-800">
               Gửi tin nhắn cho chúng tôi
             </h3>
@@ -124,7 +137,7 @@ const ContactSection = () => {
                 <FaPaperPlane /> Gửi tin nhắn
               </button>
             </form>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

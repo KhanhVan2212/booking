@@ -3,6 +3,7 @@
 
 import React, { useState } from "react";
 import { FaPlus, FaMinus } from "react-icons/fa6";
+import { motion } from "framer-motion";
 
 const faqs = [
   {
@@ -60,13 +61,25 @@ const FaqSection = () => {
   return (
     <section className="container mx-auto px-6 py-16">
       <div className="mx-auto max-w-4xl">
-        <h2 className="mb-10 text-center text-3xl font-bold text-slate-800">
+        <motion.h2
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
+          className="mb-10 text-center text-3xl font-bold text-slate-800"
+        >
           Câu hỏi thường gặp
-        </h2>
+        </motion.h2>
 
         <div className="space-y-8">
           {faqs.map((group, groupIdx) => (
-            <div key={groupIdx}>
+            <motion.div
+              key={groupIdx}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: groupIdx * 0.2 }}
+            >
               <h3 className="mb-4 text-xl font-bold text-red-600">
                 {group.category}
               </h3>
@@ -100,7 +113,7 @@ const FaqSection = () => {
                   );
                 })}
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

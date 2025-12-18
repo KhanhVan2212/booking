@@ -5,6 +5,7 @@ import { Link } from "@/i18n/navigation";
 import Image from "next/image";
 import React, { useState } from "react";
 import { FaLocationDot } from "react-icons/fa6";
+import { motion } from "framer-motion";
 
 interface Destination {
   id: number;
@@ -34,8 +35,7 @@ const allDestinations: Destination[] = [
     slug: "ha-long",
     region: "domestic",
     description: "Kỳ quan thiên nhiên thế giới",
-    imageUrl:
-      "https://images.unsplash.com/photo-1506665531195-3566afe2be3a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    imageUrl: "/images/du-lich-ha-long.webp",
     price: "Từ 1.500.000 VNĐ",
   },
   {
@@ -44,8 +44,7 @@ const allDestinations: Destination[] = [
     slug: "sapa",
     region: "domestic",
     description: "Thành phố trong sương",
-    imageUrl:
-      "https://images.unsplash.com/photo-1570698472551-6826c854123c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    imageUrl: "/images/du-lich-sapa.png",
     price: "Từ 1.100.000 VNĐ",
   },
   // Miền Trung
@@ -55,8 +54,7 @@ const allDestinations: Destination[] = [
     slug: "da-nang",
     region: "domestic",
     description: "Thành phố đáng sống",
-    imageUrl:
-      "https://images.unsplash.com/photo-1504457047772-27faf1c00561?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    imageUrl: "/images/du-lich-da-nang.jpg",
     price: "Từ 990.000 VNĐ",
   },
   {
@@ -65,8 +63,7 @@ const allDestinations: Destination[] = [
     slug: "hoi-an",
     region: "domestic",
     description: "Phố cổ bình yên",
-    imageUrl:
-      "https://images.unsplash.com/photo-1555921015-5532091f6026?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    imageUrl: "/images/du-lich-hoi-an.png",
     price: "Từ 890.000 VNĐ",
   },
   {
@@ -75,8 +72,7 @@ const allDestinations: Destination[] = [
     slug: "hue",
     region: "domestic",
     description: "Cố đô trầm mặc",
-    imageUrl:
-      "https://images.unsplash.com/photo-1587848692797-4cc521d55694?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    imageUrl: "/images/du-lich-hue.jpg",
     price: "Từ 1.050.000 VNĐ",
   },
   {
@@ -85,8 +81,7 @@ const allDestinations: Destination[] = [
     slug: "nha-trang",
     region: "domestic",
     description: "Hòn ngọc viễn đông",
-    imageUrl:
-      "https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    imageUrl: "/images/du-lich-nha-trang.jpg",
     price: "Từ 1.300.000 VNĐ",
   },
   // Miền Nam
@@ -106,8 +101,7 @@ const allDestinations: Destination[] = [
     slug: "phu-quoc",
     region: "domestic",
     description: "Đảo ngọc thiên đường",
-    imageUrl:
-      "https://images.unsplash.com/photo-1528127269322-539801943592?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    imageUrl: "/images/du-lich-phu-quoc.png",
     price: "Từ 1.600.000 VNĐ",
   },
   // Quốc tế
@@ -165,7 +159,13 @@ const AllDestinations = () => {
   return (
     <section className="container mx-auto px-6 py-12">
       {/* Filter Tabs */}
-      <div className="mb-8 flex justify-center">
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
+        className="mb-8 flex justify-center"
+      >
         <div className="inline-flex rounded-xl bg-slate-100 p-1">
           <button
             onClick={() => setFilter("all")}
@@ -186,12 +186,19 @@ const AllDestinations = () => {
             Quốc tế
           </button>
         </div>
-      </div>
+      </motion.div>
 
       {/* Grid */}
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {filteredDestinations.map((dest) => (
-          <div key={dest.id} className="group cursor-pointer">
+        {filteredDestinations.map((dest, index) => (
+          <motion.div
+            key={dest.id}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
+            className="group cursor-pointer"
+          >
             <Link href={`/destinations/${dest.slug}`}>
               <div className="relative h-72 overflow-hidden rounded-2xl shadow-sm transition hover:shadow-md">
                 <Image
@@ -220,7 +227,7 @@ const AllDestinations = () => {
                 </div>
               </div>
             </Link>
-          </div>
+          </motion.div>
         ))}
       </div>
     </section>

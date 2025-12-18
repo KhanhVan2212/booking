@@ -2,7 +2,7 @@
 import Image from "next/image";
 import React from "react";
 import { FaArrowRight } from "react-icons/fa6";
-
+import { motion } from "framer-motion";
 // Định nghĩa kiểu dữ liệu cho một tuyến bay
 interface Route {
   id: number;
@@ -50,7 +50,13 @@ const routesData: Route[] = [
 const PopularRoutes = () => {
   return (
     <section className="container mx-auto px-6 py-16" id="popular-routes">
-      <div className="mb-8 flex items-end justify-between">
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
+        className="mb-8 flex items-end justify-between"
+      >
         <div>
           <h2 className="text-2xl font-bold text-slate-800 md:text-3xl">
             Chặng bay phổ biến
@@ -65,11 +71,18 @@ const PopularRoutes = () => {
         >
           Xem tất cả <FaArrowRight />
         </a>
-      </div>
+      </motion.div>
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-        {routesData.map((route) => (
-          <div key={route.id} className="group cursor-pointer">
+        {routesData.map((route, index) => (
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: index * 0.2 }}
+            className="group cursor-pointer"
+          >
             <div className="relative h-64 overflow-hidden rounded-2xl shadow-md">
               <Image
                 src={route.imageUrl}
@@ -86,7 +99,7 @@ const PopularRoutes = () => {
                 <p className="text-sm opacity-90">Từ {route.price}</p>
               </div>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
     </section>
