@@ -1,33 +1,36 @@
 // components/InspirationSection.tsx
+import { Link } from "@/i18n/navigation";
 import Image from "next/image";
-import Link from "next/link";
 import React from "react";
 import { FaArrowRight } from "react-icons/fa6";
 
 const blogs = [
   {
     id: 1,
-    title: 'Top 10 địa điểm check-in "cháy máy" tại Phú Quốc 2023',
-    category: "Điểm đến",
+    title: "10 Địa điểm check-in không thể bỏ qua tại Đà Nẵng",
+    slug: "10-dia-diem-check-in-da-nang",
+    category: "Địa điểm",
     image:
-      "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=800&auto=format&fit=crop",
-    date: "12 Th10",
+      "https://images.unsplash.com/photo-1555921015-5532091f6026?w=800&q=80",
+    date: "15 Th12",
   },
   {
     id: 2,
-    title: "Kinh nghiệm săn vé máy bay Tết giá rẻ không phải ai cũng biết",
-    category: "Bí kíp",
+    title: "Kinh nghiệm du lịch Thái Lan tự túc cho người mới",
+    slug: "kinh-nghiem-du-lich-thai-lan",
+    category: "Kinh nghiệm",
     image:
-      "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=800&auto=format&fit=crop",
-    date: "05 Th10",
+      "https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=800&q=80",
+    date: "10 Th12",
   },
   {
     id: 3,
-    title: "Khám phá ẩm thực đường phố Đà Nẵng chỉ với 200k",
+    title: "Top 5 món ăn đường phố nhất định phải thử ở Hà Nội",
+    slug: "top-5-mon-an-duong-pho-ha-noi",
     category: "Ẩm thực",
     image:
-      "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=800&auto=format&fit=crop",
-    date: "28 Th09",
+      "https://images.unsplash.com/photo-1504457047772-27faf1c00561?w=800&q=80",
+    date: "05 Th12",
   },
 ];
 
@@ -44,7 +47,7 @@ const InspirationSection = () => {
           </p>
         </div>
         <Link
-          href="#"
+          href="/inspiration"
           className="flex items-center gap-1 font-semibold text-red-600 hover:underline"
         >
           Xem blog <FaArrowRight />
@@ -53,7 +56,11 @@ const InspirationSection = () => {
 
       <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
         {blogs.map((blog) => (
-          <Link key={blog.id} href="#" className="group">
+          <Link
+            key={blog.id}
+            href={`/inspiration/${blog.slug}`}
+            className="group"
+          >
             <div className="relative mb-4 h-64 overflow-hidden rounded-2xl shadow-sm">
               <Image
                 width={800}

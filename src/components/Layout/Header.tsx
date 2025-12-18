@@ -13,10 +13,6 @@ interface NavbarProps {
 const Navbar = ({ isTransparent = false }: NavbarProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  // LOGIC CLASS:
-  // 1. Luôn dùng 'fixed' để thanh nav luôn bám trên cùng màn hình.
-  // 2. Nếu isTransparent = true: Nền trong suốt, chữ trắng.
-  // 3. Nếu isTransparent = false: Nền trắng, có bóng, chữ đen.
   const navClasses = isTransparent
     ? "fixed top-0 w-full z-50 bg-transparent border-b border-white/10"
     : "fixed top-0 w-full z-50 bg-white shadow-md";
@@ -57,17 +53,23 @@ const Navbar = ({ isTransparent = false }: NavbarProps) => {
           <Link href="/" className={`${textClasses} transition`}>
             Trang chủ
           </Link>
+          <Link href="/flights" className={`${textClasses} transition`}>
+            Chuyến bay
+          </Link>
+          <Link href="/destinations" className={`${textClasses} transition`}>
+            Điểm đến phổ biến
+          </Link>
+          <Link href="/travel-info" className={`${textClasses} transition`}>
+            Thông tin du lịch
+          </Link>
           <Link href="/about" className={`${textClasses} transition`}>
             Về chúng tôi
           </Link>
-          <Link href="/experience" className={`${textClasses} transition`}>
-            Trải nghiệm
+          <Link href="/contact" className={`${textClasses} transition`}>
+            Liên hệ
           </Link>
-          <Link href="/offers" className={`${textClasses} transition`}>
-            Ưu đãi
-          </Link>
-          <Link href="/policy" className={`${textClasses} transition`}>
-            Chính sách
+          <Link href="/help" className={`${textClasses} transition`}>
+            Trợ giúp
           </Link>
         </div>
 
@@ -94,6 +96,27 @@ const Navbar = ({ isTransparent = false }: NavbarProps) => {
             Trang chủ
           </Link>
           <Link
+            href="/flights"
+            className="text-lg font-medium text-slate-600 hover:text-red-600"
+            onClick={() => setIsOpen(false)}
+          >
+            Chuyến bay
+          </Link>
+          <Link
+            href="/destinations"
+            className="text-lg font-medium text-slate-600 hover:text-red-600"
+            onClick={() => setIsOpen(false)}
+          >
+            Điểm đến phổ biến
+          </Link>
+          <Link
+            href="/travel-info"
+            className="text-lg font-medium text-slate-600 hover:text-red-600"
+            onClick={() => setIsOpen(false)}
+          >
+            Thông tin du lịch
+          </Link>
+          <Link
             href="/about"
             className="text-lg font-medium text-slate-600 hover:text-red-600"
             onClick={() => setIsOpen(false)}
@@ -101,25 +124,18 @@ const Navbar = ({ isTransparent = false }: NavbarProps) => {
             Về chúng tôi
           </Link>
           <Link
-            href="/experience"
+            href="/contact"
             className="text-lg font-medium text-slate-600 hover:text-red-600"
             onClick={() => setIsOpen(false)}
           >
-            Trải nghiệm
+            Liên hệ
           </Link>
           <Link
-            href="/offers"
+            href="/help"
             className="text-lg font-medium text-slate-600 hover:text-red-600"
             onClick={() => setIsOpen(false)}
           >
-            Ưu đãi
-          </Link>
-          <Link
-            href="/policy"
-            className="text-lg font-medium text-slate-600 hover:text-red-600"
-            onClick={() => setIsOpen(false)}
-          >
-            Chính sách
+            Trợ giúp
           </Link>
         </div>
       )}

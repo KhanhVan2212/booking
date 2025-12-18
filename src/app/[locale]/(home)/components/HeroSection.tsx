@@ -7,7 +7,7 @@ const HeroSection = () => {
       className="relative h-[600px] bg-cover bg-center"
       style={{
         backgroundImage:
-          "url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')",
+          "url('/images/backgrounds/banner-home.avif')",
       }}
     >
       {/* Overlay tối màu */}

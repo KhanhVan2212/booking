@@ -6,7 +6,6 @@ import SearchForm from "./components/SearchForm";
 import DestinationsSection from "./components/DestinationsSection";
 import FeaturesSection from "./components/FeaturesSection";
 import AirlinePartners from "./components/AirlinePartners";
-import FlashDealsSection from "./components/FlashDealsSection";
 import InspirationSection from "./components/InspirationSection";
 import ServicesSection from "./components/ServicesSection";
 import ContactSection from "../about/components/ContactSection";
@@ -28,7 +27,6 @@ const Page = () => {
       <ServicesSection />
       <FeaturesSection />
       <DestinationsSection />
-      <FlashDealsSection />
       <InspirationSection />
       <AirlinePartners />
       <ContactSection />
