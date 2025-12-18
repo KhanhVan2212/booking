@@ -20,8 +20,8 @@ const Navbar = ({ isTransparent = false }: NavbarProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const navClasses = isTransparent
-    ? "fixed top-0 w-full z-50 bg-transparent border-b border-white/10"
-    : "fixed top-0 w-full z-50 bg-white shadow-md";
+    ? "fixed top-0 w-full z-50 bg-transparent border-b border-white/10 transition-colors duration-500 shadow-none"
+    : "fixed top-0 w-full z-50 bg-white shadow-md transition-colors duration-500";
 
   // Text color logic for desktop
   const textClasses = isTransparent
@@ -47,7 +47,7 @@ const Navbar = ({ isTransparent = false }: NavbarProps) => {
         {/* Logo */}
         <Link
           href="/"
-          className={`flex items-center gap-2 text-2xl font-bold ${logoColor}`}
+          className={`flex items-center gap-2 text-2xl font-bold transition-colors duration-500 ${logoColor}`}
         >
           <Image
             src="/images/logo.png"

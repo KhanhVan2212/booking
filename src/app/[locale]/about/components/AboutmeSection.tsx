@@ -8,6 +8,7 @@ import {
   FaUserTie,
 } from "react-icons/fa6";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const AboutmeSection = () => {
   return (
@@ -22,14 +23,18 @@ const AboutmeSection = () => {
             transition={{ duration: 0.6 }}
             className="relative grid grid-cols-2 gap-4"
           >
-            <img
+            <Image
               src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=800&auto=format&fit=crop"
               className="mb-8 h-64 w-full rounded-2xl object-cover shadow-lg"
+              width={300}
+              height={300}
               alt="Office"
             />
-            <img
+            <Image
               src="https://images.unsplash.com/photo-1577412647305-991150c7d163?q=80&w=800&auto=format&fit=crop"
               className="mt-8 h-64 w-full rounded-2xl object-cover shadow-lg"
+              width={300}
+              height={300}
               alt="Meeting"
             />
             {/* Decorative Dot */}

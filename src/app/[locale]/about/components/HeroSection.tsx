@@ -1,15 +1,18 @@
 import React from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const HeroSection = () => {
   return (
     <div className="relative flex h-[500px] items-center justify-center text-center text-white">
       {/* Background Image */}
       <div className="absolute inset-0">
-        <img
+        <Image
           src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=2000&auto=format&fit=crop"
           alt="Ha Anh Team"
           className="h-full w-full object-cover"
+          width={2000}
+          height={500}
         />
         {/* Overlay Gradient Đỏ */}
         <div className="absolute inset-0 bg-gradient-to-r from-red-500/90 via-red-600/80 to-red-500/80"></div>
