@@ -1,7 +1,7 @@
-// components/AirlinePartners.tsx
 import Image from "next/image";
 import React from "react";
 import { motion } from "framer-motion";
+import Marquee from "react-fast-marquee";
 
 // Helper để tạo URL placeholder nếu chưa có logo
 const getLogo = (name: string, logo?: string) => {
@@ -22,65 +22,89 @@ const internationalAirlines = [
   { name: "Korean Air", logo: "/images/Korean-air.png" },
   { name: "Qantas", logo: "/images/Quantas.png" },
   { name: "China Southern", logo: "/images/China-Southern.png" },
-  { name: "American Airlines", logo: "/images/American-Airlines.png" },
-  { name: "Japan Airlines", logo: "/images/Japan-Airlines.png" },
+  {
+    name: "American Airlines",
+    logo: "/images/American-Airlines.png",
+    scale: 2,
+  },
+  { name: "Japan Airlines", logo: "/images/Japan-Airlines.png", scale: 2 },
   { name: "Air France", logo: "/images/Air-France.png" },
   { name: "Air China", logo: "/images/Air-China.png" },
   { name: "EVA Air", logo: "/images/EVA-Air.png" },
-  { name: "Philippine Airlines", logo: "/images/Philippine-Airlines.png" },
+  {
+    name: "Philippine Airlines",
+    logo: "/images/Philippine-Airlines.png",
+    scale: 2,
+  },
   { name: "British Airways", logo: "/images/British-Airways.png" },
   { name: "Asiana Airlines", logo: "/images/Asiana-Airlines.png" },
   { name: "Lufthansa", logo: "/images/Lufthansa.png" },
   { name: "Aeroflot", logo: "/images/Aeroflot.png" },
   { name: "Singapore Airlines", logo: "/images/Singapore-Airlines.png" },
-  { name: "China Airlines", logo: "/images/China-Airlines.png" },
+  { name: "China Airlines", logo: "/images/China-Airlines.png", scale: 2.5 },
   { name: "Air Canada", logo: "/images/Air-Canada.png" },
   { name: "Delta Airlines", logo: "/images/Delta-Airlines.png" },
-  { name: "Cathay Pacific", logo: "/images/Cathay-Pacific.png" },
+  { name: "Cathay Pacific", logo: "/images/Cathay-Pacific.png", scale: 2 },
   { name: "Turkish Airlines", logo: "/images/Turkish-Airlines.png" },
   { name: "Emirates", logo: "/images/Emirates.png" },
 ];
 
+const customerPartners = [
+  { name: "Ngân hàng NN & PTNT VN", logo: "/images/agribank.jpg", scale: 1.5 },
+  {
+    name: "Ngân Hàng TMCP Đầu tư và Phát triển Việt Nam",
+    logo: "/images/bidv.png",
+    scale: 1.5,
+  },
+  { name: "Bộ Giáo Dục Và Đào Tạo", logo: "/images/gddt.png", scale: 1.5 },
+  { name: "Bộ tài chính", logo: "/images/btt.jpg", scale: 1.5 },
+  {
+    name: "Sở giáo dục và Đào tạo Hà Nội",
+    logo: "/images/gddt-hn.png",
+    scale: 1.5,
+  },
+  { name: "Tập đoàn điện lực Việt Nam", logo: "/images/evn.png", scale: 1.5 },
+  { name: "BẢO HIỂM TIỀN GỬI VIỆT NAM", logo: "/images/div.png", scale: 1.5 },
+  { name: "Tổng Công ty Bảo Hiểm BIDV", logo: "/images/bico.png", scale: 2 },
+  {
+    name: "Tổng Công ty CP Bia rượu nước giải khát Hà Nội",
+    logo: "/images/habeco.png",
+    scale: 2,
+  },
+  { name: "Văn phòng Cục thuế", logo: "/images/tnn.jpg", scale: 1.5 },
+  {
+    name: "Trung tâm sản xuất phim truyền hình, đài THVN",
+    logo: "/images/vfc.png",
+  },
+  {
+    name: "Trung tâm quảng cáo và dịch vụ truyền thông (VOV AMS)",
+    logo: "/images/vov.png",
+  },
+  { name: "Công Đoàn Xây dựng Việt Nam", logo: "/images/cdvn.png", scale: 1.5 },
+  {
+    name: "Tổng công ty thăm dò khai thác dầu khí",
+    logo: "/images/pvep.png",
+    scale: 1.5,
+  },
+  {
+    name: "Viện vệ sinh dịch tễ trung ương",
+    logo: "/images/nihe.jpg",
+    scale: 1.5,
+  },
+  { name: "Bệnh Viện E", logo: "/images/hospital-e.png", scale: 1.5 },
+  { name: "Bệnh Viện Việt Đức", logo: "/images/viet-duc.jpg", scale: 2 },
+  { name: "Học viện quản lý giáo dục", logo: "/images/naem.jpg", scale: 1.5 },
+  { name: "Trường Đại học thương mại", logo: "/images/tmu.jpg", scale: 1.5 },
+  { name: "Trường ĐH Giáo dục", logo: "/images/ued.png", scale: 1.5 },
+  {
+    name: "Trường THPT chuyên ĐHSP",
+    logo: "/images/thpt-dhsp.png",
+    scale: 1.5,
+  },
+  { name: "CỤC CẢNH SÁT GIAO THÔNG", logo: "/images/csgt.png", scale: 1.5 },
+];
+
 const AirlinePartners = () => {
-  // Nhân đôi để scroll vô tận
-  const scrollingDomestic = [
-    ...domesticAirlines,
-    ...domesticAirlines,
-    ...domesticAirlines,
-  ];
-  const scrollingInternational = [...internationalAirlines];
-
-  const renderScrollingRow = (
-    items: typeof domesticAirlines,
-    direction: "left" | "right",
-  ) => (
-    <div className="relative w-full overflow-hidden">
-      <div
-        className={`flex w-full ${direction === "left" ? "animate-scroll" : "animate-scroll-reverse"}`}
-      >
-        {items.map((item, index) => (
-          <div
-            key={index}
-            className="flex h-24 w-[200px] flex-shrink-0 items-center justify-center px-4"
-          >
-            <div className="relative h-16 w-full">
-              <Image
-                src={getLogo(item.name, item.logo)}
-                alt={item.name}
-                fill
-                className="object-contain"
-                unoptimized // Để load ảnh từ external url (placehold.co)
-              />
-            </div>
-          </div>
-        ))}
-      </div>
-      {/* Fade effect */}
-      <div className="absolute inset-y-0 left-0 z-10 w-20 bg-gradient-to-r from-white to-transparent"></div>
-      <div className="absolute inset-y-0 right-0 z-10 w-20 bg-gradient-to-l from-white to-transparent"></div>
-    </div>
-  );
-
   return (
     <section className="overflow-hidden border-b border-slate-100 bg-white py-12">
       <div className="container mx-auto px-6">
@@ -100,7 +124,30 @@ const AirlinePartners = () => {
               Đối tác Hàng không Nội địa
             </h3>
           </div>
-          {renderScrollingRow(scrollingDomestic, "left")}
+
+          <div className="relative">
+            <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-20 bg-gradient-to-r from-white to-transparent"></div>
+            <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-20 bg-gradient-to-l from-white to-transparent"></div>
+
+            <Marquee gradient={false} speed={50} pauseOnHover autoFill>
+              {domesticAirlines.map((item, index) => (
+                <div
+                  key={index}
+                  className="flex h-24 w-[200px] items-center justify-center px-4"
+                >
+                  <div className="relative h-16 w-full">
+                    <Image
+                      src={getLogo(item.name, item.logo)}
+                      alt={item.name}
+                      fill
+                      className="object-contain"
+                      unoptimized
+                    />
+                  </div>
+                </div>
+              ))}
+            </Marquee>
+          </div>
         </motion.div>
 
         {/* International Section */}
@@ -108,13 +155,109 @@ const AirlinePartners = () => {
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}>
+          transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
+          className="mb-10"
+        >
           <div className="mb-6 text-center">
             <h3 className="text-xl font-bold text-slate-800">
               Đối tác Hàng không Quốc tế
             </h3>
           </div>
-          {renderScrollingRow(scrollingInternational, "right")}
+
+          <div className="relative">
+            <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-20 bg-gradient-to-r from-white to-transparent"></div>
+            <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-20 bg-gradient-to-l from-white to-transparent"></div>
+
+            <Marquee
+              gradient={false}
+              speed={50}
+              pauseOnHover
+              direction="right"
+              autoFill
+            >
+              {internationalAirlines.map(
+                (
+                  item: { name: string; logo: string; scale?: number },
+                  index: number,
+                ) => (
+                  <div
+                    key={index}
+                    className="flex h-24 w-[200px] items-center justify-center px-4"
+                  >
+                    <div
+                      className="relative h-16 w-full overflow-hidden"
+                      style={{
+                        transform: item.scale ? `scale(${item.scale})` : "none",
+                      }}
+                    >
+                      <Image
+                        src={getLogo(item.name, item.logo)}
+                        alt={item.name}
+                        fill
+                        className="object-contain"
+                        unoptimized
+                      />
+                    </div>
+                  </div>
+                ),
+              )}
+            </Marquee>
+          </div>
+        </motion.div>
+
+        {/* Customer Partners Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
+          className="mb-16"
+        >
+          <div className="mb-6 text-center">
+            <h3 className="text-xl font-bold text-slate-800 pb-6">
+              Đối tác Khách hàng
+            </h3>
+          </div>
+
+          <div className="relative">
+            <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-20 bg-gradient-to-r from-white to-transparent"></div>
+            <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-20 bg-gradient-to-l from-white to-transparent"></div>
+
+            <Marquee
+              gradient={false}
+              speed={50}
+              pauseOnHover
+              direction="left"
+              autoFill
+            >
+              {customerPartners.map(
+                (
+                  item: { name: string; logo: string; scale?: number },
+                  index: number,
+                ) => (
+                  <div
+                    key={index}
+                    className="flex h-24 w-[200px] items-center justify-center px-4"
+                  >
+                    <div
+                      className="relative h-16 w-full overflow-hidden"
+                      style={{
+                        transform: item.scale ? `scale(${item.scale})` : "none",
+                      }}
+                    >
+                      <Image
+                        src={getLogo(item.name, item.logo)}
+                        alt={item.name}
+                        fill
+                        className="object-contain"
+                        unoptimized
+                      />
+                    </div>
+                  </div>
+                ),
+              )}
+            </Marquee>
+          </div>
         </motion.div>
       </div>
     </section>

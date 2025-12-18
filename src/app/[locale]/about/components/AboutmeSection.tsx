@@ -57,20 +57,28 @@ const AboutmeSection = () => {
               Công ty Cổ phần Du Lịch Hàng Không Hà Anh
             </h2>
             <p className="mb-6 text-justify leading-relaxed text-slate-600">
-              Hà Anh JSC là một trong những đơn vị cung ứng dịch vụ vé máy bay
-              hàng đầu và chuyên nghiệp tại Việt Nam. Với bề dày kinh nghiệm
-              hàng chục năm hoạt động, chúng tôi tự hào là đối tác chiến lược
-              của nhiều hãng hàng không lớn trong nước và quốc tế.
+              Công ty Cổ phần Du Lịch Hàng Không Hà Anh là một trong những công
+              ty cung ứng dịch vụ vé máy bay hàng đầu và chuyên nghiệp tại Việt
+              Nam và trên thế giới. Cùng với bề dày kinh nghiệm hàng chục năm
+              hoạt động trong lĩnh vực cung cấp vé máy bay và các dịch vụ hàng
+              không, công ty chúng tôi còn mở rộng sang các lĩnh vực khác như du
+              lịch, hội nghị, hội thảo, tổ chức sự kiện....
             </p>
             <p className="mb-6 text-justify leading-relaxed text-slate-600">
-              Không chỉ dừng lại ở dịch vụ vé máy bay, Hà Anh JSC còn mở rộng
-              sang các lĩnh vực:{" "}
-              <span className="font-semibold text-slate-800">
-                Du lịch, Hội nghị, Hội thảo và Tổ chức sự kiện
-              </span>
-              . Với đội ngũ nhân viên được đào tạo bài bản, nhiệt tình và thân
-              thiện, chúng tôi cam kết mang lại giá trị tối ưu nhất cho quý
-              khách hàng.
+              Cùng với đội ngũ nhân viên được đào tạo bài bản, nhiệt tình, thân
+              thiện và chuyên nghiệp. Chúng tôi tự tin luôn mang đến chất lượng
+              dịch vụ tốt nhất cũng như giá cả hợp lý nhất và mang lại giá trị
+              tối ưu cho quý khách hàng.
+            </p>
+
+            <h3 className="mb-4 text-xl font-bold text-slate-800">
+              Lịch sử hình thành
+            </h3>
+            <p className="mb-8 text-justify leading-relaxed text-slate-600">
+              Công ty Cổ phần Du Lịch Hàng Không Hà anh được thành lập từ năm
+              2002, sau đó cổ phần hóa từ 2011, từ đó đến nay, công ty đã có hơn
+              chục năm kinh nghiệm về lĩnh vực cung cấp vé máy bay và dịch vụ
+              hàng không.
             </p>
 
             <div className="grid grid-cols-2 gap-4">
