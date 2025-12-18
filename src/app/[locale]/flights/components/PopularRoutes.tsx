@@ -1,13 +1,16 @@
 // components/PopularRoutes.tsx
 import Image from "next/image";
 import React from "react";
+import { Link } from "@/i18n/navigation";
 import { FaArrowRight } from "react-icons/fa6";
 import { motion } from "framer-motion";
+
 // Định nghĩa kiểu dữ liệu cho một tuyến bay
 interface Route {
   id: number;
   from: string;
   to: string;
+  slug: string;
   price: string;
   imageUrl: string;
 }
@@ -17,6 +20,7 @@ const routesData: Route[] = [
     id: 1,
     from: "Hà Nội",
     to: "Hồ Chí Minh",
+    slug: "ho-chi-minh",
     price: "1.200.000 VNĐ",
     imageUrl:
       "https://images.unsplash.com/photo-1555921015-5532091f6026?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
@@ -25,6 +29,7 @@ const routesData: Route[] = [
     id: 2,
     from: "Hồ Chí Minh",
     to: "Đà Nẵng",
+    slug: "da-nang",
     price: "890.000 VNĐ",
     imageUrl:
       "https://images.unsplash.com/photo-1504457047772-27faf1c00561?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
@@ -33,6 +38,7 @@ const routesData: Route[] = [
     id: 3,
     from: "Hà Nội",
     to: "Phú Quốc",
+    slug: "phu-quoc",
     price: "1.500.000 VNĐ",
     imageUrl:
       "https://images.unsplash.com/photo-1528127269322-539801943592?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
@@ -41,6 +47,7 @@ const routesData: Route[] = [
     id: 4,
     from: "Đà Nẵng",
     to: "Hà Nội",
+    slug: "ha-noi",
     price: "950.000 VNĐ",
     imageUrl:
       "https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
@@ -65,25 +72,22 @@ const PopularRoutes = () => {
             Các chặng bay được đặt nhiều nhất trong tuần qua
           </p>
         </div>
-        <a
-          href="#"
-          className="flex items-center gap-1 font-semibold text-red-600 hover:underline"
-        >
-          Xem tất cả <FaArrowRight />
-        </a>
       </motion.div>
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
         {routesData.map((route, index) => (
-          <motion.div
+          <Link
             key={index}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: index * 0.2 }}
+            href={`/destinations/${route.slug}`}
             className="group cursor-pointer"
           >
-            <div className="relative h-64 overflow-hidden rounded-2xl shadow-md">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.2 }}
+              className="relative h-64 overflow-hidden rounded-2xl shadow-md"
+            >
               <Image
                 src={route.imageUrl}
                 alt={`${route.from} - ${route.to}`}
@@ -98,8 +102,8 @@ const PopularRoutes = () => {
                 </h3>
                 <p className="text-sm opacity-90">Từ {route.price}</p>
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </Link>
         ))}
       </div>
     </section>
