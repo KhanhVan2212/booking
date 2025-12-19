@@ -28,7 +28,7 @@ const cabinClasses = [
       "Hành lý 23kg",
     ],
     image:
-      "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=2000&auto=format&fit=crop",
+      "/images/pho-thong.webp",
   },
   {
     id: "premium",
@@ -42,7 +42,7 @@ const cabinClasses = [
       "Hành lý 32kg",
     ],
     image:
-      "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=2000&auto=format&fit=crop",
+      "/images/pho-thong-dac-biet.jpg",
   },
   {
     id: "business",
@@ -56,7 +56,7 @@ const cabinClasses = [
       "Lối đi riêng",
     ],
     image:
-      "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=2000&auto=format&fit=crop",
+      "/images/thuong-gia.jpg",
     // Lưu ý: Ảnh này mang tính minh họa chung, thực tế nên dùng ảnh cabin business cụ thể
   },
 ];
@@ -65,13 +65,14 @@ export default function ExperiencePage() {
   const [activeTab, setActiveTab] = useState(0);
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-white  sm:mt-[100px]">
       {/* 1. HERO SECTION */}
       <div className="relative h-[500px]">
         <div className="absolute inset-0">
           <Image
-            fill
-            src="https://images.unsplash.com/photo-1616423640778-28d1b53229bd?q=80&w=2000&auto=format&fit=crop"
+            width={2000}
+            height={500}
+            src="/images/experiencee.avif"
             alt="Experience Hero"
             className="h-full w-full object-cover"
           />
@@ -248,14 +249,14 @@ export default function ExperiencePage() {
             {/* Right: Image Grid */}
             <div className="grid grid-cols-2 gap-4">
               <Image
-                src="https://images.unsplash.com/photo-1529070538774-1843cb3265df?q=80&w=800&auto=format&fit=crop"
+                src="/images/trai-nghiem.jpg"
                 width={500}
                 height={500}
                 className="h-64 w-full translate-y-8 transform rounded-2xl object-cover shadow-lg"
                 alt="Entertainment"
               />
               <Image
-                src="https://images.unsplash.com/photo-1529070538774-1843cb3265df?q=80&w=800&auto=format&fit=crop"
+                src="/images/trai-nghiem2.jpg"
                 width={500}
                 height={500}
                 className="h-64 w-full rounded-2xl object-cover shadow-lg"
@@ -276,9 +277,9 @@ export default function ExperiencePage() {
             <div className="relative order-2 lg:order-1">
               <div className="absolute -inset-4 rounded-full bg-red-500/20 blur-2xl"></div>
               <Image
-                src="https://picsum.photos/id/1080/1000/1000"
-                width={500}
-                height={500}
+                src="/images/do-an1.jpg"
+                width={400}
+                height={400}
                 alt="Fine Dining"
                 className="relative mx-auto h-[400px] w-[400px] rounded-full"
               />

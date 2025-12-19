@@ -9,7 +9,7 @@ const HelpHero = () => {
       className="relative h-[400px] bg-cover bg-center"
       style={{
         backgroundImage:
-          "url('https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')",
+          "url('/images/backgrounds/help.avif')",
       }}
     >
       <div className="absolute inset-0 bg-gradient-to-b from-slate-900/70 via-slate-900/50 to-slate-50"></div>

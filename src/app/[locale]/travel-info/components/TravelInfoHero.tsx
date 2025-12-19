@@ -7,8 +7,7 @@ const TravelInfoHero = () => {
     <div
       className="relative h-[400px] bg-cover bg-center"
       style={{
-        backgroundImage:
-          "url('https://images.unsplash.com/photo-1434828927397-62ea053f7a35?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')",
+        backgroundImage: "url('/images/backgrounds/travel-info.avif')",
       }}
     >
       <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-slate-50"></div>

@@ -4,18 +4,18 @@ import Image from "next/image";
 
 const HeroSection = () => {
   return (
-    <div className="relative flex h-[500px] items-center justify-center text-center text-white">
+    <div className="relative flex h-[500px] items-center justify-center text-center text-white  mt-[0px] sm:mt-[100px]">
       {/* Background Image */}
       <div className="absolute inset-0">
         <Image
-          src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=2000&auto=format&fit=crop"
+          src="/images/backgrounds/about.avif"
           alt="Ha Anh Team"
           className="h-full w-full object-cover"
           width={2000}
           height={500}
         />
         {/* Overlay Gradient Đỏ */}
-        <div className="absolute inset-0 bg-gradient-to-r from-red-500/90 via-red-600/80 to-red-500/80"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-slate-50"></div>
       </div>
 
       <div className="container relative z-10 mx-auto px-6 pt-20">
