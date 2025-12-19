@@ -20,7 +20,7 @@ const PRODUCT_LINKS = [
   { href: "/flights", label: "Chuyến bay" },
   { href: "/destinations", label: "Điểm đến phổ biến", badge: "HOT" },
   { href: "/travel-info", label: "Thông tin du lịch" },
-  { href: "/travel-info", label: "Cảm hứng du lịch" },
+  { href: "/inspiration", label: "Cảm hứng du lịch" },
   { href: "/experience", label: "Trải nghiệm bay", badge: "HOT" },
 ];
 

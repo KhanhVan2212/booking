@@ -17,6 +17,7 @@ interface Destination {
   price: string;
 }
 
+// Dummy Data
 const allDestinations: Destination[] = [
   // Miền Bắc
   {
@@ -145,16 +146,89 @@ const allDestinations: Destination[] = [
       "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
     price: "Từ 8.900.000 VNĐ",
   },
+  {
+    id: 14,
+    name: "Đài Bắc",
+    slug: "taipei",
+    region: "international",
+    description: "Đài Loan",
+    imageUrl:
+      "https://images.unsplash.com/photo-1470004914212-05527e49370b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    price: "Từ 4.200.000 VNĐ",
+  },
+  {
+    id: 15,
+    name: "Osaka",
+    slug: "osaka",
+    region: "international",
+    description: "Nhật Bản",
+    imageUrl:
+      "https://images.unsplash.com/photo-1537996194471-e657df975ab4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    price: "Từ 9.200.000 VNĐ",
+  },
+  {
+    id: 16,
+    name: "Busan",
+    slug: "busan",
+    region: "international",
+    description: "Hàn Quốc",
+    imageUrl:
+      "https://images.unsplash.com/photo-1537996194471-e657df975ab4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    price: "Từ 5.100.000 VNĐ",
+  },
+  {
+    id: 17,
+    name: "Bali",
+    slug: "bali",
+    region: "international",
+    description: "Indonesia",
+    imageUrl:
+      "https://images.unsplash.com/photo-1537996194471-e657df975ab4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    price: "Từ 3.800.000 VNĐ",
+  },
+  {
+    id: 18,
+    name: "Phuket",
+    slug: "phuket",
+    region: "international",
+    description: "Thái Lan",
+    imageUrl:
+      "https://images.unsplash.com/photo-1537996194471-e657df975ab4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    price: "Từ 3.100.000 VNĐ",
+  },
 ];
+
+const ITEMS_PER_PAGE = 12;
 
 const AllDestinations = () => {
   const [filter, setFilter] = useState<"all" | "domestic" | "international">(
     "all",
   );
+  const [currentPage, setCurrentPage] = useState(1);
 
   const filteredDestinations = allDestinations.filter(
     (dest) => filter === "all" || dest.region === filter,
   );
+
+  // Pagination Logic
+  const totalPages = Math.ceil(filteredDestinations.length / ITEMS_PER_PAGE);
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const currentDisplayDestinations = filteredDestinations.slice(
+    startIndex,
+    startIndex + ITEMS_PER_PAGE,
+  );
+
+  const handleFilterChange = (
+    newFilter: "all" | "domestic" | "international",
+  ) => {
+    setFilter(newFilter);
+    setCurrentPage(1);
+  };
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   return (
     <section className="container mx-auto px-6 py-12">
@@ -168,19 +242,19 @@ const AllDestinations = () => {
       >
         <div className="inline-flex rounded-xl bg-slate-100 p-1">
           <button
-            onClick={() => setFilter("all")}
+            onClick={() => handleFilterChange("all")}
             className={`rounded-lg px-6 py-2.5 text-sm font-semibold transition-all ${filter === "all" ? "bg-white text-red-600 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}
           >
             Tất cả
           </button>
           <button
-            onClick={() => setFilter("domestic")}
+            onClick={() => handleFilterChange("domestic")}
             className={`rounded-lg px-6 py-2.5 text-sm font-semibold transition-all ${filter === "domestic" ? "bg-white text-red-600 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}
           >
             Trong nước
           </button>
           <button
-            onClick={() => setFilter("international")}
+            onClick={() => handleFilterChange("international")}
             className={`rounded-lg px-6 py-2.5 text-sm font-semibold transition-all ${filter === "international" ? "bg-white text-red-600 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}
           >
             Quốc tế
@@ -190,7 +264,7 @@ const AllDestinations = () => {
 
       {/* Grid */}
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {filteredDestinations.map((dest, index) => (
+        {currentDisplayDestinations.map((dest, index) => (
           <motion.div
             key={dest.id}
             initial={{ opacity: 0, y: 30 }}
@@ -230,6 +304,49 @@ const AllDestinations = () => {
           </motion.div>
         ))}
       </div>
+
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <div className="mt-12 flex justify-center gap-2">
+          <button
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+            className={`flex h-10 items-center justify-center rounded-lg border px-4 transition-colors ${
+              currentPage === 1
+                ? "cursor-not-allowed border-slate-200 bg-slate-50 text-slate-400"
+                : "border-slate-300 bg-white text-slate-700 hover:bg-slate-50 hover:text-red-600"
+            }`}
+          >
+            Trước
+          </button>
+
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+            <button
+              key={page}
+              onClick={() => handlePageChange(page)}
+              className={`h-10 w-10 rounded-lg shadow-sm transition-all ${
+                currentPage === page
+                  ? "bg-red-600 text-white shadow-lg hover:bg-red-700"
+                  : "bg-white text-slate-600 ring-1 ring-slate-200 hover:bg-slate-50"
+              }`}
+            >
+              {page}
+            </button>
+          ))}
+
+          <button
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+            className={`flex h-10 items-center justify-center rounded-lg border px-4 transition-colors ${
+              currentPage === totalPages
+                ? "cursor-not-allowed border-slate-200 bg-slate-50 text-slate-400"
+                : "border-slate-300 bg-white text-slate-700 hover:bg-slate-50 hover:text-red-600"
+            }`}
+          >
+            Tiếp
+          </button>
+        </div>
+      )}
     </section>
   );
 };
