@@ -41,3 +41,7 @@ yarn.lock
 .env.development
 .env.production
 .env.*
+
+# Payload CMS
+/media
+/payload-types.ts
