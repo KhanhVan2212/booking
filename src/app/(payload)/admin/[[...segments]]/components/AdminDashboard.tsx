@@ -6,8 +6,9 @@ import UsersPage from "./UsersPage";
 import PagesPage from "./PagesPage";
 import PostsPage from "./PostsPage";
 import MediaPage from "./MediaPage";
+import DestinationsPage from "../../../../[locale]/(home)/components/DestinationsSection";
 
-type Tab = "dashboard" | "users" | "pages" | "posts" | "media";
+type Tab = "dashboard" | "users" | "pages" | "posts" | "media" | "destinations";
 
 export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState<Tab>("dashboard");
@@ -106,6 +107,16 @@ export default function AdminDashboard() {
             >
               Media
             </button>
+            <button
+              onClick={() => setActiveTab("destinations")}
+              className={`px-6 py-3 text-sm font-medium ${
+                activeTab === "destinations"
+                  ? "border-b-2 border-blue-500 text-blue-600"
+                  : "text-gray-500 hover:text-gray-700"
+              }`}
+            >
+              Destinations
+            </button>
           </nav>
         </div>
 
@@ -139,9 +150,9 @@ export default function AdminDashboard() {
           {activeTab === "pages" && <PagesPage />}
           {activeTab === "posts" && <PostsPage />}
           {activeTab === "media" && <MediaPage />}
+          {activeTab === "destinations" && <DestinationsPage />}
         </div>
       </div>
     </div>
   );
 }
-

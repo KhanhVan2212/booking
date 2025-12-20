@@ -5,7 +5,7 @@ import path from "path";
 import sharp from "sharp";
 
 export default buildConfig({
-  serverURL: process.env.NEXT_PUBLIC_SERVER_URL || process.env.PAYLOAD_PUBLIC_SERVER_URL || "http://localhost:3000",
+  serverURL: process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:3000",
   admin: {
     user: "users",
   },
@@ -32,6 +32,111 @@ export default buildConfig({
           ],
           defaultValue: "user",
           required: true,
+        },
+      ],
+    },
+    {
+      slug: "destinations",
+      admin: {
+        useAsTitle: "name",
+        defaultColumns: ["name", "price", "slug", "status"],
+      },
+      fields: [
+        {
+          name: "name",
+          type: "text",
+          required: true,
+          label: "Tên điểm đến",
+        },
+        {
+          name: "slug",
+          type: "text",
+          required: true,
+          unique: true,
+          label: "Đường dẫn (URL)",
+          admin: {
+            description: "VD: da-nang, hoi-an, phu-quoc",
+          },
+        },
+        {
+          name: "price",
+          type: "text",
+          required: true,
+          label: "Giá vé",
+          admin: {
+            description: "VD: 1.200.000 VNĐ",
+          },
+        },
+        {
+          name: "description",
+          type: "textarea",
+          label: "Mô tả ngắn",
+        },
+        {
+          name: "featuredImage",
+          type: "upload",
+          relationTo: "media",
+          required: true,
+          label: "Ảnh đại diện",
+        },
+        {
+          name: "bestTime",
+          type: "text",
+          label: "Thời gian lý tưởng",
+          defaultValue: "Tháng 3 - Tháng 8",
+        },
+        {
+          name: "flightTime",
+          type: "text",
+          label: "Thời gian bay",
+          defaultValue: "1 giờ 15 phút",
+        },
+        {
+          name: "content",
+          type: "richText",
+          editor: lexicalEditor({}),
+          label: "Nội dung chi tiết",
+        },
+        {
+          name: "whyVisit",
+          type: "array",
+          label: "Lý do nên đi",
+          fields: [
+            {
+              name: "reason",
+              type: "text",
+              required: true,
+            },
+          ],
+        },
+        {
+          name: "gallery",
+          type: "array",
+          label: "Thư viện ảnh",
+          fields: [
+            {
+              name: "image",
+              type: "upload",
+              relationTo: "media",
+              required: true,
+            },
+          ],
+        },
+        {
+          name: "status",
+          type: "select",
+          options: [
+            { label: "Nháp", value: "draft" },
+            { label: "Xuất bản", value: "published" },
+          ],
+          defaultValue: "draft",
+          label: "Trạng thái",
+        },
+        {
+          name: "featured",
+          type: "checkbox",
+          label: "Hiển thị ở trang chủ",
+          defaultValue: false,
         },
       ],
     },
@@ -118,11 +223,13 @@ export default buildConfig({
       slug: "media",
       upload: {
         staticDir: "media",
+        mimeTypes: ["image/*"],
       },
       fields: [
         {
           name: "alt",
           type: "text",
+          label: "Mô tả ảnh (Alt text)",
         },
       ],
     },
@@ -137,4 +244,3 @@ export default buildConfig({
   }),
   sharp,
 });
-
