@@ -72,7 +72,7 @@ const Navbar = ({ isTransparent = false }: NavbarProps) => {
             Điểm đến phổ biến
           </Link>
           <Link href="/travel-info" className={`${textClasses} transition`}>
-            Thông tin du lịch
+            Dịch vụ cung cấp
           </Link>
           <Link href="/about" className={`${textClasses} transition`}>
             Về chúng tôi
