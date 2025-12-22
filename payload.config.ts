@@ -76,8 +76,18 @@ export default buildConfig({
           name: "featuredImage",
           type: "upload",
           relationTo: "media",
-          required: true,
-          label: "Ảnh đại diện",
+          label: "Ảnh đại diện (Upload)",
+          admin: {
+            description: "Upload ảnh từ máy tính",
+          },
+        },
+        {
+          name: "imageUrl",
+          type: "text",
+          label: "Hoặc URL ảnh",
+          admin: {
+            description: "Nhập link ảnh từ internet (nếu không upload)",
+          },
         },
         {
           name: "bestTime",

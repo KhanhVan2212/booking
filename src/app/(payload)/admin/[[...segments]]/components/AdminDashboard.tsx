@@ -6,13 +6,20 @@ import UsersPage from "./UsersPage";
 import PagesPage from "./PagesPage";
 import PostsPage from "./PostsPage";
 import MediaPage from "./MediaPage";
-import DestinationsPage from "../../../../[locale]/(home)/components/DestinationsSection";
+import DestinationsPage from "./DestinationsPage"; // Import component mới
 
 type Tab = "dashboard" | "users" | "pages" | "posts" | "media" | "destinations";
 
 export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState<Tab>("dashboard");
   const [user, setUser] = useState<any>(null);
+  const [stats, setStats] = useState({
+    users: 0,
+    pages: 0,
+    posts: 0,
+    media: 0,
+    destinations: 0,
+  });
   const router = useRouter();
 
   useEffect(() => {
@@ -20,7 +27,22 @@ export default function AdminDashboard() {
     if (userStr) {
       setUser(JSON.parse(userStr));
     }
+
+    // Fetch stats
+    fetchStats();
   }, []);
+
+  const fetchStats = async () => {
+    try {
+      const response = await fetch("/api/destinations");
+      const data = await response.json();
+      if (data.success) {
+        setStats(prev => ({ ...prev, destinations: data.totalDocs }));
+      }
+    } catch (error) {
+      console.error("Error fetching stats:", error);
+    }
+  };
 
   const handleLogout = () => {
     localStorage.removeItem("payload-token");
@@ -56,10 +78,10 @@ export default function AdminDashboard() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Tabs */}
         <div className="bg-white rounded-lg shadow mb-6">
-          <nav className="flex border-b">
+          <nav className="flex border-b overflow-x-auto">
             <button
               onClick={() => setActiveTab("dashboard")}
-              className={`px-6 py-3 text-sm font-medium ${
+              className={`px-6 py-3 text-sm font-medium whitespace-nowrap ${
                 activeTab === "dashboard"
                   ? "border-b-2 border-blue-500 text-blue-600"
                   : "text-gray-500 hover:text-gray-700"
@@ -69,7 +91,7 @@ export default function AdminDashboard() {
             </button>
             <button
               onClick={() => setActiveTab("users")}
-              className={`px-6 py-3 text-sm font-medium ${
+              className={`px-6 py-3 text-sm font-medium whitespace-nowrap ${
                 activeTab === "users"
                   ? "border-b-2 border-blue-500 text-blue-600"
                   : "text-gray-500 hover:text-gray-700"
@@ -79,7 +101,7 @@ export default function AdminDashboard() {
             </button>
             <button
               onClick={() => setActiveTab("pages")}
-              className={`px-6 py-3 text-sm font-medium ${
+              className={`px-6 py-3 text-sm font-medium whitespace-nowrap ${
                 activeTab === "pages"
                   ? "border-b-2 border-blue-500 text-blue-600"
                   : "text-gray-500 hover:text-gray-700"
@@ -89,7 +111,7 @@ export default function AdminDashboard() {
             </button>
             <button
               onClick={() => setActiveTab("posts")}
-              className={`px-6 py-3 text-sm font-medium ${
+              className={`px-6 py-3 text-sm font-medium whitespace-nowrap ${
                 activeTab === "posts"
                   ? "border-b-2 border-blue-500 text-blue-600"
                   : "text-gray-500 hover:text-gray-700"
@@ -99,7 +121,7 @@ export default function AdminDashboard() {
             </button>
             <button
               onClick={() => setActiveTab("media")}
-              className={`px-6 py-3 text-sm font-medium ${
+              className={`px-6 py-3 text-sm font-medium whitespace-nowrap ${
                 activeTab === "media"
                   ? "border-b-2 border-blue-500 text-blue-600"
                   : "text-gray-500 hover:text-gray-700"
@@ -109,7 +131,7 @@ export default function AdminDashboard() {
             </button>
             <button
               onClick={() => setActiveTab("destinations")}
-              className={`px-6 py-3 text-sm font-medium ${
+              className={`px-6 py-3 text-sm font-medium whitespace-nowrap ${
                 activeTab === "destinations"
                   ? "border-b-2 border-blue-500 text-blue-600"
                   : "text-gray-500 hover:text-gray-700"
@@ -128,19 +150,33 @@ export default function AdminDashboard() {
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <div className="bg-blue-50 p-4 rounded-lg">
                   <div className="text-sm text-gray-600">Total Users</div>
-                  <div className="text-2xl font-bold text-blue-600">-</div>
+                  <div className="text-2xl font-bold text-blue-600">
+                    {stats.users || "-"}
+                  </div>
                 </div>
                 <div className="bg-green-50 p-4 rounded-lg">
                   <div className="text-sm text-gray-600">Total Pages</div>
-                  <div className="text-2xl font-bold text-green-600">-</div>
+                  <div className="text-2xl font-bold text-green-600">
+                    {stats.pages || "-"}
+                  </div>
                 </div>
                 <div className="bg-purple-50 p-4 rounded-lg">
                   <div className="text-sm text-gray-600">Total Posts</div>
-                  <div className="text-2xl font-bold text-purple-600">-</div>
+                  <div className="text-2xl font-bold text-purple-600">
+                    {stats.posts || "-"}
+                  </div>
                 </div>
                 <div className="bg-orange-50 p-4 rounded-lg">
                   <div className="text-sm text-gray-600">Total Media</div>
-                  <div className="text-2xl font-bold text-orange-600">-</div>
+                  <div className="text-2xl font-bold text-orange-600">
+                    {stats.media || "-"}
+                  </div>
+                </div>
+                <div className="bg-red-50 p-4 rounded-lg">
+                  <div className="text-sm text-gray-600">Total Destinations</div>
+                  <div className="text-2xl font-bold text-red-600">
+                    {stats.destinations || "-"}
+                  </div>
                 </div>
               </div>
             </div>
