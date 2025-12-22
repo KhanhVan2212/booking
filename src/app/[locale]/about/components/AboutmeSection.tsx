@@ -75,10 +75,12 @@ const AboutmeSection = () => {
               Lịch sử hình thành
             </h3>
             <p className="mb-8 text-justify leading-relaxed text-slate-600">
-              Công ty Cổ phần Du Lịch Hàng Không Hà anh được thành lập từ năm
-              2002, sau đó cổ phần hóa từ 2011, từ đó đến nay, công ty đã có hơn
-              chục năm kinh nghiệm về lĩnh vực cung cấp vé máy bay và dịch vụ
-              hàng không.
+              Công ty Cổ phần Du Lịch Hàng Không Hà Anh được thành lập năm 2002, hoạt động trong
+              lĩnh vực cung cấp vé máy bay và dịch vụ hàng không. Năm 2011, Công ty chính thức
+              chuyển đổi sang mô hình công ty cổ phần, đánh dấu bước phát triển quan trọng về quy mô
+              và năng lực quản trị. Với hơn 20 năm kinh nghiệm, Hà Anh đã khẳng định uy tín và vị thế trên
+              thị trường, trở thành đối tác tin cậy của nhiều cơ quan, bộ ban ngành thuộc khối ngân sách
+              nhà nước và các doanh nghiệp lớn.
             </p>
 
             <div className="grid grid-cols-2 gap-4">

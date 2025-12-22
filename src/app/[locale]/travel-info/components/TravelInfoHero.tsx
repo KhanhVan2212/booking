@@ -20,7 +20,7 @@ const TravelInfoHero = () => {
           transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
           className="mb-4 text-3xl font-bold leading-tight text-white md:text-5xl"
         >
-          Thông tin <span className="text-red-500">Du lịch hữu ích</span>
+         Dịch vụ cung cấp
         </motion.h1>
         <motion.p
           initial={{ opacity: 0, y: 50 }}

@@ -27,7 +27,6 @@ const Page = () => {
       <ServicesSection />
       <FeaturesSection />
       <DestinationsSection />
-      <InspirationSection />
       <AirlinePartners />
       <ContactSection />
     </main>

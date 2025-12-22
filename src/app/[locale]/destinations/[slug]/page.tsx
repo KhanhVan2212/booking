@@ -5,6 +5,8 @@ import React, { use } from "react";
 import { FaCalendarAlt, FaMapMarkerAlt, FaPlane } from "react-icons/fa";
 import DestinationsSection from "../../(home)/components/DestinationsSection";
 import ContactSection from "../../about/components/ContactSection";
+import AirportFlightBoard from "@/components/Layout/AirportFlightBoard";
+import { DESTINATION_DEPARTURE_MAP } from "@/lib/destination-departure-map";
 
 // Dummy data generator (in a real app this would be fetched from API/CMS)
 const getDestinationData = (slug: string) => {
@@ -67,6 +69,7 @@ interface PageProps {
 export default function DestinationDetailPage({ params }: PageProps) {
   const { slug } = use(params);
   const data = getDestinationData(slug);
+  const departures = DESTINATION_DEPARTURE_MAP[slug] ?? [];
 
   return (
     <main className="min-h-screen bg-slate-50 pt-[80px]">
@@ -155,7 +158,9 @@ export default function DestinationDetailPage({ params }: PageProps) {
               ảnh để lưu lại những khoảnh khắc tuyệt vời.
             </p>
           </div>
-
+          {departures.length > 0 && (
+            <AirportFlightBoard departures={departures} />
+          )}
           {/* Dummy Related Posts/Images */}
           <div className="mt-10 grid grid-cols-2 gap-4">
             <div className="h-48 rounded-xl bg-slate-200">
