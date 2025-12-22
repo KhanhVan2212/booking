@@ -130,46 +130,6 @@ export default function DestinationDetailPage({ params }: PageProps) {
       <div className="container mx-auto grid grid-cols-1 gap-12 px-6 pb-20 lg:grid-cols-3">
         {/* Main Content */}
         <div className="lg:col-span-2">
-<<<<<<< HEAD
-          <h2 className="mb-6 text-2xl font-bold">Thông tin chi tiết</h2>
-          {/* DETAIL CONTENT */}
-          <div className="space-y-8 text-slate-700 leading-relaxed">
-            {/* MÔ TẢ */}
-            <p>
-              <strong>{data.title}</strong> – Thành phố đáng sống là một trong những
-              điểm đến hấp dẫn nhất Việt Nam, nổi tiếng với nhiều danh lam thắng cảnh
-              và văn hóa ẩm thực phong phú. Du khách đến đây không chỉ được thưởng
-              ngoạn cảnh đẹp mà còn được trải nghiệm sự hiếu khách nồng hậu của
-              người dân địa phương.
-            </p>
-
-            {/* LÝ DO DU LỊCH */}
-            <div>
-              <h3 className="mb-3 text-lg font-semibold text-slate-900">
-                Tại sao nên du lịch {data.title.toLowerCase()}?
-              </h3>
-              <ul className="list-disc space-y-2 pl-5">
-                <li>Khí hậu ôn hòa, dễ chịu quanh năm.</li>
-                <li>Ẩm thực đa dạng với nhiều món ăn đặc sản nổi tiếng.</li>
-                <li>Nhiều điểm tham quan tráng lệ và các di tích lịch sử.</li>
-                <li>Chi phí du lịch hợp lý, phù hợp với nhiều đối tượng.</li>
-              </ul>
-            </div>
-
-            {/* MẸO DU LỊCH */}
-            <div>
-              <h3 className="mb-3 text-lg font-semibold text-slate-900">
-                Mẹo du lịch
-              </h3>
-              <p>
-                Để có chuyến đi trọn vẹn nhất, bạn nên đặt vé máy bay và khách sạn
-                trước ít nhất 2 tuần. Đừng quên mang theo kem chống nắng và máy ảnh
-                để lưu lại những khoảnh khắc tuyệt vời.
-              </p>
-            </div>
-          </div>
-          {/* ✅ BẢNG CHUYẾN BAY – ĐẶT NGAY TẠI ĐÂY */}
-=======
           <h2 className="mb-6 text-2xl font-bold text-slate-800">
             Thông tin chi tiết
           </h2>
@@ -198,7 +158,6 @@ export default function DestinationDetailPage({ params }: PageProps) {
               ảnh để lưu lại những khoảnh khắc tuyệt vời.
             </p>
           </div>
->>>>>>> 8f675f3dedc8c9116d2ac2d2296134be9e8b017e
           {departures.length > 0 && (
             <AirportFlightBoard departures={departures} />
           )}
