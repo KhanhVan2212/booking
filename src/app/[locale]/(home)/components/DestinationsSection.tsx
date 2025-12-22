@@ -1,56 +1,88 @@
 "use client";
 
-import Link from 'next/link';
+import { Link } from "@/i18n/navigation";
 import Image from "next/image";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { FaArrowRight } from "react-icons/fa6";
 import { motion } from "framer-motion";
 
-// Định nghĩa kiểu dữ liệu cho một địa điểm
+interface Media {
+  id: string;
+  url: string;
+  filename: string;
+  alt?: string;
+}
+
 interface Destination {
   id: string;
   name: string;
   slug: string;
   price: string;
-  imageUrl: string;
-  featured?: boolean;
+  image?: string | Media;        // giữ lại cho tương thích cũ
+  imageUrl?: string;
+  featuredImage?: any;           // thêm dòng này để hỗ trợ upload file
+  featured: boolean;
 }
+
+// Thêm hàm này vào trong component hoặc ngoài cũng được
+const getImageUrl = (destination: Destination): string => {
+  // Ưu tiên imageUrl (nếu dùng URL trực tiếp)
+  if (destination.imageUrl) {
+    return destination.imageUrl;
+  }
+
+  // Xử lý featuredImage (khi upload file)
+  if (destination.image || destination.featuredImage) {
+    const media = destination.image || destination.featuredImage;
+
+    if (typeof media === 'string') {
+      // Nếu là ID hoặc filename
+      return `/media/${media}`;
+    }
+
+    if (media && typeof media === 'object') {
+      if (media.url) return media.url;
+      if (media.filename) return `/media/${media.filename}`;
+      if (media.id) return `/media/${media.id}`; // một số trường hợp backend trả id
+    }
+  }
+
+  return '/images/placeholder.jpg';
+};
 
 const DestinationsSection = () => {
   const [destinations, setDestinations] = useState<Destination[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const fetchDestinations = async () => {
+      try {
+        const response = await fetch("/api/destinations?featured=true&limit=4");
+        const data = await response.json();
+
+        if (data.success) {
+          setDestinations(data.destinations);
+        }
+      } catch (error) {
+        console.error("Error fetching destinations:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchDestinations();
   }, []);
-
-  const fetchDestinations = async () => {
-    try {
-      setLoading(true);
-      // Lấy destinations featured hoặc limit 4 cái đầu tiên
-      const response = await fetch('/api/destinations?featured=true&limit=4');
-      const data = await response.json();
-
-      if (data.success) {
-        setDestinations(data.destinations);
-      }
-    } catch (error) {
-      console.error('Error fetching destinations:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   if (loading) {
     return (
       <section className="container mx-auto px-6 py-16" id="destinations">
-        <div className="text-center text-gray-600">Đang tải...</div>
+        <div className="text-center">Đang tải...</div>
       </section>
     );
   }
 
   if (destinations.length === 0) {
-    return null; // Không hiển thị section nếu không có destinations
+    return null;
   }
 
   return (
@@ -79,34 +111,40 @@ const DestinationsSection = () => {
       </motion.div>
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-        {destinations.map((dest, index) => (
-          <Link
-            key={dest.id}
-            href={`/destinations/${dest.slug}`}
-            className="group cursor-pointer"
-          >
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.2 }}
-              className="relative h-64 overflow-hidden rounded-2xl shadow-md"
+        {destinations.map((dest, index) => {
+          const imageUrl = getImageUrl(dest);
+
+          return (
+            <Link
+              key={dest.id}
+              href={`/destinations/${dest.slug}`}
+              className="group cursor-pointer"
             >
-              <Image
-                src={dest.imageUrl}
-                alt={dest.name}
-                width={800}
-                height={600}
-                className="h-full w-full object-cover transition duration-500 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-              <div className="absolute bottom-4 left-4 text-white">
-                <h3 className="text-lg font-bold">{dest.name}</h3>
-                <p className="text-sm opacity-90">Từ {dest.price}</p>
-              </div>
-            </motion.div>
-          </Link>
-        ))}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.2 }}
+                className="relative h-64 overflow-hidden rounded-2xl shadow-md"
+              >
+                <Image
+                  src={imageUrl}
+                  alt={dest.name}
+                  fill
+                  className="object-cover transition duration-500 group-hover:scale-110"
+                  onError={(e) => {
+                    e.currentTarget.src = '/images/placeholder.jpg';
+                  }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                <div className="absolute bottom-4 left-4 text-white">
+                  <h3 className="text-lg font-bold">{dest.name}</h3>
+                  <p className="text-sm opacity-90">Từ {dest.price}</p>
+                </div>
+              </motion.div>
+            </Link>
+          );
+        })}
       </div>
     </section>
   );

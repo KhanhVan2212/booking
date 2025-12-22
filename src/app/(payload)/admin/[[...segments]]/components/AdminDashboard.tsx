@@ -2,22 +2,14 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import UsersPage from "./UsersPage";
-import PagesPage from "./PagesPage";
-import PostsPage from "./PostsPage";
-import MediaPage from "./MediaPage";
-import DestinationsPage from "./DestinationsPage"; // Import component mới
+import DestinationsPage from "./DestinationsPage"; // Chỉ import component cần thiết
 
-type Tab = "dashboard" | "users" | "pages" | "posts" | "media" | "destinations";
+type Tab = "dashboard" | "destinations";
 
 export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState<Tab>("dashboard");
   const [user, setUser] = useState<any>(null);
   const [stats, setStats] = useState({
-    users: 0,
-    pages: 0,
-    posts: 0,
-    media: 0,
     destinations: 0,
   });
   const router = useRouter();
@@ -28,7 +20,7 @@ export default function AdminDashboard() {
       setUser(JSON.parse(userStr));
     }
 
-    // Fetch stats
+    // Fetch stats cho destinations
     fetchStats();
   }, []);
 
@@ -37,7 +29,7 @@ export default function AdminDashboard() {
       const response = await fetch("/api/destinations");
       const data = await response.json();
       if (data.success) {
-        setStats(prev => ({ ...prev, destinations: data.totalDocs }));
+        setStats({ destinations: data.totalDocs });
       }
     } catch (error) {
       console.error("Error fetching stats:", error);
@@ -76,7 +68,7 @@ export default function AdminDashboard() {
       </header>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Tabs */}
+        {/* Tabs - Chỉ giữ Dashboard và Destinations */}
         <div className="bg-white rounded-lg shadow mb-6">
           <nav className="flex border-b overflow-x-auto">
             <button
@@ -88,46 +80,6 @@ export default function AdminDashboard() {
               }`}
             >
               Dashboard
-            </button>
-            <button
-              onClick={() => setActiveTab("users")}
-              className={`px-6 py-3 text-sm font-medium whitespace-nowrap ${
-                activeTab === "users"
-                  ? "border-b-2 border-blue-500 text-blue-600"
-                  : "text-gray-500 hover:text-gray-700"
-              }`}
-            >
-              Users
-            </button>
-            <button
-              onClick={() => setActiveTab("pages")}
-              className={`px-6 py-3 text-sm font-medium whitespace-nowrap ${
-                activeTab === "pages"
-                  ? "border-b-2 border-blue-500 text-blue-600"
-                  : "text-gray-500 hover:text-gray-700"
-              }`}
-            >
-              Pages
-            </button>
-            <button
-              onClick={() => setActiveTab("posts")}
-              className={`px-6 py-3 text-sm font-medium whitespace-nowrap ${
-                activeTab === "posts"
-                  ? "border-b-2 border-blue-500 text-blue-600"
-                  : "text-gray-500 hover:text-gray-700"
-              }`}
-            >
-              Posts
-            </button>
-            <button
-              onClick={() => setActiveTab("media")}
-              className={`px-6 py-3 text-sm font-medium whitespace-nowrap ${
-                activeTab === "media"
-                  ? "border-b-2 border-blue-500 text-blue-600"
-                  : "text-gray-500 hover:text-gray-700"
-              }`}
-            >
-              Media
             </button>
             <button
               onClick={() => setActiveTab("destinations")}
@@ -147,45 +99,18 @@ export default function AdminDashboard() {
           {activeTab === "dashboard" && (
             <div className="p-6">
               <h2 className="text-2xl font-bold mb-4">Dashboard</h2>
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                <div className="bg-blue-50 p-4 rounded-lg">
-                  <div className="text-sm text-gray-600">Total Users</div>
-                  <div className="text-2xl font-bold text-blue-600">
-                    {stats.users || "-"}
-                  </div>
-                </div>
-                <div className="bg-green-50 p-4 rounded-lg">
-                  <div className="text-sm text-gray-600">Total Pages</div>
-                  <div className="text-2xl font-bold text-green-600">
-                    {stats.pages || "-"}
-                  </div>
-                </div>
-                <div className="bg-purple-50 p-4 rounded-lg">
-                  <div className="text-sm text-gray-600">Total Posts</div>
-                  <div className="text-2xl font-bold text-purple-600">
-                    {stats.posts || "-"}
-                  </div>
-                </div>
-                <div className="bg-orange-50 p-4 rounded-lg">
-                  <div className="text-sm text-gray-600">Total Media</div>
-                  <div className="text-2xl font-bold text-orange-600">
-                    {stats.media || "-"}
-                  </div>
-                </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 <div className="bg-red-50 p-4 rounded-lg">
                   <div className="text-sm text-gray-600">Total Destinations</div>
                   <div className="text-2xl font-bold text-red-600">
                     {stats.destinations || "-"}
                   </div>
                 </div>
+                {/* Bạn có thể thêm các card thống kê khác ở đây nếu cần */}
               </div>
             </div>
           )}
 
-          {activeTab === "users" && <UsersPage />}
-          {activeTab === "pages" && <PagesPage />}
-          {activeTab === "posts" && <PostsPage />}
-          {activeTab === "media" && <MediaPage />}
           {activeTab === "destinations" && <DestinationsPage />}
         </div>
       </div>
