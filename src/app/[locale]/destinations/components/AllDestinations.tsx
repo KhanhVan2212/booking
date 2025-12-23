@@ -4,7 +4,7 @@
 import { Link } from "@/i18n/navigation";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
-import { FaLocationDot } from "react-icons/fa6";
+import { FaLocationDot, FaMagnifyingGlass } from "react-icons/fa6";
 import { motion } from "framer-motion";
 
 interface Destination {
@@ -24,6 +24,7 @@ const AllDestinations = () => {
   const [destinations, setDestinations] = useState<Destination[]>([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<"all" | "domestic" | "international">("all");
+  const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
 
   // Fetch destinations from API
@@ -47,7 +48,12 @@ const AllDestinations = () => {
     fetchDestinations();
   }, []);
 
-  // Get image URL from destination
+  // Reset page khi filter hoặc search thay đổi
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filter, searchTerm]);
+
+  // Get image URL
   const getImageUrl = (dest: Destination): string => {
     if (dest.imageUrl) return dest.imageUrl;
     if (dest.featuredImage) {
@@ -57,11 +63,16 @@ const AllDestinations = () => {
     return "/images/placeholder.jpg";
   };
 
-  const filteredDestinations = destinations.filter(
-    (dest) => filter === "all" || dest.region === filter,
-  );
+  // Filter theo region + search
+  const filteredDestinations = destinations.filter((dest) => {
+    const matchesRegion = filter === "all" || dest.region === filter;
+    const matchesSearch =
+      dest.name.toLowerCase().includes(searchTerm.toLowerCase().trim()) ||
+      (dest.description?.toLowerCase().includes(searchTerm.toLowerCase().trim()) ?? false);
+    return matchesRegion && matchesSearch;
+  });
 
-  // Pagination Logic
+  // Pagination
   const totalPages = Math.ceil(filteredDestinations.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const currentDisplayDestinations = filteredDestinations.slice(
@@ -71,7 +82,10 @@ const AllDestinations = () => {
 
   const handleFilterChange = (newFilter: "all" | "domestic" | "international") => {
     setFilter(newFilter);
-    setCurrentPage(1);
+  };
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
   };
 
   const handlePageChange = (page: number) => {
@@ -79,7 +93,6 @@ const AllDestinations = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  // Loading state
   if (loading) {
     return (
       <section className="container mx-auto px-6 py-12">
@@ -93,7 +106,6 @@ const AllDestinations = () => {
     );
   }
 
-  // Empty state
   if (destinations.length === 0) {
     return (
       <section className="container mx-auto px-6 py-12">
@@ -107,44 +119,76 @@ const AllDestinations = () => {
 
   return (
     <section className="container mx-auto px-6 py-12">
-      {/* Filter Tabs */}
+      {/* Header: Tabs trái - Search phải */}
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
-        className="mb-8 flex justify-center"
+        className="mb-8"
       >
-        <div className="inline-flex rounded-xl bg-slate-100 p-1">
-          <button
-            onClick={() => handleFilterChange("all")}
-            className={`rounded-lg px-6 py-2.5 text-sm font-semibold transition-all ${filter === "all" ? "bg-white text-red-600 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}
-          >
-            Tất cả ({destinations.length})
-          </button>
-          <button
-            onClick={() => handleFilterChange("domestic")}
-            className={`rounded-lg px-6 py-2.5 text-sm font-semibold transition-all ${filter === "domestic" ? "bg-white text-red-600 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}
-          >
-            Trong nước ({destinations.filter(d => d.region === "domestic").length})
-          </button>
-          <button
-            onClick={() => handleFilterChange("international")}
-            className={`rounded-lg px-6 py-2.5 text-sm font-semibold transition-all ${filter === "international" ? "bg-white text-red-600 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}
-          >
-            Quốc tế ({destinations.filter(d => d.region === "international").length})
-          </button>
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+          {/* Left: Category Tabs */}
+          <div className="flex-shrink-0">
+            <div className="inline-flex rounded-xl bg-slate-100 p-1">
+              <button
+                onClick={() => handleFilterChange("all")}
+                className={`rounded-lg px-6 py-2.5 text-sm font-semibold transition-all ${
+                  filter === "all"
+                    ? "bg-white text-red-600 shadow-sm"
+                    : "text-slate-500 hover:text-slate-700"
+                }`}
+              >
+                Tất cả ({destinations.length})
+              </button>
+              <button
+                onClick={() => handleFilterChange("domestic")}
+                className={`rounded-lg px-6 py-2.5 text-sm font-semibold transition-all ${
+                  filter === "domestic"
+                    ? "bg-white text-red-600 shadow-sm"
+                    : "text-slate-500 hover:text-slate-700"
+                }`}
+              >
+                Trong nước ({destinations.filter((d) => d.region === "domestic").length})
+              </button>
+              <button
+                onClick={() => handleFilterChange("international")}
+                className={`rounded-lg px-6 py-2.5 text-sm font-semibold transition-all ${
+                  filter === "international"
+                    ? "bg-white text-red-600 shadow-sm"
+                    : "text-slate-500 hover:text-slate-700"
+                }`}
+              >
+                Quốc tế ({destinations.filter((d) => d.region === "international").length})
+              </button>
+            </div>
+          </div>
+
+          {/* Right: Search + Results count (căn phải) */}
+          <div className="flex flex-col sm:flex-row sm:items-center gap-4 w-full lg:w-auto">
+            {/* Search Input - chiếm hết chiều rộng còn lại trên mobile, căn phải trên desktop */}
+            <div className="relative w-full lg:w-80">
+              <FaMagnifyingGlass className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm pointer-events-none" />
+              <input
+                type="text"
+                placeholder="Tìm kiếm địa điểm..."
+                value={searchTerm}
+                onChange={handleSearchChange}
+                className="w-full pl-10 pr-4 py-2.5 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all"
+              />
+            </div>
+
+            {/* Results count - chỉ hiện khi có lọc/search */}
+            {filteredDestinations.length !== destinations.length && (
+              <div className="text-sm text-gray-600 font-medium text-right lg:text-left">
+                Hiển thị {filteredDestinations.length} / {destinations.length}
+              </div>
+            )}
+          </div>
         </div>
       </motion.div>
 
-      {/* Results count */}
-      {filter !== "all" && (
-        <div className="mb-6 text-center text-sm text-gray-600">
-          Hiển thị {filteredDestinations.length} địa điểm
-        </div>
-      )}
-
-      {/* Grid */}
+      {/* Grid destinations */}
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {currentDisplayDestinations.map((dest, index) => (
           <motion.div
@@ -187,21 +231,48 @@ const AllDestinations = () => {
         ))}
       </div>
 
-      {/* Empty filter result */}
+      {/* Empty state khi không có kết quả */}
       {filteredDestinations.length === 0 && (
-        <div className="text-center py-16">
-          <p className="text-xl text-gray-500">Không tìm thấy địa điểm nào.</p>
-          <button
-            onClick={() => handleFilterChange("all")}
-            className="mt-4 px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
-          >
-            Xem tất cả
-          </button>
-        </div>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          className="text-center py-16"
+        >
+          <div className="inline-block p-8 bg-gray-50 rounded-3xl mb-6">
+            <FaLocationDot className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+            <h3 className="text-2xl font-bold text-gray-700 mb-2">Không tìm thấy địa điểm</h3>
+            <p className="text-gray-500 mb-6">
+              Không có địa điểm nào phù hợp với bộ lọc hiện tại.
+              {searchTerm && (
+                <> Thử tìm kiếm bằng từ khóa khác: "<strong>{searchTerm}</strong>"</>
+              )}
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-3 justify-center">
+            <button
+              onClick={() => {
+                handleFilterChange("all");
+                setSearchTerm("");
+              }}
+              className="px-6 py-2.5 bg-red-600 text-white rounded-xl hover:bg-red-700 transition-all font-semibold"
+            >
+              Xem tất cả địa điểm
+            </button>
+            {searchTerm && (
+              <button
+                onClick={() => setSearchTerm("")}
+                className="px-6 py-2.5 border-2 border-slate-200 text-slate-700 rounded-xl hover:bg-slate-50 transition-all font-semibold"
+              >
+                Xóa tìm kiếm
+              </button>
+            )}
+          </div>
+        </motion.div>
       )}
 
       {/* Pagination */}
-      {totalPages > 1 && (
+      {totalPages > 1 && filteredDestinations.length > 0 && (
         <div className="mt-12 flex justify-center gap-2">
           <button
             onClick={() => handlePageChange(currentPage - 1)}
