@@ -4,7 +4,7 @@ import configPromise from '../../../../../payload.config';
 
 export const dynamic = 'force-dynamic';
 
-// GET - Lấy destination theo ID (public hoặc admin)
+// GET - Lấy destination theo ID
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -39,7 +39,6 @@ export async function GET(
   }
 }
 
-// PATCH - Cập nhật destination (chỉ admin)
 export async function PATCH(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -57,7 +56,6 @@ export async function PATCH(
     const config = await configPromise;
     const payload = await getPayloadHMR({ config });
 
-    // Verify token
     const { user } = await payload.auth({ headers: request.headers });
     if (!user) {
       return NextResponse.json({
@@ -73,12 +71,32 @@ export async function PATCH(
       name: body.name,
       slug: body.slug,
       price: body.price,
+      region: body.region,
       description: body.description,
       featured: body.featured,
       status: body.status,
     };
 
-    // Ưu tiên featuredImage (upload), không thì dùng imageUrl
+    if (body.detailInfo) {
+      updateData.detailInfo = body.detailInfo;
+    }
+
+    if (body.content) {
+      updateData.content = body.content;
+    }
+
+    if (body.reasons && body.reasons.length > 0) {
+      updateData.reasons = body.reasons;
+    }
+
+    if (body.tips) {
+      updateData.tips = body.tips;
+    }
+
+    if (body.gallery && body.gallery.length > 0) {
+      updateData.gallery = body.gallery;
+    }
+
     if (body.featuredImage) {
       updateData.featuredImage = body.featuredImage;
     } else if (body.imageUrl) {
@@ -104,7 +122,6 @@ export async function PATCH(
   }
 }
 
-// DELETE - Xóa destination (chỉ admin)
 export async function DELETE(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -122,7 +139,6 @@ export async function DELETE(
     const config = await configPromise;
     const payload = await getPayloadHMR({ config });
 
-    // Verify token
     const { user } = await payload.auth({ headers: request.headers });
     if (!user) {
       return NextResponse.json({
@@ -149,4 +165,4 @@ export async function DELETE(
       error: error instanceof Error ? error.message : 'Failed to delete destination'
     }, { status: 500 });
   }
-}
+} 

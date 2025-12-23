@@ -3,210 +3,61 @@
 
 import { Link } from "@/i18n/navigation";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaLocationDot } from "react-icons/fa6";
 import { motion } from "framer-motion";
 
 interface Destination {
-  id: number;
+  id: string;
   name: string;
   slug: string;
   region: "domestic" | "international";
-  description: string;
-  imageUrl: string;
+  description?: string;
+  imageUrl?: string;
+  featuredImage?: any;
   price: string;
 }
-
-// Dummy Data
-const allDestinations: Destination[] = [
-  // Miền Bắc
-  {
-    id: 1,
-    name: "Hà Nội",
-    slug: "ha-noi",
-    region: "domestic",
-    description: "Thủ đô ngàn năm văn hiến",
-    imageUrl:
-      "https://images.unsplash.com/photo-1555921015-5532091f6026?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    price: "Từ 1.200.000 VNĐ",
-  },
-  {
-    id: 2,
-    name: "Hạ Long",
-    slug: "ha-long",
-    region: "domestic",
-    description: "Kỳ quan thiên nhiên thế giới",
-    imageUrl: "/images/du-lich-ha-long.webp",
-    price: "Từ 1.500.000 VNĐ",
-  },
-  {
-    id: 3,
-    name: "Sapa",
-    slug: "sapa",
-    region: "domestic",
-    description: "Thành phố trong sương",
-    imageUrl: "/images/du-lich-sapa.png",
-    price: "Từ 1.100.000 VNĐ",
-  },
-  // Miền Trung
-  {
-    id: 4,
-    name: "Đà Nẵng",
-    slug: "da-nang",
-    region: "domestic",
-    description: "Thành phố đáng sống",
-    imageUrl: "/images/du-lich-da-nang.jpg",
-    price: "Từ 990.000 VNĐ",
-  },
-  {
-    id: 5,
-    name: "Hội An",
-    slug: "hoi-an",
-    region: "domestic",
-    description: "Phố cổ bình yên",
-    imageUrl: "/images/du-lich-hoi-an.png",
-    price: "Từ 890.000 VNĐ",
-  },
-  {
-    id: 6,
-    name: "Huế",
-    slug: "hue",
-    region: "domestic",
-    description: "Cố đô trầm mặc",
-    imageUrl: "/images/du-lich-hue.jpg",
-    price: "Từ 1.050.000 VNĐ",
-  },
-  {
-    id: 7,
-    name: "Nha Trang",
-    slug: "nha-trang",
-    region: "domestic",
-    description: "Hòn ngọc viễn đông",
-    imageUrl: "/images/du-lich-nha-trang.jpg",
-    price: "Từ 1.300.000 VNĐ",
-  },
-  // Miền Nam
-  {
-    id: 8,
-    name: "Hồ Chí Minh",
-    slug: "ho-chi-minh",
-    region: "domestic",
-    description: "Thành phố mang tên Bác",
-    imageUrl:
-      "https://images.unsplash.com/photo-1583417319070-4a69db38a482?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    price: "Từ 1.200.000 VNĐ",
-  },
-  {
-    id: 9,
-    name: "Phú Quốc",
-    slug: "phu-quoc",
-    region: "domestic",
-    description: "Đảo ngọc thiên đường",
-    imageUrl: "/images/du-lich-phu-quoc.png",
-    price: "Từ 1.600.000 VNĐ",
-  },
-  // Quốc tế
-  {
-    id: 10,
-    name: "Bangkok",
-    slug: "bangkok",
-    region: "international",
-    description: "Thái Lan",
-    imageUrl:
-      "https://images.unsplash.com/photo-1508009603885-50cf7c579365?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    price: "Từ 2.500.000 VNĐ",
-  },
-  {
-    id: 11,
-    name: "Singapore",
-    slug: "singapore",
-    region: "international",
-    description: "Đảo quốc sư tử",
-    imageUrl:
-      "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    price: "Từ 3.200.000 VNĐ",
-  },
-  {
-    id: 12,
-    name: "Seoul",
-    slug: "seoul",
-    region: "international",
-    description: "Hàn Quốc",
-    imageUrl:
-      "https://images.unsplash.com/photo-1578637387939-43c525550085?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    price: "Từ 5.500.000 VNĐ",
-  },
-  {
-    id: 13,
-    name: "Tokyo",
-    slug: "tokyo",
-    region: "international",
-    description: "Nhật Bản",
-    imageUrl:
-      "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    price: "Từ 8.900.000 VNĐ",
-  },
-  {
-    id: 14,
-    name: "Đài Bắc",
-    slug: "taipei",
-    region: "international",
-    description: "Đài Loan",
-    imageUrl:
-      "https://images.unsplash.com/photo-1470004914212-05527e49370b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    price: "Từ 4.200.000 VNĐ",
-  },
-  {
-    id: 15,
-    name: "Osaka",
-    slug: "osaka",
-    region: "international",
-    description: "Nhật Bản",
-    imageUrl:
-      "https://images.unsplash.com/photo-1537996194471-e657df975ab4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    price: "Từ 9.200.000 VNĐ",
-  },
-  {
-    id: 16,
-    name: "Busan",
-    slug: "busan",
-    region: "international",
-    description: "Hàn Quốc",
-    imageUrl:
-      "https://images.unsplash.com/photo-1537996194471-e657df975ab4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    price: "Từ 5.100.000 VNĐ",
-  },
-  {
-    id: 17,
-    name: "Bali",
-    slug: "bali",
-    region: "international",
-    description: "Indonesia",
-    imageUrl:
-      "https://images.unsplash.com/photo-1537996194471-e657df975ab4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    price: "Từ 3.800.000 VNĐ",
-  },
-  {
-    id: 18,
-    name: "Phuket",
-    slug: "phuket",
-    region: "international",
-    description: "Thái Lan",
-    imageUrl:
-      "https://images.unsplash.com/photo-1537996194471-e657df975ab4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    price: "Từ 3.100.000 VNĐ",
-  },
-];
 
 const ITEMS_PER_PAGE = 12;
 
 const AllDestinations = () => {
-  const [filter, setFilter] = useState<"all" | "domestic" | "international">(
-    "all",
-  );
+  const [destinations, setDestinations] = useState<Destination[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [filter, setFilter] = useState<"all" | "domestic" | "international">("all");
   const [currentPage, setCurrentPage] = useState(1);
 
-  const filteredDestinations = allDestinations.filter(
+  // Fetch destinations from API
+  useEffect(() => {
+    const fetchDestinations = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch("/api/destinations");
+        const data = await response.json();
+
+        if (data.success && data.destinations) {
+          setDestinations(data.destinations);
+        }
+      } catch (error) {
+        console.error("Error fetching destinations:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDestinations();
+  }, []);
+
+  // Get image URL from destination
+  const getImageUrl = (dest: Destination): string => {
+    if (dest.imageUrl) return dest.imageUrl;
+    if (dest.featuredImage) {
+      if (typeof dest.featuredImage === "string") return `/media/${dest.featuredImage}`;
+      if (dest.featuredImage.url) return dest.featuredImage.url;
+    }
+    return "/images/placeholder.jpg";
+  };
+
+  const filteredDestinations = destinations.filter(
     (dest) => filter === "all" || dest.region === filter,
   );
 
@@ -218,9 +69,7 @@ const AllDestinations = () => {
     startIndex + ITEMS_PER_PAGE,
   );
 
-  const handleFilterChange = (
-    newFilter: "all" | "domestic" | "international",
-  ) => {
+  const handleFilterChange = (newFilter: "all" | "domestic" | "international") => {
     setFilter(newFilter);
     setCurrentPage(1);
   };
@@ -229,6 +78,32 @@ const AllDestinations = () => {
     setCurrentPage(page);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
+
+  // Loading state
+  if (loading) {
+    return (
+      <section className="container mx-auto px-6 py-12">
+        <div className="flex justify-center items-center min-h-[400px]">
+          <div className="text-center">
+            <div className="w-16 h-16 border-4 border-red-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+            <p className="text-gray-600">Đang tải địa điểm...</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // Empty state
+  if (destinations.length === 0) {
+    return (
+      <section className="container mx-auto px-6 py-12">
+        <div className="text-center py-16">
+          <p className="text-xl text-gray-500">Chưa có địa điểm nào.</p>
+          <p className="mt-2 text-gray-400">Hãy quay lại sau nhé!</p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="container mx-auto px-6 py-12">
@@ -245,22 +120,29 @@ const AllDestinations = () => {
             onClick={() => handleFilterChange("all")}
             className={`rounded-lg px-6 py-2.5 text-sm font-semibold transition-all ${filter === "all" ? "bg-white text-red-600 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}
           >
-            Tất cả
+            Tất cả ({destinations.length})
           </button>
           <button
             onClick={() => handleFilterChange("domestic")}
             className={`rounded-lg px-6 py-2.5 text-sm font-semibold transition-all ${filter === "domestic" ? "bg-white text-red-600 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}
           >
-            Trong nước
+            Trong nước ({destinations.filter(d => d.region === "domestic").length})
           </button>
           <button
             onClick={() => handleFilterChange("international")}
             className={`rounded-lg px-6 py-2.5 text-sm font-semibold transition-all ${filter === "international" ? "bg-white text-red-600 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}
           >
-            Quốc tế
+            Quốc tế ({destinations.filter(d => d.region === "international").length})
           </button>
         </div>
       </motion.div>
+
+      {/* Results count */}
+      {filter !== "all" && (
+        <div className="mb-6 text-center text-sm text-gray-600">
+          Hiển thị {filteredDestinations.length} địa điểm
+        </div>
+      )}
 
       {/* Grid */}
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
@@ -273,10 +155,10 @@ const AllDestinations = () => {
             transition={{ duration: 0.5, delay: index * 0.1 }}
             className="group cursor-pointer"
           >
-            <Link href={`/destinations/${dest.slug}`}>
+            <Link href={`/destinations/${dest.id}`}>
               <div className="relative h-72 overflow-hidden rounded-2xl shadow-sm transition hover:shadow-md">
                 <Image
-                  src={dest.imageUrl}
+                  src={getImageUrl(dest)}
                   alt={dest.name}
                   width={800}
                   height={600}
@@ -291,8 +173,8 @@ const AllDestinations = () => {
                 <div className="absolute bottom-0 left-0 w-full p-5 text-white">
                   <h3 className="text-xl font-bold">{dest.name}</h3>
                   <div className="mb-2 flex items-center gap-1 text-xs opacity-90">
-                    <FaLocationDot className="text-red-500" />{" "}
-                    {dest.description}
+                    <FaLocationDot className="text-red-500" />
+                    {dest.description || "Khám phá ngay"}
                   </div>
                   <div className="mt-2 flex items-center justify-between border-t border-white/20 pt-3">
                     <span className="text-sm">Giá vé khứ hồi</span>
@@ -304,6 +186,19 @@ const AllDestinations = () => {
           </motion.div>
         ))}
       </div>
+
+      {/* Empty filter result */}
+      {filteredDestinations.length === 0 && (
+        <div className="text-center py-16">
+          <p className="text-xl text-gray-500">Không tìm thấy địa điểm nào.</p>
+          <button
+            onClick={() => handleFilterChange("all")}
+            className="mt-4 px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
+          >
+            Xem tất cả
+          </button>
+        </div>
+      )}
 
       {/* Pagination */}
       {totalPages > 1 && (

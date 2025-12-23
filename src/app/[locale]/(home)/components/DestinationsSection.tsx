@@ -1,54 +1,22 @@
+// components/DestinationsSection.tsx
 "use client";
 
 import { Link } from "@/i18n/navigation";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
-import { FaArrowRight } from "react-icons/fa6";
+import React, { useState, useEffect } from "react";
+import { FaLocationDot } from "react-icons/fa6";
 import { motion } from "framer-motion";
-
-interface Media {
-  id: string;
-  url: string;
-  filename: string;
-  alt?: string;
-}
 
 interface Destination {
   id: string;
   name: string;
   slug: string;
-  price: string;
-  image?: string | Media;        // giữ lại cho tương thích cũ
+  region: "domestic" | "international";
+  description?: string;
   imageUrl?: string;
-  featuredImage?: any;           // thêm dòng này để hỗ trợ upload file
-  featured: boolean;
+  featuredImage?: any;
+  price: string;
 }
-
-// Thêm hàm này vào trong component hoặc ngoài cũng được
-const getImageUrl = (destination: Destination): string => {
-  // Ưu tiên imageUrl (nếu dùng URL trực tiếp)
-  if (destination.imageUrl) {
-    return destination.imageUrl;
-  }
-
-  // Xử lý featuredImage (khi upload file)
-  if (destination.image || destination.featuredImage) {
-    const media = destination.image || destination.featuredImage;
-
-    if (typeof media === 'string') {
-      // Nếu là ID hoặc filename
-      return `/media/${media}`;
-    }
-
-    if (media && typeof media === 'object') {
-      if (media.url) return media.url;
-      if (media.filename) return `/media/${media.filename}`;
-      if (media.id) return `/media/${media.id}`; // một số trường hợp backend trả id
-    }
-  }
-
-  return '/images/placeholder.jpg';
-};
 
 const DestinationsSection = () => {
   const [destinations, setDestinations] = useState<Destination[]>([]);
@@ -57,10 +25,11 @@ const DestinationsSection = () => {
   useEffect(() => {
     const fetchDestinations = async () => {
       try {
+        setLoading(true);
         const response = await fetch("/api/destinations?featured=true&limit=4");
         const data = await response.json();
 
-        if (data.success) {
+        if (data.success && data.destinations) {
           setDestinations(data.destinations);
         }
       } catch (error) {
@@ -73,79 +42,104 @@ const DestinationsSection = () => {
     fetchDestinations();
   }, []);
 
+  const getImageUrl = (dest: Destination): string => {
+    if (dest.imageUrl) return dest.imageUrl;
+    if (dest.featuredImage) {
+      if (typeof dest.featuredImage === "string") return `/media/${dest.featuredImage}`;
+      if (dest.featuredImage.url) return dest.featuredImage.url;
+    }
+    return "/images/placeholder.jpg";
+  };
+
   if (loading) {
     return (
-      <section className="container mx-auto px-6 py-16" id="destinations">
-        <div className="text-center">Đang tải...</div>
+      <section className="container mx-auto px-6 py-16">
+        <div className="text-center">
+          <div className="w-12 h-12 border-4 border-red-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-gray-600">Đang tải địa điểm nổi bật...</p>
+        </div>
       </section>
     );
   }
 
   if (destinations.length === 0) {
-    return null;
+    return null; // Không hiển thị gì nếu không có destinations
   }
 
   return (
-    <section className="container mx-auto px-6 py-16" id="destinations">
+    <section className="container mx-auto px-6 py-16">
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
-        className="mb-8 flex items-end justify-between"
+        transition={{ duration: 0.5, ease: "easeOut" }}
+        className="mb-12 text-center"
       >
-        <div>
-          <h2 className="text-2xl font-bold text-slate-800 md:text-3xl">
-            Điểm đến phổ biến
-          </h2>
-          <p className="mt-2 text-slate-500">
-            Các chuyến bay được tìm kiếm nhiều nhất trong 24h qua
-          </p>
-        </div>
-        <Link
-          href="/destinations"
-          className="flex items-center gap-1 font-semibold text-red-600 hover:underline"
-        >
-          Xem tất cả <FaArrowRight />
-        </Link>
+        <h2 className="mb-4 text-4xl font-bold text-slate-800">
+          Điểm đến nổi bật
+        </h2>
+        <p className="mx-auto max-w-2xl text-lg text-slate-600">
+          Khám phá những địa điểm du lịch hấp dẫn nhất với giá vé tốt nhất
+        </p>
       </motion.div>
 
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-        {destinations.map((dest, index) => {
-          const imageUrl = getImageUrl(dest);
-
-          return (
-            <Link
-              key={dest.id}
-              href={`/destinations/${dest.slug}`}
-              className="group cursor-pointer"
-            >
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.2 }}
-                className="relative h-64 overflow-hidden rounded-2xl shadow-md"
-              >
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {destinations.map((dest, index) => (
+          <motion.div
+            key={dest.id}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
+            className="group cursor-pointer"
+          >
+            {/* Link theo ID thay vì slug */}
+            <Link href={`/destinations/${dest.id}`}>
+              <div className="relative h-80 overflow-hidden rounded-2xl shadow-sm transition hover:shadow-md">
                 <Image
-                  src={imageUrl}
+                  src={getImageUrl(dest)}
                   alt={dest.name}
-                  fill
-                  className="object-cover transition duration-500 group-hover:scale-110"
-                  onError={(e) => {
-                    e.currentTarget.src = '/images/placeholder.jpg';
-                  }}
+                  width={800}
+                  height={600}
+                  className="h-full w-full object-cover transition duration-700 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-                <div className="absolute bottom-4 left-4 text-white">
-                  <h3 className="text-lg font-bold">{dest.name}</h3>
-                  <p className="text-sm opacity-90">Từ {dest.price}</p>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-90 transition group-hover:opacity-100"></div>
+
+                <div className="absolute right-4 top-4 rounded-full bg-white/90 px-3 py-1 text-xs font-bold text-slate-800 shadow-sm">
+                  {dest.region === "domestic" ? "Trong nước" : "Quốc tế"}
                 </div>
-              </motion.div>
+
+                <div className="absolute bottom-0 left-0 w-full p-5 text-white">
+                  <h3 className="text-xl font-bold">{dest.name}</h3>
+                  <div className="mb-2 flex items-center gap-1 text-xs opacity-90">
+                    <FaLocationDot className="text-red-500" />
+                    {dest.description || "Khám phá ngay"}
+                  </div>
+                  <div className="mt-2 flex items-center justify-between border-t border-white/20 pt-3">
+                    <span className="text-sm">Giá vé khứ hồi</span>
+                    <span className="font-bold text-red-400">{dest.price}</span>
+                  </div>
+                </div>
+              </div>
             </Link>
-          );
-        })}
+          </motion.div>
+        ))}
       </div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5, delay: 0.4 }}
+        className="mt-12 text-center"
+      >
+        <Link
+          href="/destinations"
+          className="inline-block rounded-xl bg-red-600 px-8 py-4 font-semibold text-white shadow-lg shadow-red-600/30 transition hover:bg-red-700"
+        >
+          Xem tất cả địa điểm
+        </Link>
+      </motion.div>
     </section>
   );
 };

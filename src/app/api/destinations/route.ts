@@ -107,13 +107,37 @@ export async function POST(request: NextRequest) {
 
     const body = await request.json();
 
+    console.log('=== POST REQUEST BODY ===', body); // Debug
+
     // Prepare data object
     const createData: any = {
       name: body.name,
       slug: body.slug,
       price: body.price,
+      region: body.region || 'domestic', // ← THÊM
       status: body.status || 'draft',
     };
+
+    // ← THÊM CÁC FIELD MỚI
+    if (body.detailInfo) {
+      createData.detailInfo = body.detailInfo;
+    }
+
+    if (body.content) {
+      createData.content = body.content;
+    }
+
+    if (body.reasons) {
+      createData.reasons = body.reasons;
+    }
+
+    if (body.tips) {
+      createData.tips = body.tips;
+    }
+
+    if (body.gallery) {
+      createData.gallery = body.gallery;
+    }
 
     // Ưu tiên featuredImage (upload), không thì dùng imageUrl
     if (body.featuredImage) {
@@ -130,10 +154,14 @@ export async function POST(request: NextRequest) {
       createData.featured = body.featured;
     }
 
+    console.log('=== CREATE DATA ===', createData); // Debug
+
     const destination = await payload.create({
       collection: 'destinations',
       data: createData,
     });
+
+    console.log('=== CREATED DESTINATION ===', destination); // Debug
 
     return NextResponse.json({
       success: true,
