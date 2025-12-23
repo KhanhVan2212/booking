@@ -14,14 +14,13 @@ import {
   FaApple,
   FaGooglePlay,
 } from "react-icons/fa6";
+import { SiZalo } from "react-icons/si";
 import { motion } from "framer-motion";
 const PRODUCT_LINKS = [
-  { href: "/", label: "Trang chủ" },
-  { href: "/flights", label: "Chuyến bay" },
-  { href: "/destinations", label: "Điểm đến phổ biến", badge: "HOT" },
-  { href: "/travel-info", label: "Thông tin du lịch" },
-  { href: "/inspiration", label: "Cảm hứng du lịch" },
-  { href: "/experience", label: "Trải nghiệm bay", badge: "HOT" },
+  { href: "/destinations", label: "Dịch vụ vé máy bay", badge: "HOT" },
+  { href: "/destinations", label: "Dịch vụ du lịch & lữ hành" },
+  { href: "/mice", label: "Dịch vụ tổ chức sự kiện & hội nghị" },
+  { href: "/help", label: "Dịch vụ hỗ trợ đặc biệt" },
 ];
 
 const SUPPORT_LINKS = [
@@ -37,9 +36,21 @@ const SOCIAL_LINKS = [
     icon: FaFacebookF,
     colorClass: "hover:bg-blue-600",
   },
-  // { href: "#", icon: FaInstagram, colorClass: "hover:bg-pink-600" },
-  // { href: "#", icon: FaLinkedinIn, colorClass: "hover:bg-blue-700" },
-  // { href: "#", icon: FaYoutube, colorClass: "hover:bg-red-600" },
+  {
+    href: "https://zalo.me/0979417936",
+    icon: SiZalo,
+    colorClass: "hover:bg-blue-500",
+  },
+  {
+    href: "tel:02437714566",
+    icon: FaPhone,
+    colorClass: "hover:bg-green-500",
+  },
+  {
+    href: "mailto:PHONGVE@HAANHJSC.COM.VN",
+    icon: FaEnvelope,
+    colorClass: "hover:bg-yellow-500",
+  },
 ];
 
 // const PAYMENT_PARTNERS = [
@@ -76,49 +87,6 @@ const Footer = () => {
       transition={{ duration: 0.5 }}
       className="mt-auto bg-slate-900 text-sm text-slate-300"
     >
-      {/* 1. TOP SECTION: DOWNLOAD APP CTA */}
-      <div className="border-b border-slate-800">
-        <div className="container mx-auto flex flex-col items-center justify-between gap-6 px-6 py-10 md:flex-row">
-          <div className="flex items-center gap-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-red-600 text-2xl text-white shadow-lg shadow-red-600/20">
-              <FaPlaneDeparture />
-            </div>
-            <div>
-              <h3 className="text-lg font-bold text-white">
-                Tải ứng dụng Hà Anh JSC
-              </h3>
-              <p className="text-slate-400">
-                Đặt vé nhanh hơn, ưu đãi nhiều hơn trên điện thoại.
-              </p>
-            </div>
-          </div>
-          <div className="flex gap-3">
-            <button className="flex items-center gap-3 rounded-lg border border-slate-700 bg-slate-800 px-4 py-2 text-white transition hover:bg-slate-700">
-              <FaApple className="text-2xl" />
-              <div className="text-left">
-                <div className="text-[10px] leading-none text-slate-400">
-                  Download on the
-                </div>
-                <div className="mt-1 text-sm font-bold leading-none">
-                  App Store
-                </div>
-              </div>
-            </button>
-            <button className="flex items-center gap-3 rounded-lg border border-slate-700 bg-slate-800 px-4 py-2 text-white transition hover:bg-slate-700">
-              <FaGooglePlay className="ml-1 text-xl" />
-              <div className="ml-1 text-left">
-                <div className="text-[10px] leading-none text-slate-400">
-                  GET IT ON
-                </div>
-                <div className="mt-1 text-sm font-bold leading-none">
-                  Google Play
-                </div>
-              </div>
-            </button>
-          </div>
-        </div>
-      </div>
-
       {/* 2. MAIN LINKS SECTION */}
       <div className="container mx-auto px-6 py-12">
         <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4">
@@ -156,7 +124,7 @@ const Footer = () => {
           {/* Column 2: Về Hà Anh JSC (Tính năng chính) */}
           <div>
             <h3 className="mb-6 text-base font-bold uppercase tracking-wider text-white">
-              Sản phẩm
+              Dịch vụ cung cấp
             </h3>
             <ul className="space-y-3">
               {PRODUCT_LINKS.map((link, index) => (

@@ -67,12 +67,25 @@ const ContactSection = () => {
                   <FaLocationDot />
                 </div>
                 <div>
-                  <h4 className="text-lg font-bold text-slate-800">
-                    Văn phòng
-                  </h4>
+                  <h4 className="text-lg font-bold text-slate-800">Trụ sở</h4>
                   <p className="font-medium text-slate-600">
                     Số 2 ngách 3 Ngõ 51 phố Lương Khánh Thiện , Phường Tương
                     Mai, Thành phố Hà Nội
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4">
+                <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 text-xl text-red-600">
+                  <FaLocationDot />
+                </div>
+                <div>
+                  <h4 className="text-lg font-bold text-slate-800">
+                    Văn phòng giao dịch
+                  </h4>
+                  <p className="font-medium text-slate-600">
+                    Tầng 9 Tòa nhà 26 Liễu Giai, Phường Ngọc Hà, Thành phố Hà
+                    Nội.
                   </p>
                 </div>
               </div>

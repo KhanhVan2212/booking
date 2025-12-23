@@ -4,6 +4,7 @@
 import { Link } from "@/i18n/navigation";
 import Image from "next/image";
 import React, { useState } from "react";
+import { FaSearch } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import { motion } from "framer-motion";
 
@@ -204,10 +205,13 @@ const AllDestinations = () => {
   const [filter, setFilter] = useState<"all" | "domestic" | "international">(
     "all",
   );
+  const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
 
   const filteredDestinations = allDestinations.filter(
-    (dest) => filter === "all" || dest.region === filter,
+    (dest) =>
+      (filter === "all" || dest.region === filter) &&
+      dest.name.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   // Pagination Logic
@@ -238,7 +242,7 @@ const AllDestinations = () => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
-        className="mb-8 flex justify-center"
+        className="mb-8 flex flex-col items-center justify-between gap-4 md:flex-row"
       >
         <div className="inline-flex rounded-xl bg-slate-100 p-1">
           <button
@@ -259,6 +263,21 @@ const AllDestinations = () => {
           >
             Quốc tế
           </button>
+        </div>
+
+        {/* Search Input */}
+        <div className="relative w-full max-w-xs md:w-64">
+          <input
+            type="text"
+            placeholder="Tìm kiếm điểm đến..."
+            value={searchTerm}
+            onChange={(e) => {
+              setSearchTerm(e.target.value);
+              setCurrentPage(1);
+            }}
+            className="w-full rounded-xl border-none bg-slate-100 py-3 pl-10 pr-4 text-sm text-slate-700 outline-none ring-1 ring-slate-200 focus:bg-white focus:ring-2 focus:ring-red-500"
+          />
+          <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
         </div>
       </motion.div>
 
@@ -293,10 +312,6 @@ const AllDestinations = () => {
                   <div className="mb-2 flex items-center gap-1 text-xs opacity-90">
                     <FaLocationDot className="text-red-500" />{" "}
                     {dest.description}
-                  </div>
-                  <div className="mt-2 flex items-center justify-between border-t border-white/20 pt-3">
-                    <span className="text-sm">Giá vé khứ hồi</span>
-                    <span className="font-bold text-red-400">{dest.price}</span>
                   </div>
                 </div>
               </div>

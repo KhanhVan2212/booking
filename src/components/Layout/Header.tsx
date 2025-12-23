@@ -65,9 +65,9 @@ const Navbar = ({ isTransparent = false }: NavbarProps) => {
           <Link href="/" className={`${textClasses} transition`}>
             Trang chủ
           </Link>
-          <Link href="/flights" className={`${textClasses} transition`}>
+          {/* <Link href="/flights" className={`${textClasses} transition`}>
             Chuyến bay
-          </Link>
+          </Link> */}
           <Link href="/destinations" className={`${textClasses} transition`}>
             Điểm đến phổ biến
           </Link>
