@@ -17,7 +17,6 @@ export default function AboutPage() {
       <MissionVisionSection />
       <CompetitiveAdvantages />
       <ContactSection />
-      <MapSection />
     </div>
   );
 }

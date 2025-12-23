@@ -75,10 +75,12 @@ const AboutmeSection = () => {
               Lịch sử hình thành
             </h3>
             <p className="mb-8 text-justify leading-relaxed text-slate-600">
-              Công ty Cổ phần Du Lịch Hàng Không Hà anh được thành lập từ năm
-              2002, sau đó cổ phần hóa từ 2011, từ đó đến nay, công ty đã có hơn
-              chục năm kinh nghiệm về lĩnh vực cung cấp vé máy bay và dịch vụ
-              hàng không.
+              Công ty Cổ phần Du Lịch Hàng Không Hà Anh được thành lập năm 2002, hoạt động trong
+              lĩnh vực cung cấp vé máy bay và dịch vụ hàng không. Năm 2011, Công ty chính thức
+              chuyển đổi sang mô hình công ty cổ phần, đánh dấu bước phát triển quan trọng về quy mô
+              và năng lực quản trị. Với hơn 20 năm kinh nghiệm, Hà Anh đã khẳng định uy tín và vị thế trên
+              thị trường, trở thành đối tác tin cậy của nhiều cơ quan, bộ ban ngành thuộc khối ngân sách
+              nhà nước và các doanh nghiệp lớn.
             </p>
 
             <div className="grid grid-cols-2 gap-4">
@@ -108,134 +110,7 @@ const AboutmeSection = () => {
           </motion.div>
         </div>
       </div>
-      <div className="bg-slate-50 py-20">
-        <div className="container mx-auto px-6">
-          {/* Phạm vi hoạt động */}
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6 }}
-            className="mb-16 text-center"
-          >
-            <h2 className="mb-8 text-3xl font-bold text-slate-800">
-              Phạm vi hoạt động
-            </h2>
-            <div className="flex flex-col justify-center gap-3 md:flex-row">
-              <div className="mx-auto max-w-sm flex-1 rounded-2xl border border-slate-100 bg-white p-8 shadow-sm transition hover:shadow-md">
-                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-red-100 text-3xl text-red-600">
-                  <FaLocationDot />
-                </div>
-                <h3 className="text-xl font-bold text-slate-800">
-                  Nội địa (Việt Nam)
-                </h3>
-                <p className="mt-2 text-slate-500">
-                  Phủ sóng 63 tỉnh thành với mạng lưới đường bay kết nối mọi
-                  miền tổ quốc.
-                </p>
-              </div>
-              <div className="mx-auto max-w-sm flex-1 rounded-2xl border border-slate-100 bg-white p-8 shadow-sm transition hover:shadow-md">
-                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-red-100 text-3xl text-red-600">
-                  <FaGlobe />
-                </div>
-                <h3 className="text-xl font-bold text-slate-800">Quốc tế</h3>
-                <p className="mt-2 text-slate-500">
-                  Kết nối đến các thành phố lớn trên toàn thế giới thông qua các
-                  liên minh hàng không.
-                </p>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Giá trị cốt lõi */}
-          <div className="text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              <span className="text-sm font-bold uppercase tracking-wider text-red-600">
-                Kim chỉ nam
-              </span>
-              <h2 className="mb-12 mt-2 text-3xl font-bold text-slate-800">
-                Giá trị cốt lõi
-              </h2>
-            </motion.div>
-
-            <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-              {/* Card 1 */}
-              <motion.div
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.1 }}
-                className="group relative overflow-hidden rounded-2xl border-t-4 border-red-600 bg-white p-8 shadow-sm transition duration-300 hover:shadow-xl"
-              >
-                <div className="absolute right-0 top-0 -mr-4 -mt-4 h-24 w-24 rounded-bl-full bg-red-50 transition group-hover:bg-red-100"></div>
-                <div className="relative z-10">
-                  <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-lg bg-red-600 text-2xl text-white shadow-lg shadow-red-600/30">
-                    <FaUserTie />
-                  </div>
-                  <h3 className="mb-3 text-xl font-bold text-slate-800">
-                    Chuyên nghiệp
-                  </h3>
-                  <p className="text-sm leading-relaxed text-slate-500">
-                    Quy trình làm việc bài bản, đội ngũ nhân sự được đào tạo
-                    chuyên sâu, thái độ phục vụ chuẩn mực.
-                  </p>
-                </div>
-              </motion.div>
-
-              {/* Card 2 */}
-              <motion.div
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                className="group relative overflow-hidden rounded-2xl border-t-4 border-red-600 bg-white p-8 shadow-sm transition duration-300 hover:shadow-xl"
-              >
-                <div className="absolute right-0 top-0 -mr-4 -mt-4 h-24 w-24 rounded-bl-full bg-red-50 transition group-hover:bg-red-100"></div>
-                <div className="relative z-10">
-                  <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-lg bg-red-600 text-2xl text-white shadow-lg shadow-red-600/30">
-                    <FaHandshake />
-                  </div>
-                  <h3 className="mb-3 text-xl font-bold text-slate-800">
-                    Tận tâm
-                  </h3>
-                  <p className="text-sm leading-relaxed text-slate-500">
-                    Luôn lắng nghe, thấu hiểu và đặt lợi ích của khách hàng lên
-                    hàng đầu. Hỗ trợ khách hàng trên mọi hành trình.
-                  </p>
-                </div>
-              </motion.div>
-
-              {/* Card 3 */}
-              <motion.div
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.3 }}
-                className="group relative overflow-hidden rounded-2xl border-t-4 border-red-600 bg-white p-8 shadow-sm transition duration-300 hover:shadow-xl"
-              >
-                <div className="absolute right-0 top-0 -mr-4 -mt-4 h-24 w-24 rounded-bl-full bg-red-50 transition group-hover:bg-red-100"></div>
-                <div className="relative z-10">
-                  <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-lg bg-red-600 text-2xl text-white shadow-lg shadow-red-600/30">
-                    <FaChartLine />
-                  </div>
-                  <h3 className="mb-3 text-xl font-bold text-slate-800">
-                    Hiệu quả
-                  </h3>
-                  <p className="text-sm leading-relaxed text-slate-500">
-                    Mang đến giải pháp tối ưu nhất về chi phí và thời gian. Cam
-                    kết chất lượng dịch vụ vượt trội.
-                  </p>
-                </div>
-              </motion.div>
-            </div>
-          </div>
-        </div>
-      </div>
+     
     </section>
   );
 };

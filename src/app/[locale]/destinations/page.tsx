@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import DestinationsHero from "./components/DestinationsHero";
 import AllDestinations from "./components/AllDestinations";
 import ContactSection from "../about/components/ContactSection";
+import AirportFlightBoard from "../../../components/Layout/AirportFlightBoard";
 
 const Page = () => {
   const [mounted, setMounted] = useState(false);

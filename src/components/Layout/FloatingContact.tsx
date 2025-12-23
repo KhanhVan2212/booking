@@ -8,6 +8,7 @@ import {
   FaLocationDot,
   FaHeadset,
 } from "react-icons/fa6";
+import { SiZalo } from "react-icons/si";
 
 const FloatingContact = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -69,17 +70,22 @@ const FloatingContact = () => {
             </div>
           </div>
 
-          {/* Address */}
+          {/* Zalo */}
           <div className="flex items-start gap-4">
-            <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-orange-50 text-orange-600">
-              <FaLocationDot />
+            <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-blue-50 text-blue-600">
+              <SiZalo />
             </div>
             <div>
-              <p className="text-sm font-medium text-slate-500">Văn phòng</p>
-              <p className="text-sm font-semibold leading-snug text-slate-800">
-                Số 2 ngách 3 Ngõ 51 phố Lương Khánh Thiện, Phường Tương Mai,
-                Thành phố Hà Nội
-              </p>
+              <p className="text-sm font-medium text-slate-500">Chat Zalo</p>
+              <a
+                href="https://zalo.me/0979417936"
+                target="_blank"
+                rel="noreferrer"
+                className="block text-lg font-bold leading-tight text-blue-600 hover:underline"
+              >
+                0979 417 936
+              </a>
+              <span className="text-xs text-slate-400">Kết nối trực tiếp</span>
             </div>
           </div>
         </div>
