@@ -1,4 +1,3 @@
-// components/AllDestinations.tsx
 "use client";
 
 import { Link } from "@/i18n/navigation";
@@ -164,9 +163,8 @@ const AllDestinations = () => {
             </div>
           </div>
 
-          {/* Right: Search + Results count (căn phải) */}
+          {/* Right: Search + Results count */}
           <div className="flex flex-col sm:flex-row sm:items-center gap-4 w-full lg:w-auto">
-            {/* Search Input - chiếm hết chiều rộng còn lại trên mobile, căn phải trên desktop */}
             <div className="relative w-full lg:w-80">
               <FaMagnifyingGlass className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm pointer-events-none" />
               <input
@@ -178,7 +176,6 @@ const AllDestinations = () => {
               />
             </div>
 
-            {/* Results count - chỉ hiện khi có lọc/search */}
             {filteredDestinations.length !== destinations.length && (
               <div className="text-sm text-gray-600 font-medium text-right lg:text-left">
                 Hiển thị {filteredDestinations.length} / {destinations.length}
@@ -206,6 +203,7 @@ const AllDestinations = () => {
                   alt={dest.name}
                   width={800}
                   height={600}
+                  unoptimized // Tạm thời bypass optimizer để tránh error với Payload media
                   className="h-full w-full object-cover transition duration-700 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-90 transition group-hover:opacity-100"></div>
@@ -245,7 +243,9 @@ const AllDestinations = () => {
             <p className="text-gray-500 mb-6">
               Không có địa điểm nào phù hợp với bộ lọc hiện tại.
               {searchTerm && (
-                <> Thử tìm kiếm bằng từ khóa khác: "<strong>{searchTerm}</strong>"</>
+                <>
+                  {" "}Thử tìm kiếm bằng từ khóa khác: <strong>{`"${searchTerm}"`}</strong>
+                </>
               )}
             </p>
           </div>
