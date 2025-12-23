@@ -1,41 +1,86 @@
 // components/InspirationSection.tsx
+"use client";
+
 import { Link } from "@/i18n/navigation";
 import Image from "next/image";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { FaArrowRight } from "react-icons/fa6";
 import { motion } from "framer-motion";
 
-const blogs = [
-  {
-    id: 1,
-    title: "10 Địa điểm check-in không thể bỏ qua tại Đà Nẵng",
-    slug: "10-dia-diem-check-in-da-nang",
-    category: "Địa điểm",
-    image:
-      "https://images.unsplash.com/photo-1555921015-5532091f6026?w=800&q=80",
-    date: "15 Th12",
-  },
-  {
-    id: 2,
-    title: "Kinh nghiệm du lịch Thái Lan tự túc cho người mới",
-    slug: "kinh-nghiem-du-lich-thai-lan",
-    category: "Kinh nghiệm",
-    image:
-      "https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=800&q=80",
-    date: "10 Th12",
-  },
-  {
-    id: 3,
-    title: "Top 5 món ăn đường phố nhất định phải thử ở Hà Nội",
-    slug: "top-5-mon-an-duong-pho-ha-noi",
-    category: "Ẩm thực",
-    image:
-      "https://images.unsplash.com/photo-1504457047772-27faf1c00561?w=800&q=80",
-    date: "05 Th12",
-  },
-];
+interface Blog {
+  id: string;
+  title: string;
+  slug: string;
+  category: string;
+  imageUrl?: string;
+  featuredImage?: any;
+  readTime: string;
+  createdAt: string;
+}
+
+const CATEGORY_LABELS: Record<string, string> = {
+  "dia-diem": "Địa điểm",
+  "kinh-nghiem": "Kinh nghiệm",
+  "am-thuc": "Ẩm thực",
+  "cam-nang": "Cẩm nang",
+  "tin-tuc": "Tin tức",
+};
 
 const InspirationSection = () => {
+  const [blogs, setBlogs] = useState<Blog[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch("/api/blogs?featured=true&limit=3");
+        const data = await response.json();
+
+        if (data.success && data.blogs) {
+          setBlogs(data.blogs);
+        }
+      } catch (error) {
+        console.error("Error fetching blogs:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBlogs();
+  }, []);
+
+  const getImageUrl = (blog: Blog): string => {
+    if (blog.imageUrl) return blog.imageUrl;
+    if (blog.featuredImage) {
+      if (typeof blog.featuredImage === "string") return `/media/${blog.featuredImage}`;
+      if (blog.featuredImage.url) return blog.featuredImage.url;
+    }
+    return "/images/placeholder.jpg";
+  };
+
+  const formatDate = (dateString: string): string => {
+    const date = new Date(dateString);
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    return `${day} Th${month}`;
+  };
+
+  if (loading) {
+    return (
+      <section className="container mx-auto px-6 py-16">
+        <div className="text-center">
+          <div className="w-12 h-12 border-4 border-red-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-gray-600">Đang tải bài viết...</p>
+        </div>
+      </section>
+    );
+  }
+
+  if (blogs.length === 0) {
+    return null; // Không hiển thị section nếu không có bài viết
+  }
+
   return (
     <section className="container mx-auto px-6 py-16">
       <motion.div
@@ -64,31 +109,30 @@ const InspirationSection = () => {
       <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
         {blogs.map((blog, index) => (
           <motion.div
-            key={index}
+            key={blog.id}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: index * 0.2 }}
           >
             <Link
-              key={blog.id}
-              href={`/inspiration/${blog.slug}`}
+              href={`/inspiration/${blog.id}`}
               className="group"
             >
               <div className="relative mb-4 h-64 overflow-hidden rounded-2xl shadow-sm">
                 <Image
                   width={800}
                   height={600}
-                  src={blog.image}
+                  src={getImageUrl(blog)}
                   alt={blog.title}
                   className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
                 />
                 <div className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1 text-xs font-bold text-slate-800 backdrop-blur">
-                  {blog.category}
+                  {CATEGORY_LABELS[blog.category] || blog.category}
                 </div>
               </div>
               <div className="mb-2 flex items-center gap-2 text-xs text-slate-400">
-                <span>{blog.date}</span> • <span>5 phút đọc</span>
+                <span>{formatDate(blog.createdAt)}</span> • <span>{blog.readTime}</span>
               </div>
               <h3 className="text-xl font-bold leading-snug text-slate-800 transition group-hover:text-red-600">
                 {blog.title}
