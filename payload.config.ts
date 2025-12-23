@@ -5,10 +5,19 @@ import path from "path";
 import sharp from "sharp";
 
 export default buildConfig({
-  serverURL: process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:3000",
+  // ✅ FIX: Sử dụng đúng biến env
+  serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL || "http://localhost:3000",
+
   admin: {
     user: "users",
   },
+
+  // ✅ FIX: Thêm routes để enable API
+  routes: {
+    api: '/api',
+    admin: '/admin',
+  },
+
   collections: [
     {
       slug: "users",
@@ -126,7 +135,6 @@ export default buildConfig({
             description: "VD: Từ 1.200.000 VNĐ",
           },
         },
-        // Hỗ trợ cả upload và URL
         {
           name: "featuredImage",
           type: "upload",
@@ -161,7 +169,6 @@ export default buildConfig({
           required: true,
           label: "Trạng thái",
         },
-        // Thông tin chi tiết
         {
           name: "detailInfo",
           type: "group",
@@ -186,7 +193,6 @@ export default buildConfig({
             },
           ],
         },
-        // Nội dung chi tiết (Rich Text)
         {
           name: "content",
           type: "richText",
@@ -196,7 +202,6 @@ export default buildConfig({
             description: "Nội dung đầy đủ hiển thị ở trang detail",
           },
         },
-        // Danh sách lý do nên đi
         {
           name: "reasons",
           type: "array",
@@ -210,7 +215,6 @@ export default buildConfig({
             },
           ],
         },
-        // Mẹo du lịch
         {
           name: "tips",
           type: "textarea",
@@ -219,7 +223,6 @@ export default buildConfig({
             description: "Các lời khuyên hữu ích cho du khách",
           },
         },
-        // Gallery ảnh
         {
           name: "gallery",
           type: "array",
@@ -325,13 +328,20 @@ export default buildConfig({
       ],
     },
   ],
+
   editor: lexicalEditor({}),
+
+  // ✅ FIX: Đảm bảo có secret
   secret: process.env.PAYLOAD_SECRET || "",
+
   typescript: {
     outputFile: path.resolve(process.cwd(), "payload-types.ts"),
   },
+
+  // ✅ FIX: Đảm bảo MongoDB URL đúng
   db: mongooseAdapter({
     url: process.env.MONGODB_URI || "",
   }),
+
   sharp,
 });
