@@ -37,7 +37,7 @@ const SOCIAL_LINKS = [
     colorClass: "hover:bg-blue-600",
   },
   {
-    href: "https://zalo.me/0979417936",
+    href: "https://zalo.me/0986798102",
     icon: SiZalo,
     colorClass: "hover:bg-blue-500",
   },

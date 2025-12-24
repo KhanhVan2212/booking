@@ -49,7 +49,7 @@ const MAIN_SERVICES = [
   },
   {
     icon: FaHandHoldingHeart,
-    title: "Dịch vụ Hỗ trợ Đặc biệt",
+    title: "Dịch vụ Hỗ trợ ",
     color: "green",
     items: [
       "Vé máy bay khẩn cấp (Last-minute)",
@@ -115,7 +115,7 @@ const ServicesSection = () => {
         </motion.div>
 
         {/* 2. MAIN SERVICES GRID (4 Cột chính) */}
-        <div className="mb-16 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+        <div className="mb-16 grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-4">
           {MAIN_SERVICES.map((service, index) => {
             const Icon = service.icon;
             // Dynamic styling based on color prop

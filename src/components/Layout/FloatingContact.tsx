@@ -78,12 +78,12 @@ const FloatingContact = () => {
             <div>
               <p className="text-sm font-medium text-slate-500">Chat Zalo</p>
               <a
-                href="https://zalo.me/0979417936"
+                href="https://zalo.me/0986798102"
                 target="_blank"
                 rel="noreferrer"
                 className="block text-lg font-bold leading-tight text-blue-600 hover:underline"
               >
-                0979 417 936
+                0986 798 102
               </a>
               <span className="text-xs text-slate-400">Kết nối trực tiếp</span>
             </div>

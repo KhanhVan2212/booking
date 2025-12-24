@@ -46,7 +46,7 @@ const FeaturesSection = () => {
           </h2>
         </motion.div>
 
-        <div className="grid grid-cols-1 gap-6 text-center md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-6 text-center md:grid-cols-2 xl:grid-cols-4">
           {FEATURES.map((feature, index) => {
             const Icon = feature.icon;
             return (

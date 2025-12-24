@@ -43,7 +43,7 @@ const Navbar = ({ isTransparent = false }: NavbarProps) => {
       transition={{ duration: 0.8, ease: "easeOut" }}
       className={`${navClasses} `}
     >
-      <div className="container mx-auto flex items-center justify-between px-6">
+      <div className="max-w-[1520px] mx-auto flex items-center justify-between px-6">
         {/* Logo */}
         <Link
           href="/"
@@ -60,7 +60,7 @@ const Navbar = ({ isTransparent = false }: NavbarProps) => {
 
         {/* Desktop Menu Links */}
         <div
-          className={`hidden space-x-8 font-medium md:flex ${isTransparent ? "text-white" : "text-slate-600"}`}
+          className={`hidden space-x-8 font-medium lg:flex ${isTransparent ? "text-white" : "text-slate-600"}`}
         >
           <Link href="/" className={`${textClasses} transition`}>
             Trang chủ
@@ -88,18 +88,18 @@ const Navbar = ({ isTransparent = false }: NavbarProps) => {
         {/* Mobile Menu Toggle Button */}
         <button
           onClick={toggleMenu}
-          className={`text-2xl focus:outline-none md:hidden ${isTransparent ? "text-white" : "text-slate-600"}`}
+          className={`text-2xl focus:outline-none lg:hidden ${isTransparent ? "text-white" : "text-slate-600"}`}
           aria-label="Toggle menu"
         >
           {isOpen ? <FaXmark /> : <FaBars />}
         </button>
 
-        <div className="hidden w-[163px] lg:block"></div>
+        <div className="hidden w-[163px] xl:block"></div>
       </div>
 
       {/* Mobile Menu Dropdown */}
       {isOpen && (
-        <div className="absolute left-0 top-full flex w-full flex-col items-center space-y-4 border-t bg-white py-4 shadow-lg md:hidden">
+        <div className="absolute left-0 top-full flex w-full flex-col items-center space-y-4 border-t bg-white py-4 shadow-lg lg:hidden">
           <Link
             href="/"
             className="text-lg font-medium text-slate-600 hover:text-red-600"

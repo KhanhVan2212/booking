@@ -25,7 +25,7 @@ const categories = [
   },
   {
     icon: <FaRoute />,
-    title: "Dịch vụ du lịch & lữ hành",
+    title: "Dịch vụ du lịch",
     href: "/destinations",
     description: (
       <>
@@ -38,7 +38,7 @@ const categories = [
   },
   {
     icon: <FaHandshake />,
-    title: "Dịch vụ tổ chức sự kiện & hội nghị",
+    title: "Dịch vụ sự kiện",
     href: "/mice",
     description: (
       <>
@@ -51,7 +51,7 @@ const categories = [
   },
   {
     icon: <FaUserShield />,
-    title: "Dịch vụ hỗ trợ đặc biệt",
+    title: "Dịch vụ hỗ trợ",
     href: "/help",
     description: (
       <>
@@ -82,7 +82,7 @@ const InfoCategories = () => {
         </p>
       </motion.div>
 
-      <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-4">
         {categories.map((cat, index) => (
           <Link href={cat.href} key={index} className="block h-full">
             <motion.div

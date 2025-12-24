@@ -120,7 +120,7 @@ const MicePage = () => {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-4">
             {/* Meeting */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
