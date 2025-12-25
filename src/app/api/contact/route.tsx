@@ -65,7 +65,8 @@ export async function POST(req: Request) {
 
     const apiKey = process.env.RESEND_API_KEY;
     const to = process.env.CONTACT_EMAIL_TO;
-    const from = process.env.CONTACT_EMAIL_FROM ?? "onboarding@resend.dev";
+    const from = process.env.CONTACT_EMAIL_FROM || "onboarding@resend.dev";
+    console.log("Sending email from:", from);
 
     if (!apiKey)
       return Response.json(
@@ -86,7 +87,14 @@ export async function POST(req: Request) {
       to: [to],
       subject: `Liên hệ mới từ khách hàng: ${fullName} - ${phone}`,
       replyTo: email,
-      react: <EmailTemplate fullName={fullName} email={email} phone={phone} message={message} />,
+      react: (
+        <EmailTemplate
+          fullName={fullName}
+          email={email}
+          phone={phone}
+          message={message}
+        />
+      ),
     });
 
     if (error) {
