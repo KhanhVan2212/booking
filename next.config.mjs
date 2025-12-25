@@ -6,6 +6,7 @@ const nextConfig = {
   compress: true,
   // Payload CMS packages được tự động xử lý bởi withPayload
   // Không cần thêm vào transpilePackages vì chúng được đặt trong serverExternalPackages
+  serverExternalPackages: ["@react-email/components", "resend"],
   images: {
     remotePatterns: [
       {
