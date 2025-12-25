@@ -136,57 +136,230 @@ const ContactSection = () => {
             <h3 className="mb-6 text-2xl font-bold text-slate-800">
               Gửi tin nhắn cho chúng tôi
             </h3>
-            <form className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="mb-1 block text-sm font-semibold text-slate-700">
-                    Họ tên
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Nguyễn Văn A"
-                    className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none transition focus:border-red-500 focus:ring-2 focus:ring-red-500"
-                  />
-                </div>
-                <div>
-                  <label className="mb-1 block text-sm font-semibold text-slate-700">
-                    Số điện thoại
-                  </label>
-                  <input
-                    type="tel"
-                    placeholder="09xxxxxx"
-                    className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none transition focus:border-red-500 focus:ring-2 focus:ring-red-500"
-                  />
-                </div>
-              </div>
-              <div>
-                <label className="mb-1 block text-sm font-semibold text-slate-700">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  placeholder="example@gmail.com"
-                  className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none transition focus:border-red-500 focus:ring-2 focus:ring-red-500"
-                />
-              </div>
-              <div>
-                <label className="mb-1 block text-sm font-semibold text-slate-700">
-                  Nội dung
-                </label>
-                <textarea
-                  rows={4}
-                  placeholder="Bạn cần hỗ trợ gì?"
-                  className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none transition focus:border-red-500 focus:ring-2 focus:ring-red-500"
-                ></textarea>
-              </div>
-              <button className="flex w-full transform items-center justify-center gap-2 rounded-xl bg-red-600 py-4 font-bold text-white shadow-lg shadow-red-600/30 transition hover:-translate-y-1 hover:bg-red-700">
-                <FaPaperPlane /> Gửi tin nhắn
-              </button>
-            </form>
+            <ContactForm />
           </motion.div>
         </div>
       </div>
     </section>
+  );
+};
+
+import { toast } from "sonner"; // Add import
+
+const ContactForm = () => {
+  const [formData, setFormData] = useState({
+    fullName: "",
+    phone: "",
+    email: "",
+    message: "",
+    confirm_email: "", // Honeypot field
+  });
+  const [errors, setErrors] = useState({
+    fullName: "",
+    phone: "",
+    email: "",
+    message: "",
+  });
+  const [loading, setLoading] = useState(false);
+
+  const validate = () => {
+    let isValid = true;
+    const newErrors = { fullName: "", phone: "", email: "", message: "" };
+
+    if (formData.fullName.length < 2) {
+      newErrors.fullName = "Họ tên phải có ít nhất 2 ký tự";
+      isValid = false;
+    }
+
+    if (formData.phone.length < 8) {
+      newErrors.phone = "Số điện thoại không hợp lệ (tối thiểu 8 số)";
+      isValid = false;
+    }
+
+    if (!formData.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+      newErrors.email = "Email không hợp lệ";
+      isValid = false;
+    }
+
+    if (formData.message.length < 5) {
+      newErrors.message = "Nội dung quá ngắn (tối thiểu 5 ký tự)";
+      isValid = false;
+    }
+
+    setErrors(newErrors);
+    return isValid;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!validate()) {
+      toast.error("Vui lòng kiểm tra lại thông tin nhập");
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        toast.success("Gửi tin nhắn thành công! Chúng tôi sẽ liên hệ lại sớm.");
+        setFormData({
+          fullName: "",
+          phone: "",
+          email: "",
+          message: "",
+          confirm_email: "",
+        });
+        setErrors({ fullName: "", phone: "", email: "", message: "" });
+      } else {
+        // Handle validation errors from backend if any
+        if (data.details) {
+          const backendErrors = {
+            fullName: "",
+            phone: "",
+            email: "",
+            message: "",
+          };
+          data.details.forEach((err: any) => {
+            if (err.path === "fullName") backendErrors.fullName = err.message;
+            if (err.path === "phone") backendErrors.phone = err.message;
+            if (err.path === "email") backendErrors.email = err.message;
+            if (err.path === "message") backendErrors.message = err.message;
+          });
+          setErrors(backendErrors);
+        }
+        toast.error(data.error || "Gửi thất bại. Vui lòng thử lại.");
+      }
+    } catch (error) {
+      toast.error("Lỗi kết nối. Vui lòng thử lại sau.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-4">
+      {/* Honeypot field - hidden */}
+      <div className="absolute left-[-9999px] opacity-0" aria-hidden="true">
+        <input
+          type="text"
+          tabIndex={-1}
+          value={formData.confirm_email}
+          onChange={(e) =>
+            setFormData({ ...formData, confirm_email: e.target.value })
+          }
+          placeholder="Skip this field"
+          autoComplete="off"
+        />
+      </div>
+      <div className="grid grid-cols-2 gap-4">
+        <div>
+          <label className="mb-1 block text-sm font-semibold text-slate-700">
+            Họ tên *
+          </label>
+          <input
+            type="text"
+            required
+            value={formData.fullName}
+            onChange={(e) =>
+              setFormData({ ...formData, fullName: e.target.value })
+            }
+            placeholder="Nguyễn Văn A"
+            className={`w-full rounded-xl border px-4 py-3 outline-none transition focus:ring-2 ${
+              errors.fullName
+                ? "border-red-500 focus:border-red-500 focus:ring-red-200"
+                : "border-slate-300 focus:border-red-500 focus:ring-red-500"
+            }`}
+          />
+          {errors.fullName && (
+            <p className="mt-1 text-xs text-red-500">{errors.fullName}</p>
+          )}
+        </div>
+        <div>
+          <label className="mb-1 block text-sm font-semibold text-slate-700">
+            Số điện thoại *
+          </label>
+          <input
+            type="tel"
+            required
+            value={formData.phone}
+            onChange={(e) =>
+              setFormData({ ...formData, phone: e.target.value })
+            }
+            placeholder="09xxxxxx"
+            className={`w-full rounded-xl border px-4 py-3 outline-none transition focus:ring-2 ${
+              errors.phone
+                ? "border-red-500 focus:border-red-500 focus:ring-red-200"
+                : "border-slate-300 focus:border-red-500 focus:ring-red-500"
+            }`}
+          />
+          {errors.phone && (
+            <p className="mt-1 text-xs text-red-500">{errors.phone}</p>
+          )}
+        </div>
+      </div>
+      <div>
+        <label className="mb-1 block text-sm font-semibold text-slate-700">
+          Email *
+        </label>
+        <input
+          type="email"
+          required
+          value={formData.email}
+          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+          placeholder="example@gmail.com"
+          className={`w-full rounded-xl border px-4 py-3 outline-none transition focus:ring-2 ${
+            errors.email
+              ? "border-red-500 focus:border-red-500 focus:ring-red-200"
+              : "border-slate-300 focus:border-red-500 focus:ring-red-500"
+          }`}
+        />
+        {errors.email && (
+          <p className="mt-1 text-xs text-red-500">{errors.email}</p>
+        )}
+      </div>
+      <div>
+        <label className="mb-1 block text-sm font-semibold text-slate-700">
+          Nội dung *
+        </label>
+        <textarea
+          rows={4}
+          required
+          value={formData.message}
+          onChange={(e) =>
+            setFormData({ ...formData, message: e.target.value })
+          }
+          placeholder="Bạn cần hỗ trợ gì?"
+          className={`w-full rounded-xl border px-4 py-3 outline-none transition focus:ring-2 ${
+            errors.message
+              ? "border-red-500 focus:border-red-500 focus:ring-red-200"
+              : "border-slate-300 focus:border-red-500 focus:ring-red-500"
+          }`}
+        ></textarea>
+        {errors.message && (
+          <p className="mt-1 text-xs text-red-500">{errors.message}</p>
+        )}
+      </div>
+      <button
+        disabled={loading}
+        className="flex w-full transform items-center justify-center gap-2 rounded-xl bg-red-600 py-4 font-bold text-white shadow-lg shadow-red-600/30 transition hover:-translate-y-1 hover:bg-red-700 disabled:bg-gray-400"
+      >
+        {loading ? (
+          "Đang gửi..."
+        ) : (
+          <>
+            <FaPaperPlane /> Gửi tin nhắn
+          </>
+        )}
+      </button>
+    </form>
   );
 };
 

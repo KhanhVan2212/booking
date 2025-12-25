@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Pencil, Trash2, Plus, X } from "lucide-react";
+import { toast } from "sonner";
 
 interface Destination {
   id: string;
@@ -108,7 +109,7 @@ export default function DestinationsPage() {
       }
     } catch (error) {
       console.error("Error fetching destinations:", error);
-      alert("Không thể tải danh sách địa điểm");
+      toast.error("Không thể tải danh sách địa điểm");
     } finally {
       setLoading(false);
     }
@@ -343,16 +344,18 @@ export default function DestinationsPage() {
       console.log("Response data:", JSON.stringify(data, null, 2)); // Debug log đẹp hơn
 
       if (data.success || data.doc || data.destination) {
-        alert(editingId ? "Cập nhật thành công!" : "Tạo mới thành công!");
+        toast.success(
+          editingId ? "Cập nhật thành công!" : "Tạo mới thành công!",
+        );
         setShowModal(false);
         fetchDestinations();
       } else {
         console.error("Server error:", data);
-        alert(data.error || data.message || "Có lỗi xảy ra");
+        toast.error(data.error || data.message || "Có lỗi xảy ra");
       }
     } catch (error) {
       console.error("Error saving destination:", error);
-      alert(
+      toast.error(
         "Có lỗi xảy ra khi lưu: " +
           (error instanceof Error ? error.message : "Unknown error"),
       );
@@ -370,13 +373,13 @@ export default function DestinationsPage() {
       });
       const data = await response.json();
       if (data.success) {
-        alert("Xóa thành công!");
+        toast.success("Xóa thành công!");
         fetchDestinations();
       } else {
-        alert(data.error || "Lỗi khi xóa");
+        toast.error(data.error || "Lỗi khi xóa");
       }
     } catch (error) {
-      alert("Có lỗi xảy ra");
+      toast.error("Có lỗi xảy ra");
     }
   };
 
@@ -773,7 +776,7 @@ export default function DestinationsPage() {
                   </h4>
 
                   <div className="space-y-4">
-                    <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-4">
+                    <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-5">
                       <input
                         type="text"
                         value={newDeparture.airline}

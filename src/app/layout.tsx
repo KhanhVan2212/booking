@@ -11,6 +11,8 @@ const vietnamPro = Be_Vietnam_Pro({
 
 export const dynamic = "force-static";
 
+import { Toaster } from "sonner";
+
 // 🔥 SEO hard-code title + description cho Hà Anh JSC
 export async function generateMetadata(): Promise<Metadata> {
   // Bạn nên thay đổi domain này thành domain thật của Hà Anh khi deploy
@@ -102,6 +104,7 @@ export default function RootLayout({
         className={`${vietnamPro.variable} bg-white text-slate-800 antialiased`}
       >
         {children}
+        <Toaster richColors position="top-right" />
       </body>
     </html>
   );

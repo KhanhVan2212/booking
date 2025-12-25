@@ -9,6 +9,7 @@ type Props = {
   params: Promise<{ locale: string }>;
 };
 
+import { Toaster } from "sonner";
 import FloatingContact from "@/components/Layout/FloatingContact";
 
 export default async function LocaleLayout({ children, params }: Props) {
@@ -26,6 +27,7 @@ export default async function LocaleLayout({ children, params }: Props) {
         <main>{children}</main>
         <FloatingContact />
         <Footer />
+        <Toaster richColors position="top-right" />
       </AppProvider>
     </NextIntlClientProvider>
     //     </body>

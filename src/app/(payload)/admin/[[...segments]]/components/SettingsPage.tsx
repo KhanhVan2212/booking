@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from "react";
 
+import { toast } from "sonner";
+
 export default function SettingsPage() {
   const [settings, setSettings] = useState({
     hotline: "",
@@ -34,6 +36,7 @@ export default function SettingsPage() {
       }
     } catch (error) {
       console.error("Error fetching settings:", error);
+      toast.error("Không thể tải cài đặt");
     } finally {
       setLoadingSettings(false);
     }
@@ -55,12 +58,12 @@ export default function SettingsPage() {
       console.log("Save Settings Response:", data); // Debug log
 
       if (data && (data.id || data.hotline)) {
-        alert("Lưu cài đặt thành công!");
+        toast.success("Lưu cài đặt thành công!");
       } else {
-        alert("Lỗi khi lưu cài đặt: " + (data.error || "Unknown"));
+        toast.error("Lỗi khi lưu cài đặt: " + (data.error || "Unknown"));
       }
     } catch (error) {
-      alert("Có lỗi xảy ra");
+      toast.error("Có lỗi xảy ra");
     }
   };
 
