@@ -12,6 +12,33 @@ import { SiZalo } from "react-icons/si";
 
 const FloatingContact = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [contactInfo, setContactInfo] = useState({
+    hotline: "024 3771 4566",
+    hotlineDesc: "Hỗ trợ 24/7",
+    email: "PHONGVE@HAANHJSC.COM.VN",
+    emailDesc: "Phản hồi trong vòng 24h",
+  });
+
+  React.useEffect(() => {
+    const fetchSettings = async () => {
+      try {
+        const response = await fetch("/api/globals/settings");
+        const data = await response.json();
+        if (data && !data.errors) {
+          setContactInfo((prev) => ({
+            hotline: data.hotline || prev.hotline,
+            hotlineDesc: data.hotlineDesc || prev.hotlineDesc,
+            email: data.email || prev.email,
+            emailDesc: data.emailDesc || prev.emailDesc,
+          }));
+        }
+      } catch (error) {
+        console.error("Error fetching settings:", error);
+      }
+    };
+
+    fetchSettings();
+  }, []);
 
   return (
     <div className="pointer-events-none fixed bottom-6 right-6 z-50 flex flex-col items-end">
@@ -42,12 +69,14 @@ const FloatingContact = () => {
             <div>
               <p className="text-sm font-medium text-slate-500">Hotline</p>
               <a
-                href="tel:02437714566"
+                href={`tel:${contactInfo.hotline.replace(/\s/g, "")}`}
                 className="block text-lg font-bold leading-tight text-red-600 hover:underline"
               >
-                024 3771 4566
+                {contactInfo.hotline}
               </a>
-              <span className="text-xs text-slate-400">Hỗ trợ 24/7</span>
+              <span className="text-xs text-slate-400">
+                {contactInfo.hotlineDesc}
+              </span>
             </div>
           </div>
 
@@ -59,13 +88,13 @@ const FloatingContact = () => {
             <div>
               <p className="text-sm font-medium text-slate-500">Email</p>
               <a
-                href="mailto:PHONGVE@HAANHJSC.COM.VN"
+                href={`mailto:${contactInfo.email}`}
                 className="block break-all text-sm font-bold leading-tight text-slate-800 transition hover:text-red-600"
               >
-                PHONGVE@HAANHJSC.COM.VN
+                {contactInfo.email}
               </a>
               <span className="text-xs text-slate-400">
-                Phản hồi trong vòng 24h
+                {contactInfo.emailDesc}
               </span>
             </div>
           </div>

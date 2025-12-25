@@ -14,8 +14,8 @@ export default buildConfig({
 
   // ✅ FIX: Thêm routes để enable API
   routes: {
-    api: '/api',
-    admin: '/admin',
+    api: "/api",
+    admin: "/admin",
   },
 
   collections: [
@@ -246,6 +246,53 @@ export default buildConfig({
             },
           ],
         },
+        {
+          name: "departures",
+          type: "array",
+          label: "Bảng chuyến bay (Flight Board)",
+          fields: [
+            {
+              name: "airline",
+              type: "text",
+              required: true,
+              label: "Hãng bay",
+              admin: {
+                description: "VD: Vietnam Airlines, VietJet Air",
+              },
+            },
+            {
+              name: "route",
+              type: "text",
+              label: "Hành trình",
+              admin: {
+                description: "VD: Hà Nội → TP.HCM",
+              },
+            },
+            {
+              name: "stop",
+              type: "text",
+              required: true,
+              label: "Điểm đến (Stop)",
+              admin: {
+                description: "VD: TP.HCM",
+              },
+            },
+            {
+              name: "country",
+              type: "text",
+              label: "Quốc gia",
+              defaultValue: "Việt Nam",
+            },
+            {
+              name: "from",
+              type: "text",
+              label: "Điểm khởi hành",
+              admin: {
+                description: "Mặc định lấy theo tên điểm đến này nếu để trống",
+              },
+            },
+          ],
+        },
       ],
     },
     {
@@ -324,6 +371,56 @@ export default buildConfig({
         {
           name: "publishedDate",
           type: "date",
+        },
+      ],
+    },
+  ],
+
+  globals: [
+    {
+      slug: "settings",
+      access: {
+        read: () => true,
+        update: ({ req: { user } }) => !!user,
+      },
+      fields: [
+        {
+          name: "hotline",
+          type: "text",
+          label: "Hotline",
+          defaultValue: "024 3771 4566",
+        },
+        {
+          name: "hotlineDesc",
+          type: "text",
+          label: "Mô tả Hotline",
+          defaultValue: "Hỗ trợ 24/7",
+        },
+        {
+          name: "email",
+          type: "text",
+          label: "Email",
+          defaultValue: "PHONGVE@HAANHJSC.COM.VN",
+        },
+        {
+          name: "emailDesc",
+          type: "text",
+          label: "Mô tả Email",
+          defaultValue: "Phản hồi trong vòng 24h",
+        },
+        {
+          name: "headquarters",
+          type: "textarea",
+          label: "Trụ sở",
+          defaultValue:
+            "Số 2 ngách 3 Ngõ 51 phố Lương Khánh Thiện , Phường Tương Mai, Thành phố Hà Nội",
+        },
+        {
+          name: "office",
+          type: "textarea",
+          label: "Văn phòng giao dịch",
+          defaultValue:
+            "Tầng 9 Tòa nhà 26 Liễu Giai, Phường Ngọc Hà, Thành phố Hà Nội.",
         },
       ],
     },

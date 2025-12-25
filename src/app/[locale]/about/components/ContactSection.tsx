@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   FaEnvelope,
   FaLocationDot,
@@ -8,6 +8,39 @@ import {
 import { motion } from "framer-motion";
 
 const ContactSection = () => {
+  const [contactInfo, setContactInfo] = useState({
+    hotline: "024 3771 4566",
+    hotlineDesc: "Hỗ trợ 24/7",
+    email: "PHONGVE@HAANHJSC.COM.VN",
+    emailDesc: "Phản hồi trong vòng 24h",
+    headquarters:
+      "Số 2 ngách 3 Ngõ 51 phố Lương Khánh Thiện , Phường Tương Mai, Thành phố Hà Nội",
+    office: "Tầng 9 Tòa nhà 26 Liễu Giai, Phường Ngọc Hà, Thành phố Hà Nội.",
+  });
+
+  useEffect(() => {
+    const fetchSettings = async () => {
+      try {
+        const response = await fetch("/api/globals/settings");
+        const data = await response.json();
+        if (data && !data.errors) {
+          setContactInfo((prev) => ({
+            hotline: data.hotline || prev.hotline,
+            hotlineDesc: data.hotlineDesc || prev.hotlineDesc,
+            email: data.email || prev.email,
+            emailDesc: data.emailDesc || prev.emailDesc,
+            headquarters: data.headquarters || prev.headquarters,
+            office: data.office || prev.office,
+          }));
+        }
+      } catch (error) {
+        console.error("Error fetching settings:", error);
+      }
+    };
+
+    fetchSettings();
+  }, []);
+
   return (
     <section className="relative overflow-hidden py-20" id="contact">
       {/* Decor background */}
@@ -41,9 +74,11 @@ const ContactSection = () => {
                 <div>
                   <h4 className="text-lg font-bold text-slate-800">Hotline</h4>
                   <p className="text-xl font-bold text-red-600">
-                    024 3771 4566
+                    {contactInfo.hotline}
                   </p>
-                  <p className="text-sm text-slate-500">Hỗ trợ 24/7</p>
+                  <p className="text-sm text-slate-500">
+                    {contactInfo.hotlineDesc}
+                  </p>
                 </div>
               </div>
 
@@ -54,10 +89,10 @@ const ContactSection = () => {
                 <div>
                   <h4 className="text-lg font-bold text-slate-800">Email</h4>
                   <p className="font-medium text-slate-600">
-                    PHONGVE@HAANHJSC.COM.VN
+                    {contactInfo.email}
                   </p>
                   <p className="text-sm text-slate-500">
-                    Phản hồi trong vòng 24h
+                    {contactInfo.emailDesc}
                   </p>
                 </div>
               </div>
@@ -69,8 +104,7 @@ const ContactSection = () => {
                 <div>
                   <h4 className="text-lg font-bold text-slate-800">Trụ sở</h4>
                   <p className="font-medium text-slate-600">
-                    Số 2 ngách 3 Ngõ 51 phố Lương Khánh Thiện , Phường Tương
-                    Mai, Thành phố Hà Nội
+                    {contactInfo.headquarters}
                   </p>
                 </div>
               </div>
@@ -84,8 +118,7 @@ const ContactSection = () => {
                     Văn phòng giao dịch
                   </h4>
                   <p className="font-medium text-slate-600">
-                    Tầng 9 Tòa nhà 26 Liễu Giai, Phường Ngọc Hà, Thành phố Hà
-                    Nội.
+                    {contactInfo.office}
                   </p>
                 </div>
               </div>

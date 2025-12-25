@@ -6,6 +6,8 @@ import React, { useEffect, useState, use } from "react";
 import { FaCalendarAlt, FaMapMarkerAlt, FaPlane } from "react-icons/fa";
 import DestinationsSection from "../../(home)/components/DestinationsSection";
 import ContactSection from "../../about/components/ContactSection";
+import AirportFlightBoard from "@/components/Layout/AirportFlightBoard";
+import { FlightDeparture } from "@/lib/destination-departure-map";
 
 interface Media {
   id: string;
@@ -40,6 +42,7 @@ interface Destination {
   }>;
   featured?: boolean;
   status: "published" | "draft";
+  departures?: FlightDeparture[];
 }
 
 const getImageUrl = (destination: Destination | null): string => {
@@ -72,12 +75,12 @@ const getGalleryImageUrl = (item: any): string => {
 };
 
 export default function DestinationDetailPage({
-                                                params,
-                                              }: {
+  params,
+}: {
   params: Promise<{ id: string }>;
 }) {
   const { id } = use(params);
-
+  // const departures = DESTINATION_DEPARTURE_MAP[id] ?? [];
   const [destination, setDestination] = useState<Destination | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -97,7 +100,7 @@ export default function DestinationDetailPage({
         const response = await fetch(`/api/destinations/${id}`, {
           cache: "no-store",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
         });
 
@@ -153,10 +156,12 @@ export default function DestinationDetailPage({
 
   if (loading) {
     return (
-      <main className="min-h-screen bg-slate-50 pt-[80px] flex items-center justify-center">
+      <main className="flex min-h-screen items-center justify-center bg-slate-50 pt-[80px]">
         <div className="text-center">
-          <div className="w-12 h-12 border-4 border-red-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-lg text-slate-600">Đang tải thông tin điểm đến...</p>
+          <div className="mx-auto mb-4 h-12 w-12 animate-spin rounded-full border-4 border-red-600 border-t-transparent"></div>
+          <p className="text-lg text-slate-600">
+            Đang tải thông tin điểm đến...
+          </p>
         </div>
       </main>
     );
@@ -164,35 +169,46 @@ export default function DestinationDetailPage({
 
   if (error || !destination) {
     return (
-      <main className="min-h-screen bg-slate-50 pt-[80px] flex items-center justify-center">
-        <div className="text-center py-20 px-6 max-w-2xl">
+      <main className="flex min-h-screen items-center justify-center bg-slate-50 pt-[80px]">
+        <div className="max-w-2xl px-6 py-20 text-center">
           <div className="mb-6">
-            <div className="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-10 h-10 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-red-100">
+              <svg
+                className="h-10 w-10 text-red-600"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                />
               </svg>
             </div>
           </div>
 
-          <h1 className="text-4xl font-bold text-slate-800 mb-4">
+          <h1 className="mb-4 text-4xl font-bold text-slate-800">
             Không tìm thấy điểm đến
           </h1>
 
-          <p className="text-lg text-slate-600 mb-4">
-            {error || "Xin lỗi, điểm đến bạn đang tìm không tồn tại hoặc đã bị xóa."}
+          <p className="mb-4 text-lg text-slate-600">
+            {error ||
+              "Xin lỗi, điểm đến bạn đang tìm không tồn tại hoặc đã bị xóa."}
           </p>
 
-          <div className="flex gap-4 justify-center">
+          <div className="flex justify-center gap-4">
             <Link
               href="/destinations"
-              className="inline-block bg-red-600 text-white px-8 py-4 rounded-xl font-semibold hover:bg-red-700 transition"
+              className="inline-block rounded-xl bg-red-600 px-8 py-4 font-semibold text-white transition hover:bg-red-700"
             >
               Quay lại danh sách điểm đến
             </Link>
 
             <button
               onClick={() => window.location.reload()}
-              className="inline-block bg-slate-200 text-slate-700 px-8 py-4 rounded-xl font-semibold hover:bg-slate-300 transition"
+              className="inline-block rounded-xl bg-slate-200 px-8 py-4 font-semibold text-slate-700 transition hover:bg-slate-300"
             >
               Thử lại
             </button>
@@ -229,8 +245,12 @@ export default function DestinationDetailPage({
               Điểm đến nổi bật
             </span>
           )}
-          <h1 className="mb-4 text-4xl font-bold leading-tight md:text-6xl">{title}</h1>
-          <p className="max-w-3xl text-lg text-slate-100 opacity-95">{shortDescription}</p>
+          <h1 className="mb-4 text-4xl font-bold leading-tight md:text-6xl">
+            {title}
+          </h1>
+          <p className="max-w-3xl text-lg text-slate-100 opacity-95">
+            {shortDescription}
+          </p>
         </div>
       </section>
 
@@ -267,7 +287,9 @@ export default function DestinationDetailPage({
             </div>
             <div>
               <p className="text-sm text-slate-500">Giá vé từ</p>
-              <p className="text-lg font-bold text-green-700">{destination.price}</p>
+              <p className="text-lg font-bold text-green-700">
+                {destination.price}
+              </p>
             </div>
           </div>
         </div>
@@ -275,11 +297,13 @@ export default function DestinationDetailPage({
 
       {/* MAIN CONTENT + SIDEBAR */}
       <section className="container mx-auto grid grid-cols-1 gap-12 px-6 pb-20 lg:grid-cols-3">
-        <article className="lg:col-span-2 space-y-10">
-          <h2 className="text-3xl font-bold text-slate-800">Thông tin chi tiết</h2>
+        <article className="space-y-10 lg:col-span-2">
+          <h2 className="text-3xl font-bold text-slate-800">
+            Thông tin chi tiết
+          </h2>
 
           {/* Nội dung từ content field */}
-          <div className="prose prose-lg max-w-none text-slate-600 leading-relaxed space-y-5">
+          <div className="prose prose-lg max-w-none space-y-5 leading-relaxed text-slate-600">
             {destination.content ? (
               (() => {
                 // Handle Lexical format
@@ -287,7 +311,9 @@ export default function DestinationDetailPage({
                   const text = destination.content.root.children
                     .map((node: any) => {
                       if (node.children) {
-                        return node.children.map((child: any) => child.text || "").join("");
+                        return node.children
+                          .map((child: any) => child.text || "")
+                          .join("");
                       }
                       return "";
                     })
@@ -296,21 +322,41 @@ export default function DestinationDetailPage({
                 }
                 // Handle string format
                 if (typeof destination.content === "string") {
-                  return <div dangerouslySetInnerHTML={{ __html: destination.content.replace(/\n/g, "<br />") }} />;
+                  return (
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html: destination.content.replace(/\n/g, "<br />"),
+                      }}
+                    />
+                  );
                 }
-                return <div dangerouslySetInnerHTML={{ __html: JSON.stringify(destination.content) }} />;
+                return (
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: JSON.stringify(destination.content),
+                    }}
+                  />
+                );
               })()
             ) : destination.description ? (
-              <div dangerouslySetInnerHTML={{ __html: destination.description.replace(/\n/g, "<br />") }} />
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: destination.description.replace(/\n/g, "<br />"),
+                }}
+              />
             ) : (
-              <p className="text-gray-500 italic">Chưa có thông tin chi tiết về điểm đến này.</p>
+              <p className="italic text-gray-500">
+                Chưa có thông tin chi tiết về điểm đến này.
+              </p>
             )}
           </div>
 
           {/* Lý do nên đi */}
           {destination.reasons && destination.reasons.length > 0 ? (
             <div>
-              <h3 className="text-2xl font-bold text-slate-800 mb-4">Tại sao nên chọn {title}?</h3>
+              <h3 className="mb-4 text-2xl font-bold text-slate-800">
+                Tại sao nên chọn {title}?
+              </h3>
               <ul className="list-disc space-y-3 pl-8 text-lg text-slate-600">
                 {destination.reasons.map((item, index) => (
                   <li key={item.id || index}>{item.reason}</li>
@@ -318,9 +364,10 @@ export default function DestinationDetailPage({
               </ul>
             </div>
           ) : (
-            <div className="bg-gray-50 border-2 border-dashed border-gray-300 rounded-lg p-6">
-              <p className="text-gray-500 text-center">
-                ⭐ Chưa có lý do nên đi. Reasons: {JSON.stringify(destination.reasons)}
+            <div className="rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 p-6">
+              <p className="text-center text-gray-500">
+                ⭐ Chưa có lý do nên đi. Reasons:{" "}
+                {JSON.stringify(destination.reasons)}
               </p>
             </div>
           )}
@@ -328,16 +375,25 @@ export default function DestinationDetailPage({
           {/* Mẹo du lịch */}
           {destination.tips && (
             <div>
-              <h3 className="text-2xl font-bold text-slate-800 mb-4">Mẹo du lịch hữu ích</h3>
-              <p className="text-slate-600 leading-relaxed whitespace-pre-line">{destination.tips}</p>
+              <h3 className="mb-4 text-2xl font-bold text-slate-800">
+                Mẹo du lịch hữu ích
+              </h3>
+              <p className="whitespace-pre-line leading-relaxed text-slate-600">
+                {destination.tips}
+              </p>
             </div>
           )}
-
+          {destination.departures && destination.departures.length > 0 && (
+            <AirportFlightBoard departures={destination.departures} />
+          )}
           {/* Gallery ảnh */}
           {destination.gallery && destination.gallery.length > 0 ? (
             <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2">
               {destination.gallery.map((item, index) => (
-                <div key={item.id || index} className="overflow-hidden rounded-2xl shadow-lg">
+                <div
+                  key={item.id || index}
+                  className="overflow-hidden rounded-2xl shadow-lg"
+                >
                   <Image
                     src={getGalleryImageUrl(item)}
                     alt={item.caption || `${title} - Hình ảnh ${index + 1}`}
@@ -349,15 +405,18 @@ export default function DestinationDetailPage({
                     }}
                   />
                   {item.caption && (
-                    <p className="p-3 text-sm text-slate-600 bg-white">{item.caption}</p>
+                    <p className="bg-white p-3 text-sm text-slate-600">
+                      {item.caption}
+                    </p>
                   )}
                 </div>
               ))}
             </div>
           ) : (
-            <div className="bg-gray-50 border-2 border-dashed border-gray-300 rounded-lg p-6 mt-12">
-              <p className="text-gray-500 text-center">
-                🖼️ Chưa có ảnh trong thư viện. Gallery: {JSON.stringify(destination.gallery)}
+            <div className="mt-12 rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 p-6">
+              <p className="text-center text-gray-500">
+                🖼️ Chưa có ảnh trong thư viện. Gallery:{" "}
+                {JSON.stringify(destination.gallery)}
               </p>
             </div>
           )}
@@ -365,23 +424,33 @@ export default function DestinationDetailPage({
 
         <aside className="space-y-8">
           <div className="rounded-2xl border border-slate-100 bg-white p-8 shadow-xl">
-            <h3 className="mb-5 text-2xl font-bold text-slate-800">Đặt vé đi {title}</h3>
+            <h3 className="mb-5 text-2xl font-bold text-slate-800">
+              Đặt vé đi {title}
+            </h3>
             <p className="mb-8 text-slate-600">
-              Tìm chuyến bay giá tốt nhất và nhận tư vấn miễn phí từ đội ngũ chuyên viên.
+              Tìm chuyến bay giá tốt nhất và nhận tư vấn miễn phí từ đội ngũ
+              chuyên viên.
             </p>
 
             <div className="space-y-5">
               <div>
-                <label className="mb-2 block text-sm font-semibold uppercase text-slate-500">Điểm đi</label>
-                <input type="text" value="Hà Nội (HAN)" readOnly className="w-full rounded-lg border border-slate-200 bg-slate-50 px-5 py-3 text-slate-800" />
+                <label className="mb-2 block text-sm font-semibold uppercase text-slate-500">
+                  Điểm đến
+                </label>
+                <input
+                  type="text"
+                  value={title}
+                  readOnly
+                  className="w-full rounded-lg border border-slate-200 bg-slate-50 px-5 py-3 text-slate-800"
+                />
               </div>
               <div>
-                <label className="mb-2 block text-sm font-semibold uppercase text-slate-500">Điểm đến</label>
-                <input type="text" value={title} readOnly className="w-full rounded-lg border border-slate-200 bg-slate-50 px-5 py-3 text-slate-800" />
-              </div>
-              <div>
-                <label className="mb-2 block text-sm font-semibold uppercase text-slate-500">Giá tham khảo</label>
-                <p className="text-3xl font-bold text-red-600">Từ {destination.price}</p>
+                <label className="mb-2 block text-sm font-semibold uppercase text-slate-500">
+                  Giá tham khảo
+                </label>
+                <p className="text-3xl font-bold text-red-600">
+                  Từ {destination.price}
+                </p>
               </div>
 
               <Link
@@ -392,13 +461,6 @@ export default function DestinationDetailPage({
               </Link>
             </div>
           </div>
-
-          {destination.detailInfo?.flightTime && (
-            <div className="rounded-2xl border border-slate-100 bg-blue-50 p-6">
-              <h4 className="font-bold text-blue-900 mb-2">✈️ Thông tin bay</h4>
-              <p className="text-slate-700">{destination.detailInfo.flightTime}</p>
-            </div>
-          )}
         </aside>
       </section>
 

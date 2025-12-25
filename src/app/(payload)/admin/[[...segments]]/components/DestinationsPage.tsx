@@ -28,6 +28,13 @@ interface Destination {
   }>;
   featured?: boolean;
   status: "published" | "draft";
+  departures?: Array<{
+    airline: string;
+    route: string;
+    stop: string;
+    country: string;
+    from?: string;
+  }>;
 }
 
 interface FormData {
@@ -46,6 +53,12 @@ interface FormData {
   galleryUrls: string[];
   featured: boolean;
   status: "published" | "draft";
+  departures: Array<{
+    airline: string;
+    route: string;
+    stop: string;
+    country: string;
+  }>;
 }
 
 export default function DestinationsPage() {
@@ -71,6 +84,14 @@ export default function DestinationsPage() {
     galleryUrls: [],
     featured: false,
     status: "published",
+    departures: [],
+  });
+
+  const [newDeparture, setNewDeparture] = useState({
+    airline: "",
+    route: "",
+    stop: "",
+    country: "",
   });
 
   useEffect(() => {
@@ -112,7 +133,7 @@ export default function DestinationsPage() {
     if (newGalleryUrl.trim()) {
       setFormData({
         ...formData,
-        galleryUrls: [...formData.galleryUrls, newGalleryUrl.trim()]
+        galleryUrls: [...formData.galleryUrls, newGalleryUrl.trim()],
       });
       setNewGalleryUrl("");
     }
@@ -121,7 +142,7 @@ export default function DestinationsPage() {
   const removeGalleryImage = (index: number) => {
     setFormData({
       ...formData,
-      galleryUrls: formData.galleryUrls.filter((_, i) => i !== index)
+      galleryUrls: formData.galleryUrls.filter((_, i) => i !== index),
     });
   };
 
@@ -129,7 +150,7 @@ export default function DestinationsPage() {
     if (newReason.trim()) {
       setFormData({
         ...formData,
-        reasons: [...formData.reasons, newReason.trim()]
+        reasons: [...formData.reasons, newReason.trim()],
       });
       setNewReason("");
     }
@@ -138,7 +159,24 @@ export default function DestinationsPage() {
   const removeReason = (index: number) => {
     setFormData({
       ...formData,
-      reasons: formData.reasons.filter((_, i) => i !== index)
+      reasons: formData.reasons.filter((_, i) => i !== index),
+    });
+  };
+
+  const addDeparture = () => {
+    if (newDeparture.airline && newDeparture.stop) {
+      setFormData({
+        ...formData,
+        departures: [...formData.departures, { ...newDeparture }],
+      });
+      setNewDeparture({ airline: "", route: "", stop: "", country: "" });
+    }
+  };
+
+  const removeDeparture = (index: number) => {
+    setFormData({
+      ...formData,
+      departures: formData.departures.filter((_, i) => i !== index),
     });
   };
 
@@ -156,7 +194,9 @@ export default function DestinationsPage() {
           contentText = destination.content.root.children
             .map((node: any) => {
               if (node.children) {
-                return node.children.map((child: any) => child.text || "").join("");
+                return node.children
+                  .map((child: any) => child.text || "")
+                  .join("");
               }
               return "";
             })
@@ -175,11 +215,14 @@ export default function DestinationsPage() {
         flightTime: destination.detailInfo?.flightTime || "",
         location: destination.detailInfo?.location || "",
         contentText: contentText,
-        reasons: destination.reasons?.map(r => r.reason) || [],
+        reasons: destination.reasons?.map((r) => r.reason) || [],
         tips: destination.tips || "",
-        galleryUrls: destination.gallery?.map(g => g.imageUrl || "").filter(Boolean) || [],
+        galleryUrls:
+          destination.gallery?.map((g) => g.imageUrl || "").filter(Boolean) ||
+          [],
         featured: destination.featured || false,
         status: destination.status,
+        departures: destination.departures || [],
       });
     } else {
       setEditingId(null);
@@ -199,7 +242,9 @@ export default function DestinationsPage() {
         galleryUrls: [],
         featured: false,
         status: "published",
+        departures: [],
       });
+      setNewDeparture({ airline: "", route: "", stop: "", country: "" });
     }
     setShowModal(true);
   };
@@ -217,7 +262,7 @@ export default function DestinationsPage() {
           format: "",
           indent: 0,
           version: 1,
-          children: formData.contentText.split("\n").map(line => ({
+          children: formData.contentText.split("\n").map((line) => ({
             type: "paragraph",
             format: "",
             indent: 0,
@@ -230,13 +275,13 @@ export default function DestinationsPage() {
                 mode: "normal",
                 style: "",
                 detail: 0,
-                version: 1
-              }
+                version: 1,
+              },
             ],
-            direction: "ltr"
+            direction: "ltr",
           })),
-          direction: "ltr"
-        }
+          direction: "ltr",
+        },
       };
 
       const submitData: any = {
@@ -258,7 +303,7 @@ export default function DestinationsPage() {
 
       // Chỉ thêm reasons nếu có
       if (formData.reasons && formData.reasons.length > 0) {
-        submitData.reasons = formData.reasons.map(reason => ({ reason }));
+        submitData.reasons = formData.reasons.map((reason) => ({ reason }));
       }
 
       // Chỉ thêm tips nếu có
@@ -268,12 +313,21 @@ export default function DestinationsPage() {
 
       // Chỉ thêm gallery nếu có
       if (formData.galleryUrls && formData.galleryUrls.length > 0) {
-        submitData.gallery = formData.galleryUrls.map(url => ({ imageUrl: url }));
+        submitData.gallery = formData.galleryUrls.map((url) => ({
+          imageUrl: url,
+        }));
+      }
+
+      // Add departures
+      if (formData.departures && formData.departures.length > 0) {
+        submitData.departures = formData.departures;
       }
 
       console.log("Submitting data:", JSON.stringify(submitData, null, 2)); // Debug log đẹp hơn
 
-      const url = editingId ? `/api/destinations/${editingId}` : "/api/destinations";
+      const url = editingId
+        ? `/api/destinations/${editingId}`
+        : "/api/destinations";
       const method = editingId ? "PATCH" : "POST";
 
       const response = await fetch(url, {
@@ -298,7 +352,10 @@ export default function DestinationsPage() {
       }
     } catch (error) {
       console.error("Error saving destination:", error);
-      alert("Có lỗi xảy ra khi lưu: " + (error instanceof Error ? error.message : "Unknown error"));
+      alert(
+        "Có lỗi xảy ra khi lưu: " +
+          (error instanceof Error ? error.message : "Unknown error"),
+      );
     }
   };
 
@@ -326,20 +383,21 @@ export default function DestinationsPage() {
   const getImageUrl = (dest: Destination): string => {
     if (dest.imageUrl) return dest.imageUrl;
     if (dest.featuredImage) {
-      if (typeof dest.featuredImage === "string") return `/media/${dest.featuredImage}`;
+      if (typeof dest.featuredImage === "string")
+        return `/media/${dest.featuredImage}`;
       if (dest.featuredImage.url) return dest.featuredImage.url;
     }
     return "/images/placeholder.jpg";
   };
 
   return (
-    <div className="p-6 bg-gray-50 min-h-screen">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex justify-between items-center mb-6">
+    <div className="min-h-screen bg-gray-50 p-6">
+      <div className="mx-auto max-w-7xl">
+        <div className="mb-6 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
           <h2 className="text-2xl font-bold text-gray-900">Quản lý Địa điểm</h2>
           <button
             onClick={() => openModal()}
-            className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+            className="flex w-full items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 sm:w-auto"
           >
             <Plus size={18} />
             Thêm mới
@@ -347,58 +405,88 @@ export default function DestinationsPage() {
         </div>
 
         {loading ? (
-          <div className="bg-white rounded-lg shadow p-12 text-center">
-            <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <div className="rounded-lg bg-white p-12 text-center shadow">
+            <div className="mx-auto mb-4 h-12 w-12 animate-spin rounded-full border-4 border-blue-600 border-t-transparent"></div>
             <p className="text-gray-600">Đang tải dữ liệu...</p>
           </div>
         ) : (
-          <div className="bg-white rounded-lg shadow overflow-hidden">
-            <table className="min-w-full">
-              <thead className="bg-gray-50">
-              <tr>
-                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600">Hình</th>
-                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600">Tên</th>
-                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600">Khu vực</th>
-                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600">Giá</th>
-                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600">Trạng thái</th>
-                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600">Thao tác</th>
-              </tr>
-              </thead>
-              <tbody className="divide-y">
-              {destinations.map((dest) => (
-                <tr key={dest.id} className="hover:bg-gray-50">
-                  <td className="px-4 py-3">
-                    <img src={getImageUrl(dest)} alt={dest.name} className="w-12 h-12 object-cover rounded" />
-                  </td>
-                  <td className="px-4 py-3 font-medium">{dest.name}</td>
-                  <td className="px-4 py-3 text-sm">
-                      <span className={`px-2 py-1 text-xs rounded ${dest.region === "domestic" ? "bg-blue-100 text-blue-800" : "bg-purple-100 text-purple-800"}`}>
-                        {dest.region === "domestic" ? "Trong nước" : "Quốc tế"}
-                      </span>
-                  </td>
-                  <td className="px-4 py-3 text-sm">{dest.price}</td>
-                  <td className="px-4 py-3">
-                      <span className={`px-2 py-1 text-xs rounded ${dest.status === "published" ? "bg-green-100 text-green-800" : "bg-gray-100 text-gray-700"}`}>
-                        {dest.status === "published" ? "Xuất bản" : "Nháp"}
-                      </span>
-                  </td>
-                  <td className="px-4 py-3">
-                    <div className="flex gap-2">
-                      <button onClick={() => openModal(dest)} className="text-blue-600 hover:text-blue-800">
-                        <Pencil size={16} />
-                      </button>
-                      <button onClick={() => handleDelete(dest.id, dest.name)} className="text-red-600 hover:text-red-800">
-                        <Trash2 size={16} />
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-              </tbody>
-            </table>
+          <div className="overflow-hidden rounded-lg bg-white shadow">
+            <div className="overflow-x-auto">
+              <table className="min-w-full">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600">
+                      Hình
+                    </th>
+                    <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600">
+                      Tên
+                    </th>
+                    <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600">
+                      Khu vực
+                    </th>
+                    <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600">
+                      Giá
+                    </th>
+                    <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600">
+                      Trạng thái
+                    </th>
+                    <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600">
+                      Thao tác
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y">
+                  {destinations.map((dest) => (
+                    <tr key={dest.id} className="hover:bg-gray-50">
+                      <td className="px-4 py-3">
+                        <img
+                          src={getImageUrl(dest)}
+                          alt={dest.name}
+                          className="h-12 w-12 rounded object-cover"
+                        />
+                      </td>
+                      <td className="px-4 py-3 font-medium">{dest.name}</td>
+                      <td className="px-4 py-3 text-sm">
+                        <span
+                          className={`rounded px-2 py-1 text-xs ${dest.region === "domestic" ? "bg-blue-100 text-blue-800" : "bg-purple-100 text-purple-800"}`}
+                        >
+                          {dest.region === "domestic"
+                            ? "Trong nước"
+                            : "Quốc tế"}
+                        </span>
+                      </td>
+                      <td className="px-4 py-3 text-sm">{dest.price}</td>
+                      <td className="px-4 py-3">
+                        <span
+                          className={`rounded px-2 py-1 text-xs ${dest.status === "published" ? "bg-green-100 text-green-800" : "bg-gray-100 text-gray-700"}`}
+                        >
+                          {dest.status === "published" ? "Xuất bản" : "Nháp"}
+                        </span>
+                      </td>
+                      <td className="px-4 py-3">
+                        <div className="flex gap-2">
+                          <button
+                            onClick={() => openModal(dest)}
+                            className="text-blue-600 hover:text-blue-800"
+                          >
+                            <Pencil size={16} />
+                          </button>
+                          <button
+                            onClick={() => handleDelete(dest.id, dest.name)}
+                            className="text-red-600 hover:text-red-800"
+                          >
+                            <Trash2 size={16} />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
 
             {destinations.length === 0 && (
-              <div className="text-center py-16 text-gray-500">
+              <div className="py-16 text-center text-gray-500">
                 <p className="text-lg">Chưa có địa điểm nào.</p>
                 <p className="mt-2">Hãy thêm địa điểm đầu tiên!</p>
               </div>
@@ -407,131 +495,185 @@ export default function DestinationsPage() {
         )}
 
         {showModal && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-            <div className="bg-white rounded-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-              <div className="sticky top-0 bg-white border-b px-6 py-4 flex justify-between items-center">
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4">
+            <div className="max-h-[90vh] w-full max-w-4xl overflow-y-auto rounded-xl bg-white">
+              <div className="sticky top-0 flex items-center justify-between border-b bg-white px-6 py-4">
                 <h3 className="text-xl font-bold">
                   {editingId ? "Chỉnh sửa" : "Thêm mới"}
                 </h3>
-                <button onClick={() => setShowModal(false)} className="text-gray-400 hover:text-gray-600">
+                <button
+                  onClick={() => setShowModal(false)}
+                  className="text-gray-400 hover:text-gray-600"
+                >
                   <X size={24} />
                 </button>
               </div>
 
-              <div className="p-6 space-y-6">
+              <div className="space-y-6 p-6">
                 {/* Thông tin cơ bản */}
-                <div className="bg-blue-50 p-4 rounded-lg">
-                  <h4 className="font-bold text-blue-900 mb-3">📌 Thông tin cơ bản</h4>
+                <div className="rounded-lg bg-blue-50 p-4">
+                  <h4 className="mb-3 font-bold text-blue-900">
+                    📌 Thông tin cơ bản
+                  </h4>
 
                   <div className="space-y-3">
-                    <div className="grid grid-cols-2 gap-3">
+                    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                       <div>
-                        <label className="block text-sm font-semibold mb-1">Tên địa điểm *</label>
+                        <label className="mb-1 block text-sm font-semibold">
+                          Tên địa điểm *
+                        </label>
                         <input
                           type="text"
                           required
                           value={formData.name}
                           onChange={(e) => handleNameChange(e.target.value)}
-                          className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
+                          className="w-full rounded-lg border px-3 py-2 focus:ring-2 focus:ring-blue-500"
                           placeholder="VD: Đà Nẵng"
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-semibold mb-1">Slug</label>
+                        <label className="mb-1 block text-sm font-semibold">
+                          Slug
+                        </label>
                         <input
                           type="text"
                           value={formData.slug}
-                          onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
-                          className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
+                          onChange={(e) =>
+                            setFormData({ ...formData, slug: e.target.value })
+                          }
+                          className="w-full rounded-lg border px-3 py-2 focus:ring-2 focus:ring-blue-500"
                           placeholder="da-nang"
                         />
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-3">
+                    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                       <div>
-                        <label className="block text-sm font-semibold mb-1">Khu vực *</label>
+                        <label className="mb-1 block text-sm font-semibold">
+                          Khu vực *
+                        </label>
                         <select
                           value={formData.region}
-                          onChange={(e) => setFormData({ ...formData, region: e.target.value as any })}
-                          className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
+                          onChange={(e) =>
+                            setFormData({
+                              ...formData,
+                              region: e.target.value as any,
+                            })
+                          }
+                          className="w-full rounded-lg border px-3 py-2 focus:ring-2 focus:ring-blue-500"
                         >
                           <option value="domestic">Trong nước</option>
                           <option value="international">Quốc tế</option>
                         </select>
                       </div>
                       <div>
-                        <label className="block text-sm font-semibold mb-1">Giá vé *</label>
+                        <label className="mb-1 block text-sm font-semibold">
+                          Giá vé *
+                        </label>
                         <input
                           type="text"
                           required
                           value={formData.price}
-                          onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-                          className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
+                          onChange={(e) =>
+                            setFormData({ ...formData, price: e.target.value })
+                          }
+                          className="w-full rounded-lg border px-3 py-2 focus:ring-2 focus:ring-blue-500"
                           placeholder="Từ 1.200.000 VNĐ"
                         />
                       </div>
                     </div>
 
                     <div>
-                      <label className="block text-sm font-semibold mb-1">Mô tả ngắn</label>
+                      <label className="mb-1 block text-sm font-semibold">
+                        Mô tả ngắn
+                      </label>
                       <textarea
                         value={formData.description}
-                        onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            description: e.target.value,
+                          })
+                        }
                         rows={2}
-                        className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 resize-none"
+                        className="w-full resize-none rounded-lg border px-3 py-2 focus:ring-2 focus:ring-blue-500"
                         placeholder="Mô tả ngắn hiển thị ở danh sách..."
                       />
                     </div>
 
                     <div>
-                      <label className="block text-sm font-semibold mb-1">URL ảnh đại diện</label>
+                      <label className="mb-1 block text-sm font-semibold">
+                        URL ảnh đại diện
+                      </label>
                       <input
                         type="url"
                         value={formData.imageUrl}
-                        onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
-                        className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
+                        onChange={(e) =>
+                          setFormData({ ...formData, imageUrl: e.target.value })
+                        }
+                        className="w-full rounded-lg border px-3 py-2 focus:ring-2 focus:ring-blue-500"
                         placeholder="https://..."
                       />
                       {formData.imageUrl && (
-                        <img src={formData.imageUrl} alt="Preview" className="mt-2 w-full h-32 object-cover rounded-lg" />
+                        <img
+                          src={formData.imageUrl}
+                          alt="Preview"
+                          className="mt-2 h-32 w-full rounded-lg object-cover"
+                        />
                       )}
                     </div>
                   </div>
                 </div>
 
                 {/* Thông tin chi tiết */}
-                <div className="bg-orange-50 p-4 rounded-lg">
-                  <h4 className="font-bold text-orange-900 mb-3">ℹ️ Thông tin chi tiết</h4>
+                <div className="rounded-lg bg-orange-50 p-4">
+                  <h4 className="mb-3 font-bold text-orange-900">
+                    ℹ️ Thông tin chi tiết
+                  </h4>
 
-                  <div className="grid grid-cols-3 gap-3">
+                  <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
                     <div>
-                      <label className="block text-sm font-semibold mb-1">Thời gian lý tưởng</label>
+                      <label className="mb-1 block text-sm font-semibold">
+                        Thời gian lý tưởng
+                      </label>
                       <input
                         type="text"
                         value={formData.bestTime}
-                        onChange={(e) => setFormData({ ...formData, bestTime: e.target.value })}
-                        className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
+                        onChange={(e) =>
+                          setFormData({ ...formData, bestTime: e.target.value })
+                        }
+                        className="w-full rounded-lg border px-3 py-2 focus:ring-2 focus:ring-orange-500"
                         placeholder="Tháng 3 - Tháng 8"
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-semibold mb-1">Thời gian bay</label>
+                      <label className="mb-1 block text-sm font-semibold">
+                        Thời gian bay
+                      </label>
                       <input
                         type="text"
                         value={formData.flightTime}
-                        onChange={(e) => setFormData({ ...formData, flightTime: e.target.value })}
-                        className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            flightTime: e.target.value,
+                          })
+                        }
+                        className="w-full rounded-lg border px-3 py-2 focus:ring-2 focus:ring-orange-500"
                         placeholder="1 giờ 15 phút"
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-semibold mb-1">Vị trí</label>
+                      <label className="mb-1 block text-sm font-semibold">
+                        Vị trí
+                      </label>
                       <input
                         type="text"
                         value={formData.location}
-                        onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                        className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
+                        onChange={(e) =>
+                          setFormData({ ...formData, location: e.target.value })
+                        }
+                        className="w-full rounded-lg border px-3 py-2 focus:ring-2 focus:ring-orange-500"
                         placeholder="Miền Trung Việt Nam"
                       />
                     </div>
@@ -539,22 +681,30 @@ export default function DestinationsPage() {
                 </div>
 
                 {/* Nội dung chi tiết */}
-                <div className="bg-green-50 p-4 rounded-lg">
-                  <h4 className="font-bold text-green-900 mb-3">📝 Nội dung chi tiết</h4>
+                <div className="rounded-lg bg-green-50 p-4">
+                  <h4 className="mb-3 font-bold text-green-900">
+                    📝 Nội dung chi tiết
+                  </h4>
 
                   <textarea
                     value={formData.contentText}
-                    onChange={(e) => setFormData({ ...formData, contentText: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, contentText: e.target.value })
+                    }
                     rows={6}
-                    className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 resize-none"
+                    className="w-full resize-none rounded-lg border px-3 py-2 focus:ring-2 focus:ring-green-500"
                     placeholder="Viết mô tả đầy đủ về địa điểm..."
                   />
-                  <p className="text-xs text-green-700 mt-1">Hiển thị trong trang chi tiết</p>
+                  <p className="mt-1 text-xs text-green-700">
+                    Hiển thị trong trang chi tiết
+                  </p>
                 </div>
 
                 {/* Lý do nên đi */}
-                <div className="bg-purple-50 p-4 rounded-lg">
-                  <h4 className="font-bold text-purple-900 mb-3">⭐ Lý do nên đi</h4>
+                <div className="rounded-lg bg-purple-50 p-4">
+                  <h4 className="mb-3 font-bold text-purple-900">
+                    ⭐ Lý do nên đi
+                  </h4>
 
                   <div className="space-y-3">
                     <div className="flex gap-2">
@@ -562,14 +712,16 @@ export default function DestinationsPage() {
                         type="text"
                         value={newReason}
                         onChange={(e) => setNewReason(e.target.value)}
-                        onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addReason())}
-                        className="flex-1 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500"
+                        onKeyPress={(e) =>
+                          e.key === "Enter" && (e.preventDefault(), addReason())
+                        }
+                        className="flex-1 rounded-lg border px-3 py-2 focus:ring-2 focus:ring-purple-500"
                         placeholder="Nhập lý do..."
                       />
                       <button
                         type="button"
                         onClick={addReason}
-                        className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
+                        className="rounded-lg bg-purple-600 px-4 py-2 text-white hover:bg-purple-700"
                       >
                         <Plus size={18} />
                       </button>
@@ -578,7 +730,10 @@ export default function DestinationsPage() {
                     {formData.reasons.length > 0 && (
                       <ul className="space-y-2">
                         {formData.reasons.map((reason, index) => (
-                          <li key={index} className="flex items-center gap-2 bg-white p-2 rounded">
+                          <li
+                            key={index}
+                            className="flex items-center gap-2 rounded bg-white p-2"
+                          >
                             <span className="flex-1">{reason}</span>
                             <button
                               type="button"
@@ -595,21 +750,133 @@ export default function DestinationsPage() {
                 </div>
 
                 {/* Mẹo du lịch */}
-                <div className="bg-yellow-50 p-4 rounded-lg">
-                  <h4 className="font-bold text-yellow-900 mb-3">💡 Mẹo du lịch</h4>
+                <div className="rounded-lg bg-yellow-50 p-4">
+                  <h4 className="mb-3 font-bold text-yellow-900">
+                    💡 Mẹo du lịch
+                  </h4>
 
                   <textarea
                     value={formData.tips}
-                    onChange={(e) => setFormData({ ...formData, tips: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, tips: e.target.value })
+                    }
                     rows={4}
-                    className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-yellow-500 resize-none"
+                    className="w-full resize-none rounded-lg border px-3 py-2 focus:ring-2 focus:ring-yellow-500"
                     placeholder="Các lời khuyên hữu ích cho du khách..."
                   />
                 </div>
 
+                {/* Flight Board */}
+                <div className="rounded-lg bg-cyan-50 p-4">
+                  <h4 className="mb-3 font-bold text-cyan-900">
+                    ✈️ Bảng chuyến bay (Flight Board)
+                  </h4>
+
+                  <div className="space-y-4">
+                    <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-4">
+                      <input
+                        type="text"
+                        value={newDeparture.airline}
+                        onChange={(e) =>
+                          setNewDeparture({
+                            ...newDeparture,
+                            airline: e.target.value,
+                          })
+                        }
+                        className="rounded-lg border px-3 py-2 focus:ring-2 focus:ring-cyan-500"
+                        placeholder="Hãng bay (VN Airline)"
+                      />
+                      <input
+                        type="text"
+                        value={newDeparture.route}
+                        onChange={(e) =>
+                          setNewDeparture({
+                            ...newDeparture,
+                            route: e.target.value,
+                          })
+                        }
+                        className="rounded-lg border px-3 py-2 focus:ring-2 focus:ring-cyan-500"
+                        placeholder="Hành trình (HN -> HCM)"
+                      />
+                      <input
+                        type="text"
+                        value={newDeparture.stop}
+                        onChange={(e) =>
+                          setNewDeparture({
+                            ...newDeparture,
+                            stop: e.target.value,
+                          })
+                        }
+                        className="rounded-lg border px-3 py-2 focus:ring-2 focus:ring-cyan-500"
+                        placeholder="Điểm đến (TP.HCM)"
+                      />
+                      <div className="flex gap-2">
+                        <input
+                          type="text"
+                          value={newDeparture.country}
+                          onChange={(e) =>
+                            setNewDeparture({
+                              ...newDeparture,
+                              country: e.target.value,
+                            })
+                          }
+                          className="flex-1 rounded-lg border px-3 py-2 focus:ring-2 focus:ring-cyan-500"
+                          placeholder="Quốc gia"
+                        />
+                        <button
+                          type="button"
+                          onClick={addDeparture}
+                          className="rounded-lg bg-cyan-600 px-3 py-2 text-white hover:bg-cyan-700"
+                        >
+                          <Plus size={18} />
+                        </button>
+                      </div>
+                    </div>
+
+                    {formData.departures.length > 0 && (
+                      <div className="overflow-hidden rounded-lg border bg-white">
+                        <table className="min-w-full text-sm">
+                          <thead className="bg-gray-100">
+                            <tr>
+                              <th className="px-3 py-2 text-left">Hãng bay</th>
+                              <th className="px-3 py-2 text-left">
+                                Hành trình
+                              </th>
+                              <th className="px-3 py-2 text-left">Điểm đến</th>
+                              <th className="px-3 py-2 text-left">Quốc gia</th>
+                              <th className="w-10 px-3 py-2"></th>
+                            </tr>
+                          </thead>
+                          <tbody className="divide-y">
+                            {formData.departures.map((dep, index) => (
+                              <tr key={index}>
+                                <td className="px-3 py-2">{dep.airline}</td>
+                                <td className="px-3 py-2">{dep.route}</td>
+                                <td className="px-3 py-2">{dep.stop}</td>
+                                <td className="px-3 py-2">{dep.country}</td>
+                                <td className="px-3 py-2">
+                                  <button
+                                    type="button"
+                                    onClick={() => removeDeparture(index)}
+                                    className="text-red-500 hover:text-red-700"
+                                  >
+                                    <X size={14} />
+                                  </button>
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
                 {/* Gallery */}
-                <div className="bg-pink-50 p-4 rounded-lg">
-                  <h4 className="font-bold text-pink-900 mb-3">🖼️ Thư viện ảnh</h4>
+                <div className="rounded-lg bg-pink-50 p-4">
+                  <h4 className="mb-3 font-bold text-pink-900">
+                    🖼️ Thư viện ảnh
+                  </h4>
 
                   <div className="space-y-3">
                     <div className="flex gap-2">
@@ -617,13 +884,13 @@ export default function DestinationsPage() {
                         type="url"
                         value={newGalleryUrl}
                         onChange={(e) => setNewGalleryUrl(e.target.value)}
-                        className="flex-1 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-pink-500"
+                        className="flex-1 rounded-lg border px-3 py-2 focus:ring-2 focus:ring-pink-500"
                         placeholder="Nhập URL ảnh"
                       />
                       <button
                         type="button"
                         onClick={addGalleryImage}
-                        className="px-4 py-2 bg-pink-600 text-white rounded-lg hover:bg-pink-700"
+                        className="rounded-lg bg-pink-600 px-4 py-2 text-white hover:bg-pink-700"
                       >
                         <Plus size={18} />
                       </button>
@@ -632,12 +899,16 @@ export default function DestinationsPage() {
                     {formData.galleryUrls.length > 0 && (
                       <div className="grid grid-cols-3 gap-3">
                         {formData.galleryUrls.map((url, index) => (
-                          <div key={index} className="relative group">
-                            <img src={url} alt={`Gallery ${index + 1}`} className="w-full h-24 object-cover rounded-lg" />
+                          <div key={index} className="group relative">
+                            <img
+                              src={url}
+                              alt={`Gallery ${index + 1}`}
+                              className="h-24 w-full rounded-lg object-cover"
+                            />
                             <button
                               type="button"
                               onClick={() => removeGalleryImage(index)}
-                              className="absolute top-1 right-1 bg-red-500 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition"
+                              className="absolute right-1 top-1 rounded-full bg-red-500 p-1 text-white opacity-0 transition group-hover:opacity-100"
                             >
                               <X size={14} />
                             </button>
@@ -655,16 +926,25 @@ export default function DestinationsPage() {
                       type="checkbox"
                       id="featured"
                       checked={formData.featured}
-                      onChange={(e) => setFormData({ ...formData, featured: e.target.checked })}
-                      className="w-5 h-5 text-blue-600 rounded"
+                      onChange={(e) =>
+                        setFormData({ ...formData, featured: e.target.checked })
+                      }
+                      className="h-5 w-5 rounded text-blue-600"
                     />
-                    <label htmlFor="featured" className="font-semibold">⭐ Nổi bật trang chủ</label>
+                    <label htmlFor="featured" className="font-semibold">
+                      ⭐ Nổi bật trang chủ
+                    </label>
                   </div>
 
                   <select
                     value={formData.status}
-                    onChange={(e) => setFormData({ ...formData, status: e.target.value as any })}
-                    className="px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        status: e.target.value as any,
+                      })
+                    }
+                    className="rounded-lg border px-3 py-2 focus:ring-2 focus:ring-blue-500"
                   >
                     <option value="published">Xuất bản</option>
                     <option value="draft">Nháp</option>
@@ -675,14 +955,14 @@ export default function DestinationsPage() {
                   <button
                     type="button"
                     onClick={handleSubmit}
-                    className="flex-1 bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 font-semibold"
+                    className="flex-1 rounded-lg bg-blue-600 py-3 font-semibold text-white hover:bg-blue-700"
                   >
                     {editingId ? "Cập nhật" : "Tạo mới"}
                   </button>
                   <button
                     type="button"
                     onClick={() => setShowModal(false)}
-                    className="px-6 py-3 bg-gray-200 rounded-lg hover:bg-gray-300 font-semibold"
+                    className="rounded-lg bg-gray-200 px-6 py-3 font-semibold hover:bg-gray-300"
                   >
                     Hủy
                   </button>

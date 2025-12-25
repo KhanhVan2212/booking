@@ -79,6 +79,35 @@ const BOTTOM_LINKS = [
 ];
 
 const Footer = () => {
+  const [contactInfo, setContactInfo] = React.useState({
+    hotline: "024 3771 4566",
+    email: "PHONGVE@HAANHJSC.COM.VN",
+    headquarters:
+      "Số 2 ngách 3 Ngõ 51 phố Lương Khánh Thiện , Phường Tương Mai, Thành phố Hà Nội",
+    office: "Tầng 9 Tòa nhà 26 Liễu Giai, Phường Ngọc Hà, Thành phố Hà Nội.",
+  });
+
+  React.useEffect(() => {
+    const fetchSettings = async () => {
+      try {
+        const response = await fetch("/api/globals/settings");
+        const data = await response.json();
+        if (data && !data.errors) {
+          setContactInfo((prev) => ({
+            hotline: data.hotline || prev.hotline,
+            email: data.email || prev.email,
+            headquarters: data.headquarters || prev.headquarters,
+            office: data.office || prev.office, // Assuming office is used somewhere or just stored
+          }));
+        }
+      } catch (error) {
+        console.error("Error fetching settings:", error);
+      }
+    };
+
+    fetchSettings();
+  }, []);
+
   return (
     <motion.footer
       initial={{ opacity: 0, y: 50 }}
@@ -107,16 +136,13 @@ const Footer = () => {
             </p>
             <div className="space-y-2 pt-2">
               <div className="flex cursor-pointer items-center gap-3 transition hover:text-red-400">
-                <span>024 3771 4566</span>
+                <span>{contactInfo.hotline}</span>
               </div>
               <div className="flex cursor-pointer items-center gap-3 transition hover:text-red-400">
-                <span>PHONGVE@HAANHJSC.COM.VN</span>
+                <span>{contactInfo.email}</span>
               </div>
               <div className="flex cursor-pointer items-center gap-3 transition hover:text-red-400">
-                <span>
-                  Số 2 ngách 3 Ngõ 51 phố Lương Khánh Thiện , Phường Tương Mai,
-                  Thành phố Hà Nội
-                </span>
+                <span>{contactInfo.headquarters}</span>
               </div>
             </div>
           </div>
