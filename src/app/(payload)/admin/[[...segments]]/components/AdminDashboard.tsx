@@ -110,17 +110,94 @@ export default function AdminDashboard() {
         <div className="rounded-lg bg-white shadow">
           {activeTab === "dashboard" && (
             <div className="p-6">
-              <h2 className="mb-4 text-2xl font-bold">Bảng điều khiển</h2>
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-                <div className="rounded-lg bg-red-50 p-4">
-                  <div className="text-sm text-gray-600">
-                    Tổng số địa điểm
+              <h2 className="mb-6 text-2xl font-bold">Tổng quan</h2>
+
+              {/* Thống kê */}
+              <div className="mb-8 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+                <div className="rounded-xl border border-red-100 bg-red-50 p-6">
+                  <div className="text-sm font-medium text-red-600">
+                    Địa điểm du lịch
                   </div>
-                  <div className="text-2xl font-bold text-red-600">
-                    {stats.destinations || "-"}
+                  <div className="mt-2 text-3xl font-bold text-gray-900">
+                    {stats.destinations || "0"}
                   </div>
                 </div>
-                {/* Bạn có thể thêm các card thống kê khác ở đây nếu cần */}
+              </div>
+
+              <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+                {/* Hành động nhanh */}
+                <div className="rounded-xl border bg-white p-6 shadow-sm">
+                  <h3 className="mb-4 text-lg font-bold text-gray-900">
+                    Quick Actions
+                  </h3>
+                  <div className="grid grid-cols-2 gap-4">
+                    <button
+                      onClick={() => setActiveTab("destinations")}
+                      className="flex flex-col items-center justify-center gap-2 rounded-lg bg-blue-50 p-4 text-blue-700 transition hover:bg-blue-100"
+                    >
+                      <span className="font-semibold">Quản lý Địa điểm</span>
+                    </button>
+                    <button
+                      onClick={() => setActiveTab("settings")}
+                      className="flex flex-col items-center justify-center gap-2 rounded-lg bg-gray-50 p-4 text-gray-700 transition hover:bg-gray-100"
+                    >
+                      <span className="font-semibold">Cài đặt chung</span>
+                    </button>
+                  </div>
+                </div>
+
+                {/* Thông tin hệ thống */}
+                <div className="rounded-xl border bg-white p-6 shadow-sm">
+                  <h3 className="mb-4 text-lg font-bold text-gray-900">
+                    ℹ️ Thông tin hệ thống
+                  </h3>
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between border-b pb-2">
+                      <span className="text-gray-600">Database</span>
+                      <span className="font-medium text-green-600">
+                        MongoDB Atlas
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between border-b pb-2">
+                      <span className="text-gray-600">Storage</span>
+                      <span className="font-medium text-orange-600">
+                        Cloudinary (10GB Free)
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between border-b pb-2">
+                      <span className="text-gray-600">CMS Version</span>
+                      <span className="font-medium text-blue-600">
+                        Payload 3.0 + Next.js 15
+                      </span>
+                    </div>
+                    <div className="rounded bg-blue-50 p-3 text-sm text-blue-800">
+                      ☁️ Mọi thay đổi được lưu trữ an toàn trên cloud
+                    </div>
+                  </div>
+                </div>
+
+                {/* Hướng dẫn sử dụng */}
+                <div className="col-span-1 rounded-xl border bg-white p-6 shadow-sm lg:col-span-2">
+                  <h3 className="mb-4 text-lg font-bold text-gray-900">
+                    📚 Hướng dẫn sử dụng
+                  </h3>
+                  <div className="prose max-w-none text-gray-600">
+                    <ul className="list-disc space-y-2 pl-5">
+                      <li>
+                        <strong>Quản lý Địa điểm:</strong> Thêm, sửa, xóa các
+                        tour du lịch. Upload hình ảnh trực tiếp từ máy tính.
+                      </li>
+                      <li>
+                        <strong>Cài đặt chung:</strong> Thay đổi thông tin công
+                        ty như Hotline, Email, Địa chỉ văn phòng.
+                      </li>
+                      <li>
+                        <strong>Media:</strong> Quản lý tất cả hình ảnh đã
+                        upload lên hệ thống.
+                      </li>
+                    </ul>
+                  </div>
+                </div>
               </div>
             </div>
           )}

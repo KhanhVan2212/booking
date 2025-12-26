@@ -3,6 +3,7 @@ import { mongooseAdapter } from "@payloadcms/db-mongodb";
 import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import path from "path";
 import sharp from "sharp";
+import Media from "./src/collections/Media";
 
 export default buildConfig({
   // ✅ FIX: Sử dụng đúng biến env
@@ -44,40 +45,7 @@ export default buildConfig({
         },
       ],
     },
-    {
-      slug: "media",
-      upload: {
-        staticDir: "media",
-        imageSizes: [
-          {
-            name: "thumbnail",
-            width: 400,
-            height: 300,
-            position: "centre",
-          },
-          {
-            name: "card",
-            width: 800,
-            height: 600,
-            position: "centre",
-          },
-          {
-            name: "hero",
-            width: 2000,
-            height: 1200,
-            position: "centre",
-          },
-        ],
-        mimeTypes: ["image/*"],
-      },
-      fields: [
-        {
-          name: "alt",
-          type: "text",
-          label: "Mô tả ảnh (Alt text)",
-        },
-      ],
-    },
+    Media,
     {
       slug: "destinations",
       admin: {
