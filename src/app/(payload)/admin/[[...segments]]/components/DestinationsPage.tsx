@@ -143,6 +143,14 @@ export default function DestinationsPage() {
     const file = e.target.files?.[0];
     if (!file) return;
 
+    // Check file size (4.5MB limit)
+    const MAX_SIZE = 4.5 * 1024 * 1024;
+    if (file.size > MAX_SIZE) {
+      toast.error("File quá lớn! Vui lòng chọn ảnh dưới 4.5MB");
+      e.target.value = ""; // Reset input
+      return;
+    }
+
     try {
       setUploading(true);
       const uploadFormData = new FormData();
@@ -179,6 +187,18 @@ export default function DestinationsPage() {
     if (files.length > 5) {
       toast.error("Chỉ được chọn tối đa 5 ảnh một lần!");
       return;
+    }
+
+    // Check file sizes
+    const MAX_SIZE = 4.5 * 1024 * 1024;
+    for (let i = 0; i < files.length; i++) {
+      if (files[i].size > MAX_SIZE) {
+        toast.error(
+          `File "${files[i].name}" quá lớn! Vui lòng chọn ảnh dưới 4.5MB`,
+        );
+        e.target.value = ""; // Reset input
+        return;
+      }
     }
 
     try {
