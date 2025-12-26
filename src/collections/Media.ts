@@ -14,7 +14,7 @@ const Media: CollectionConfig = {
     delete: () => true,
   },
   upload: {
-    staticDir: "media",
+    staticDir: process.env.NODE_ENV === "production" ? "/tmp" : "media",
     imageSizes: [],
     mimeTypes: ["image/*"],
   },
