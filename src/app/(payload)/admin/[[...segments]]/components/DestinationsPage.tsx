@@ -598,9 +598,9 @@ export default function DestinationsPage() {
         )}
 
         {showModal && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4">
-            <div className="max-h-[90vh] w-full max-w-4xl overflow-y-auto rounded-xl bg-white">
-              <div className="sticky top-0 flex items-center justify-between border-b bg-white px-6 py-4">
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-2 sm:p-4">
+            <div className="flex h-full w-full max-w-4xl flex-col overflow-hidden rounded-xl bg-white md:h-auto md:max-h-[90vh]">
+              <div className="flex items-center justify-between border-b bg-white px-4 py-3 sm:px-6 sm:py-4">
                 <h3 className="text-xl font-bold">
                   {editingId ? "Chỉnh sửa" : "Thêm mới"}
                 </h3>
@@ -612,7 +612,7 @@ export default function DestinationsPage() {
                 </button>
               </div>
 
-              <div className="space-y-6 p-6">
+              <div className="flex-1 space-y-6 overflow-y-auto p-4 sm:p-6">
                 {/* Thông tin cơ bản */}
                 <div className="rounded-lg bg-blue-50 p-4">
                   <h4 className="mb-3 font-bold text-blue-900">
@@ -920,7 +920,7 @@ export default function DestinationsPage() {
                   </h4>
 
                   <div className="space-y-4">
-                    <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-5">
+                    <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
                       <input
                         type="text"
                         value={newDeparture.airline}
@@ -1026,7 +1026,7 @@ export default function DestinationsPage() {
                   </h4>
 
                   <div className="space-y-3">
-                    <div className="flex gap-2">
+                    <div className="flex flex-col gap-2 sm:flex-row">
                       <input
                         type="url"
                         value={newGalleryUrl}
@@ -1034,25 +1034,27 @@ export default function DestinationsPage() {
                         className="flex-1 rounded-lg border px-3 py-2 focus:ring-2 focus:ring-pink-500"
                         placeholder="Nhập URL ảnh"
                       />
-                      <button
-                        type="button"
-                        onClick={addGalleryImage}
-                        className="rounded-lg bg-pink-600 px-4 py-2 text-white hover:bg-pink-700"
-                      >
-                        <Plus size={18} />
-                      </button>
-                      <label className="flex cursor-pointer items-center justify-center gap-2 rounded-lg bg-gray-100 px-4 py-2 text-gray-700 hover:bg-gray-200">
-                        <Upload size={18} />
-                        <span className="hidden sm:inline">Upload</span>
-                        <input
-                          type="file"
-                          accept="image/*"
-                          multiple
-                          className="hidden"
-                          onChange={handleGalleryFileUpload}
-                          disabled={galleryUploading}
-                        />
-                      </label>
+                      <div className="flex gap-2">
+                        <button
+                          type="button"
+                          onClick={addGalleryImage}
+                          className="flex-1 items-center justify-center rounded-lg bg-pink-600 px-4 py-2 text-white hover:bg-pink-700 sm:flex-none"
+                        >
+                          <Plus size={18} />
+                        </button>
+                        <label className="flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-lg bg-gray-100 px-4 py-2 text-gray-700 hover:bg-gray-200 sm:flex-none">
+                          <Upload size={18} />
+                          <span className="sm:inline">Upload</span>
+                          <input
+                            type="file"
+                            accept="image/*"
+                            multiple
+                            className="hidden"
+                            onChange={handleGalleryFileUpload}
+                            disabled={galleryUploading}
+                          />
+                        </label>
+                      </div>
                     </div>
 
                     {galleryUploading && (
@@ -1063,7 +1065,7 @@ export default function DestinationsPage() {
                     )}
 
                     {formData.galleryUrls.length > 0 && (
-                      <div className="grid grid-cols-3 gap-3">
+                      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
                         {formData.galleryUrls.map((url, index) => (
                           <div key={index} className="group relative">
                             <img
@@ -1086,7 +1088,7 @@ export default function DestinationsPage() {
                 </div>
 
                 {/* Cài đặt */}
-                <div className="flex items-center justify-between">
+                <div className="flex flex-col justify-between gap-4 border-t pt-4 sm:flex-row sm:items-center">
                   <div className="flex items-center gap-3">
                     <input
                       type="checkbox"
@@ -1098,7 +1100,7 @@ export default function DestinationsPage() {
                       className="h-5 w-5 rounded text-blue-600"
                     />
                     <label htmlFor="featured" className="font-semibold">
-                      ⭐ Nổi bật trang chủ
+                      ⭐ Nổi bật
                     </label>
                   </div>
 
@@ -1110,7 +1112,7 @@ export default function DestinationsPage() {
                         status: e.target.value as any,
                       })
                     }
-                    className="rounded-lg border px-3 py-2 focus:ring-2 focus:ring-blue-500"
+                    className="w-full rounded-lg border px-3 py-2 focus:ring-2 focus:ring-blue-500 sm:w-auto"
                   >
                     <option value="published">Xuất bản</option>
                     <option value="draft">Nháp</option>
