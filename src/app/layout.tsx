@@ -104,7 +104,7 @@ export default function RootLayout({
         className={`${vietnamPro.variable} bg-white text-slate-800 antialiased`}
       >
         {children}
-        <Toaster richColors position="top-right" />
+        <Toaster richColors position="top-center" />
       </body>
     </html>
   );

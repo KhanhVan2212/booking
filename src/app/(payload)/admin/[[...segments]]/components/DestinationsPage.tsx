@@ -482,25 +482,35 @@ export default function DestinationsPage() {
     }
   };
 
-  const handleDelete = async (id: string, name: string) => {
-    if (!confirm(`Xóa địa điểm "${name}"?`)) return;
-
-    try {
-      const token = localStorage.getItem("payload-token");
-      const response = await fetch(`/api/destinations/${id}`, {
-        method: "DELETE",
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      const data = await response.json();
-      if (data.success) {
-        toast.success("Xóa thành công!");
-        fetchDestinations();
-      } else {
-        toast.error(data.error || "Lỗi khi xóa");
-      }
-    } catch (error) {
-      toast.error("Có lỗi xảy ra");
-    }
+  const handleDelete = (id: string, name: string) => {
+    toast(`Bạn có chắc chắn muốn xóa "${name}"?`, {
+      action: {
+        label: "Xóa",
+        onClick: async () => {
+          try {
+            const token = localStorage.getItem("payload-token");
+            const response = await fetch(`/api/destinations/${id}`, {
+              method: "DELETE",
+              headers: { Authorization: `Bearer ${token}` },
+            });
+            const data = await response.json();
+            if (data.success) {
+              toast.success("Xóa thành công!");
+              fetchDestinations();
+            } else {
+              toast.error(data.error || "Lỗi khi xóa");
+            }
+          } catch (error) {
+            toast.error("Có lỗi xảy ra");
+          }
+        },
+      },
+      cancel: {
+        label: "Hủy",
+        onClick: () => {},
+      },
+      duration: 5000,
+    });
   };
 
   const getImageUrl = (dest: Destination): string => {
