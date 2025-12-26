@@ -88,7 +88,7 @@ export async function generateMetadata(): Promise<Metadata> {
       follow: process.env.NEXT_PUBLIC_ENV === "production",
     },
   };
-}
+} 
  
 export default function RootLayout({
   children,
