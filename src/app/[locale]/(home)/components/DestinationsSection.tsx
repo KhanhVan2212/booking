@@ -115,10 +115,10 @@ const DestinationsSection = () => {
                     <FaLocationDot className="text-red-500" />
                     {dest.description || "Khám phá ngay"}
                   </div>
-                  <div className="mt-2 flex items-center justify-between border-t border-white/20 pt-3">
+                  {/* <div className="mt-2 flex items-center justify-between border-t border-white/20 pt-3">
                     <span className="text-sm">Giá vé khứ hồi</span>
                     <span className="font-bold text-red-400">{dest.price}</span>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </Link>
