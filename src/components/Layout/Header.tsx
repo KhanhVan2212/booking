@@ -43,11 +43,11 @@ const Navbar = ({ isTransparent = false }: NavbarProps) => {
       transition={{ duration: 0.8, ease: "easeOut" }}
       className={`${navClasses} `}
     >
-      <div className="max-w-[1520px] mx-auto flex items-center justify-between px-6">
+      <div className="mx-auto grid max-w-[1520px] grid-cols-[1fr_auto_1fr] items-center px-6">
         {/* Logo */}
         <Link
           href="/"
-          className={`flex items-center gap-2 text-2xl font-bold transition-colors duration-500 ${logoColor}`}
+          className={`flex items-center gap-2 justify-self-start text-2xl font-bold transition-colors duration-500 ${logoColor}`}
         >
           <Image
             src="/images/logo.png"
@@ -58,16 +58,13 @@ const Navbar = ({ isTransparent = false }: NavbarProps) => {
           />
         </Link>
 
-        {/* Desktop Menu Links */}
+        {/* Desktop Menu Links - Centered */}
         <div
-          className={`hidden space-x-8 font-medium lg:flex ${isTransparent ? "text-white" : "text-slate-600"}`}
+          className={`col-start-2 hidden space-x-8 justify-self-center font-medium lg:flex ${isTransparent ? "text-white" : "text-slate-600"}`}
         >
           <Link href="/" className={`${textClasses} transition`}>
             Trang chủ
           </Link>
-          {/* <Link href="/flights" className={`${textClasses} transition`}>
-            Chuyến bay
-          </Link> */}
           <Link href="/destinations" className={`${textClasses} transition`}>
             Điểm đến phổ biến
           </Link>
@@ -86,15 +83,15 @@ const Navbar = ({ isTransparent = false }: NavbarProps) => {
         </div>
 
         {/* Mobile Menu Toggle Button */}
-        <button
-          onClick={toggleMenu}
-          className={`text-2xl focus:outline-none lg:hidden ${isTransparent ? "text-white" : "text-slate-600"}`}
-          aria-label="Toggle menu"
-        >
-          {isOpen ? <FaXmark /> : <FaBars />}
-        </button>
-
-        <div className="hidden w-[163px] xl:block"></div>
+        <div className="col-start-3 flex justify-end justify-self-end">
+          <button
+            onClick={toggleMenu}
+            className={`text-2xl focus:outline-none lg:hidden ${isTransparent ? "text-white" : "text-slate-600"}`}
+            aria-label="Toggle menu"
+          >
+            {isOpen ? <FaXmark /> : <FaBars />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu Dropdown */}
@@ -106,13 +103,6 @@ const Navbar = ({ isTransparent = false }: NavbarProps) => {
             onClick={() => setIsOpen(false)}
           >
             Trang chủ
-          </Link>
-          <Link
-            href="/flights"
-            className="text-lg font-medium text-slate-600 hover:text-red-600"
-            onClick={() => setIsOpen(false)}
-          >
-            Chuyến bay
           </Link>
           <Link
             href="/destinations"

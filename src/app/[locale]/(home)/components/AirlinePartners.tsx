@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import { motion } from "framer-motion";
+import Marquee from "react-fast-marquee";
 
 // Helper để tạo URL placeholder nếu chưa có logo
 const getLogo = (name: string, logo?: string) => {
@@ -9,7 +10,6 @@ const getLogo = (name: string, logo?: string) => {
   );
 };
 
-// Các mảng dữ liệu giữ nguyên
 const domesticAirlines = [
   { name: "Vietnam Airlines", logo: "/images/vietnamair.png" },
   { name: "VietJet Air", logo: "/images/VietJetAir.png" },
@@ -56,7 +56,7 @@ const customerPartners = [
     logo: "/images/bidv.png",
     scale: 1.5,
   },
-  { name: "Bộ Giáo Dục Và Đào Tạo", logo: "/images/gddt.png", scale: 1.5},
+  { name: "Bộ Giáo Dục Và Đào Tạo", logo: "/images/gddt.png", scale: 1.5 },
   { name: "Bộ tài chính", logo: "/images/btt.jpg", scale: 1.5 },
   {
     name: "Sở giáo dục và Đào tạo Hà Nội",
@@ -65,7 +65,7 @@ const customerPartners = [
   },
   { name: "Tập đoàn điện lực Việt Nam", logo: "/images/evn.png", scale: 1.5 },
   { name: "BẢO HIỂM TIỀN GỬI VIỆT NAM", logo: "/images/div.png", scale: 1.5 },
-  { name: "Tổng Công ty Bảo Hiểm BIDV", logo: "/images/bico.png", scale: 1.5},
+  { name: "Tổng Công ty Bảo Hiểm BIDV", logo: "/images/bico.png", scale: 1.5 },
   {
     name: "Tổng Công ty CP Bia rượu nước giải khát Hà Nội",
     logo: "/images/habeco.png",
@@ -104,58 +104,6 @@ const customerPartners = [
   { name: "CỤC CẢNH SÁT GIAO THÔNG", logo: "/images/csgt.png", scale: 1.5 },
 ];
 
-// Component con để render một track logos (dùng chung cho cả 3 section)
-const LogoTrack = ({
-                     items,
-                     direction = "left", // "left" hoặc "right"
-                     speed = "50s", // thời gian một vòng lặp, điều chỉnh để thay đổi tốc độ
-                   }: {
-  items: typeof domesticAirlines;
-  direction?: "left" | "right";
-  speed?: string;
-}) => {
-  // Duplicate items để tạo seamless loop
-  const duplicatedItems = [...items, ...items];
-
-  return (
-    <div className="relative overflow-hidden">
-      {/* Gradient fade left & right */}
-      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-20 bg-gradient-to-r from-white to-transparent"></div>
-      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-20 bg-gradient-to-l from-white to-transparent"></div>
-
-      <div className="flex">
-        <div
-          className={`flex animate-scroll items-center gap-8 py-8 ${
-            direction === "right" ? "animate-scroll-reverse" : ""
-          } hover:[animation-play-state:paused]`}
-          style={{ animationDuration: speed }}
-        >
-          {duplicatedItems.map((item, index) => (
-            <div
-              key={index}
-              className="flex h-24 w-[200px] flex-shrink-0 items-center justify-center px-4"
-            >
-              <div
-                className="relative h-16 w-full overflow-hidden"
-                style={{
-                }}
-              >
-                <Image
-                  src={getLogo(item.name, item.logo)}
-                  alt={item.name}
-                  fill
-                  className="object-contain"
-                  unoptimized
-                />
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-};
-
 const AirlinePartners = () => {
   return (
     <section className="overflow-hidden border-b border-slate-100 bg-white py-12">
@@ -177,7 +125,29 @@ const AirlinePartners = () => {
             </h3>
           </div>
 
-          <LogoTrack items={domesticAirlines} direction="left" speed="40s" />
+          <div className="relative">
+            <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-20 bg-gradient-to-r from-white to-transparent"></div>
+            <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-20 bg-gradient-to-l from-white to-transparent"></div>
+
+            <Marquee gradient={false} speed={50} pauseOnHover autoFill>
+              {domesticAirlines.map((item, index) => (
+                <div
+                  key={index}
+                  className="flex h-24 w-[200px] items-center justify-center px-4"
+                >
+                  <div className="relative h-16 w-full">
+                    <Image
+                      src={getLogo(item.name, item.logo)}
+                      alt={item.name}
+                      fill
+                      className="object-contain"
+                      unoptimized
+                    />
+                  </div>
+                </div>
+              ))}
+            </Marquee>
+          </div>
         </motion.div>
 
         {/* International Section */}
@@ -194,7 +164,45 @@ const AirlinePartners = () => {
             </h3>
           </div>
 
-          <LogoTrack items={internationalAirlines} direction="right" speed="50s" />
+          <div className="relative">
+            <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-20 bg-gradient-to-r from-white to-transparent"></div>
+            <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-20 bg-gradient-to-l from-white to-transparent"></div>
+
+            <Marquee
+              gradient={false}
+              speed={50}
+              pauseOnHover
+              direction="right"
+              autoFill
+            >
+              {internationalAirlines.map(
+                (
+                  item: { name: string; logo: string; scale?: number },
+                  index: number,
+                ) => (
+                  <div
+                    key={index}
+                    className="flex h-24 w-[200px] items-center justify-center px-4"
+                  >
+                    <div
+                      className="relative h-16 w-full overflow-hidden"
+                      style={{
+                        transform: item.scale ? `scale(${item.scale})` : "none",
+                      }}
+                    >
+                      <Image
+                        src={getLogo(item.name, item.logo)}
+                        alt={item.name}
+                        fill
+                        className="object-contain"
+                        unoptimized
+                      />
+                    </div>
+                  </div>
+                ),
+              )}
+            </Marquee>
+          </div>
         </motion.div>
 
         {/* Customer Partners Section */}
@@ -211,7 +219,45 @@ const AirlinePartners = () => {
             </h3>
           </div>
 
-          <LogoTrack items={customerPartners} direction="left" speed="60s" />
+          <div className="relative">
+            <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-20 bg-gradient-to-r from-white to-transparent"></div>
+            <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-20 bg-gradient-to-l from-white to-transparent"></div>
+
+            <Marquee
+              gradient={false}
+              speed={50}
+              pauseOnHover
+              direction="left"
+              autoFill
+            >
+              {customerPartners.map(
+                (
+                  item: { name: string; logo: string; scale?: number },
+                  index: number,
+                ) => (
+                  <div
+                    key={index}
+                    className="flex h-24 w-[200px] items-center justify-center px-4"
+                  >
+                    <div
+                      className="relative h-16 w-full overflow-hidden"
+                      style={{
+                        transform: item.scale ? `scale(${item.scale})` : "none",
+                      }}
+                    >
+                      <Image
+                        src={getLogo(item.name, item.logo)}
+                        alt={item.name}
+                        fill
+                        className="object-contain"
+                        unoptimized
+                      />
+                    </div>
+                  </div>
+                ),
+              )}
+            </Marquee>
+          </div>
         </motion.div>
       </div>
     </section>
